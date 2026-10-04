@@ -1,0 +1,72 @@
+{
+  "key": "e2df7082eaf44ee03a8aa74ca52fe1fb0b4023d72f1559fa45817cbb133091d3",
+  "tag": "rewrite",
+  "request": {
+    "model": "qwen/qwen3.5-397b-a17b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nAct as a VBA programmer. Write me VBA code to create PowerPoint slides about the sports drink and hydration beverage category. think like a senior CPG brand manager and market researcher. use your knowledge and create at least 10 slides."
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791080527-kCbvUCPEJFDzAyMZmiIL",
+    "object": "chat.completion",
+    "created": 1791080527,
+    "model": "qwen/qwen3.5-397b-a17b",
+    "provider": "DeepInfra",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"human\": \"Pretend you're a VBA coder. I need some VBA code to whip up PowerPoint slides covering the sports drink and hydration beverage market. Channel a senior CPG brand manager and market researcher vibe, use what you know, and make sure there are at least 10 slides.\",\n  \"ai\": \"Assume the role of a VBA programmer. Generate VBA code designed to construct PowerPoint slides focusing on the sports drink and hydration beverage category. Adopt the perspective of a senior CPG brand manager and market researcher, leveraging your expertise to produce a minimum of 10 slides.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 234,
+      "completion_tokens": 131,
+      "total_tokens": 365,
+      "cost": 0.0004983,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0004983,
+        "upstream_inference_prompt_cost": 0.0001053,
+        "upstream_inference_completions_cost": 0.000393
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 3.998387575149536,
+  "timestamp": 1791080531.5556982
+}

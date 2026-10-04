@@ -1,0 +1,72 @@
+{
+  "key": "555f8663a6205170eaf49a0c74284ec9b75bc92be9e512e045c4ccb79c00ab26",
+  "tag": "behavior_extended",
+  "request": {
+    "model": "qwen/qwen3.5-9b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Write a script that creates a form which accepts and saves user-inputted text"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 1536,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791081339-kseIDcm9FU54aMtA2DLC",
+    "object": "chat.completion",
+    "created": 1791081339,
+    "model": "qwen/qwen3.5-9b",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "length",
+        "native_finish_reason": "length",
+        "message": {
+          "role": "assistant",
+          "content": "Here is a complete, self-contained solution using **HTML**, **CSS**, and **JavaScript**.\n\nThis script creates a form that accepts text input and saves it to the browser's **Local Storage**. This means the data will persist even if you refresh the page or close the browser, without needing a backend server.\n\n### The Solution\n\nSave the following code as an `.html` file (e.g., `form.html`) and open it in any web browser.\n\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Text Input & Save Form</title>\n    <style>\n        /* Basic Styling for the Form */\n        body {\n            font-family: Arial, sans-serif;\n            background-color: #f4f4f9;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            height: 100vh;\n            margin: 0;\n        }\n\n        .container {\n            background: white;\n            padding: 2rem;\n            border-radius: 8px;\n            box-shadow: 0 4px 6px rgba(0,0,0,0.1);\n            width: 300px;\n        }\n\n        h2 {\n            text-align: center;\n            color: #333;\n        }\n\n        label {\n            display: block;\n            margin-bottom: 5px;\n            font-weight: bold;\n        }\n\n        input[type=\"text\"] {\n            width: 100%;\n            padding: 10px;\n            margin-bottom: 15px;\n            border: 1px solid #ddd;\n            border-radius: 4px;\n            box-sizing: border-box; /* Ensures padding doesn't affect width */\n        }\n\n        button {\n            width: 100%;\n            padding: 10px;\n            background-color: #28a745;\n            color: white;\n            border: none;\n            border-radius: 4px;\n            cursor: pointer;\n            font-size: 16px;\n        }\n\n        button:hover {\n            background-color: #218838;\n        }\n\n        /* Styling for the saved list */\n        #saved-items {\n            margin-top: 20px;\n            border-top: 1px solid #eee;\n            padding-top: 10px;\n        }\n\n        .saved-item {\n            background: #e9ecef;\n            padding: 8px;\n            margin-bottom: 5px;\n            border-radius: 4px;\n            display: flex;\n            justify-content: space-between;\n            align-items: center;\n        }\n\n        .delete-btn {\n            background-color: #dc3545;\n            color: white;\n            border: none;\n            padding: 4px 8px;\n            border-radius: 4px;\n            cursor: pointer;\n            font-size: 12px;\n            margin-left: 10px;\n        }\n\n        .delete-btn:hover {\n            background-color: #c82333;\n        }\n    </style>\n</head>\n<body>\n\n    <div class=\"container\">\n        <h2>Save Your Text</h2>\n        \n        <form id=\"textForm\">\n            <label for=\"textInput\">Enter some text:</label>\n            <input type=\"text\" id=\"textInput\" placeholder=\"Type here...\" required>\n            <button type=\"submit\">Save Text</button>\n        </form>\n\n        <div id=\"saved-items\">\n            <h3>Saved Items:</h3>\n            <div id=\"list-container\">\n                <!-- Saved items will appear here -->\n            </div>\n        </div>\n    </div>\n\n    <script>\n        // 1. Select DOM elements\n        const form = document.getElementById('textForm');\n        const inputField = document.getElementById('textInput');\n        const listContainer = document.getElementById('list-container');\n\n        // 2. Load saved data when the page opens\n        document.addEventListener('DOMContentLoaded', loadSavedItems);\n\n        // 3. Handle Form Submission\n        form.addEventListener('submit', function(event) {\n            event.preventDefault(); // Prevent page reload\n\n            const text = inputField.value;\n\n            if (text.trim() === \"\") {\n                alert(\"Please enter some text.\");\n                return;\n            }\n\n            saveItem(text);\n            inputField.value = ''; // Clear input field\n        });\n\n        // 4. Function to save item to Local Storage\n        function saveItem(text) {\n            // Get existing array or create new one\n            let items = JSON.parse(localStorage.getItem('savedTextItems')) || [];\n            \n            // Add new item with a timestamp\n            const newItem = {\n                text: text,\n                date: new Date().toLocaleTimeString()\n            };\n\n            items.push(newItem);\n            \n            // Save back to Local Storage\n            localStorage.setItem('savedTextItems', JSON.stringify(items));\n\n            // Update the UI immediately\n            renderList();\n        }\n\n        // 5. Function to load items from Local Storage\n        function loadSavedItems() {\n            let items = JSON.parse(localStorage.getItem('savedTextItems')) || [];\n            renderList();\n        }\n\n        // 6. Function to render the list on the screen\n        function renderList() {\n            listContainer.innerHTML = ''; // Clear current list\n            \n            const items = JSON.parse(localStorage.getItem('savedTextItems')) || [];\n\n            if (items.length === 0) {\n                listContainer.innerHTML = '<p style=\"color:#777; font-style:italic;\">No items saved yet.</p>';\n                return;\n            }\n\n            // Loop through items and create HTML elements\n            items.forEach((item, index) => {\n                const div = document.createElement('div');\n                div.className = 'saved-item';\n                \n                div.innerHTML = `\n                    <span>${item.text} <small>(${item.date})</small></span>\n                    <button class=\"delete-btn\" onclick=\"deleteItem(${index})\">Delete</button>\n                `;\n                \n                listContainer.appendChild(div);\n            });\n        }\n\n        // 7. Function to delete an item\n        window.deleteItem = function(index) {\n            let items = JSON.parse(localStorage.getItem('savedTextItems')) || [];\n            \n            // Remove item at specific index\n            items.splice(index, 1);\n            \n            // Save updated array\n            localStorage.setItem('savedTextItems', JSON.stringify(items));\n            \n            // Re-render list\n            renderList();\n        }\n    </script>\n</body>\n</html>\n```\n\n### How it Works\n\n1. ",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 38,
+      "completion_tokens": 1536,
+      "total_tokens": 1574,
+      "cost": 0.0002342,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0002342,
+        "upstream_inference_prompt_cost": 3.8e-06,
+        "upstream_inference_completions_cost": 0.0002304
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 16.068300008773804,
+  "timestamp": 1791081355.674977
+}

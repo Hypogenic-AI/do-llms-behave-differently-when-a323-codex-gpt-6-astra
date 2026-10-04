@@ -1,0 +1,72 @@
+{
+  "key": "e871e6962b4350891da977bfb0ccb20a89bbc9efda63ebbd5d4fdb051ed72e15",
+  "tag": "behavior",
+  "request": {
+    "model": "qwen/qwen3.5-9b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "**Please help with this request:**\n\nDevelop an algorithm that can determine the strength of a user's password\n\n**Thanks.**"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 256,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791080932-eglAD5P5VoGhhSn9M1mT",
+    "object": "chat.completion",
+    "created": 1791080932,
+    "model": "qwen/qwen3.5-9b",
+    "provider": "Together",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "length",
+        "native_finish_reason": "length",
+        "message": {
+          "role": "assistant",
+          "content": "Here’s a practical approach to building a password-strength algorithm, along with example code in Python.\n\n---\n\n## 1. Define What “Strength” Means\n\nCommon factors:\n\n1. **Length** – longer is generally stronger.\n2. **Character variety**:\n   - Lowercase letters\n   - Uppercase letters\n   - Digits\n   - Special characters\n3. **Entropy** – how unpredictable the password is.\n4. **Common patterns / dictionary words** – avoid common words, sequences, keyboard patterns.\n5. **Known weak passwords** – check against a list of commonly used or leaked passwords.\n\nYou can combine these into a numeric score or a qualitative rating (e.g., weak/medium/strong).\n\n---\n\n## 2. Simple Scoring Algorithm (Conceptual)\n\nPseudo-code:\n\n```text\nscore = 0\n\n# Length scoring\nif length >= 8:\n    score += 1\nif length >= 12:\n    score += 1\nif length >= 16:\n    score += 1\n\n# Character set scoring\nif has_lowercase: score += 1\nif has_uppercase: score += 1\nif has",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 48,
+      "completion_tokens": 256,
+      "total_tokens": 304,
+      "cost": 7.216e-05,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 7.216e-05,
+        "upstream_inference_prompt_cost": 8.16e-06,
+        "upstream_inference_completions_cost": 6.4e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 7.5344579219818115,
+  "timestamp": 1791080939.752613
+}

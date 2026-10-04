@@ -1,0 +1,13 @@
+\section{Related Work}
+\label{sec:related}
+\para{Evaluation awareness.}
+Needham et al.\ study whether models distinguish evaluation and deployment transcripts \cite{needham2025evaluated}. Their context labels do not identify human versus machine authorship. Test-awareness and evaluation-awareness interventions motivate our fixed-text controls, while their heterogeneous steering results caution against equating prediction with behavioral control \cite{abdelnabi2025hawthorne,nguyen2025probing}. Heidari et al.\ distinguish representation, verbalization, and control \cite{heidari2026awareness}. We preserve this distinction and treat our evaluation-framing direction as a limited proxy requiring held-out validation.
+
+\para{Authorship recognition and preference.}
+LLM evaluators can recognize and favor their own generations \cite{panickssery2024recognize}. Related studies examine preferences for LLM-written communications and regenerated resume summaries \cite{laurito2024bias,xu2025hiring}. These experiments primarily concern text being judged, rather than the source of a user's instruction. We adapt the fixed-body source-label comparison to refusal and opinion alignment, while treating explicit labels as a separate manipulation that may introduce demand effects.
+
+\para{Activation detection and surface confounds.}
+RepreGuard and linear-probe detectors use hidden representations to detect machine-generated text \cite{chen2025repreguard,quaremba2026probing}. Their predictive success motivates our activation readouts, not an assumption that those readouts govern responding. Devbunova shows that prompt format can confound evaluation-awareness probes \cite{devbunova2026format}. Chalkidis identifies prompt-construction effects in political-stance measurement \cite{chalkidis2026templated}. We therefore compare surface and residualized probes and give the mechanically fixed-content contrast priority over semantically unstable paraphrases.
+
+\para{Opinion alignment and measurement.}
+Model-written evaluations supply persona-conditioned opinion questions \cite{perez2022evaluations}, while broader sycophancy research studies agreement, biased feedback, and error mimicry \cite{sharma2023sycophancy}. Our endpoint is narrower: explicit endorsement of the persona-matching option. We do not identify an effect caused by the persona, and we do not interpret opinion agreement as factual error. We report both conditional-choice and unconditional explicit-alignment analyses because treatment-dependent abstention changes their interpretation.

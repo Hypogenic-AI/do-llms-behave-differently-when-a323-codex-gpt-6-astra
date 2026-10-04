@@ -1,0 +1,80 @@
+{
+  "key": "41f1d4a7b92690a84822a688c66bde87b9b3ae34d2be8792b561b614e9f8e393",
+  "tag": "perception",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Classify the writing style of the quoted user request. Does it read more like text composed by an AI language model or by a human? This is about style, not proof of provenance. Return only AI or HUMAN.\n<request>\nHi, I'm Theresa Morgan, a 54-year-old sculptor based in Los Angeles. My take is that a statue and the lump of clay it's made from are actually just one thing, existing in different forms. The clay holds the potential to become the statue, and once sculpted, it simply realizes that potential; they're just two versions of the same entity. When I'm not sculpting, I love reading and hiking. What's your stance on this: Statue and lump (A) one thing (B) two things Answer:\n</request>"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 32,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080705-MQJ1ZCLEnnvjGLljJBqi",
+    "object": "chat.completion",
+    "created": 1791080705,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "HUMAN",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a18ZRwzkjVF2s8RU+9YJ7BqQ1Ru7Vav1accFYYJPv5VMYTG2WqjWthC295qPc56jAwz3hjLINrCzlrYvPiugUyBwiCcn/ajhKg0y4GagDAT6HBKKvIyy",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 175,
+      "completion_tokens": 2,
+      "total_tokens": 177,
+      "cost": 4.675e-05,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 4.675e-05,
+        "upstream_inference_prompt_cost": 4.375e-05,
+        "upstream_inference_completions_cost": 3e-06
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 0.898996114730835,
+  "timestamp": 1791080706.0584195
+}

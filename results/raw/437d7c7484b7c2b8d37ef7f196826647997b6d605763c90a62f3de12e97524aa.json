@@ -1,0 +1,80 @@
+{
+  "key": "437d7c7484b7c2b8d37ef7f196826647997b6d605763c90a62f3de12e97524aa",
+  "tag": "rewrite",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nWrite what each overwatch agents could look like 10 years in the future."
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080555-YDoosqmjqRzqMRPsIlst",
+    "object": "chat.completion",
+    "created": 1791080555,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"human\": \"Hey, could you write up what all the Overwatch agents might look like ten years down the road?\",\n  \"ai\": \"Provide a detailed description of the potential appearance of each Overwatch agent ten years into the future.\"\n}\n```",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a19YaDA8Vzu8DTnNdNRk6klQEvdUOSzC86gxoAAObpzd28Y6k18ODeUY0ExssEqXdwvXk4UHk5QROKqkLltJBFTqSrt1qLJSDMwNy0N5rhVo1w6X1XdY",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 187,
+      "completion_tokens": 58,
+      "total_tokens": 245,
+      "cost": 0.00013375,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00013375,
+        "upstream_inference_prompt_cost": 4.675e-05,
+        "upstream_inference_completions_cost": 8.7e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 6.214643955230713,
+  "timestamp": 1791080556.3288474
+}

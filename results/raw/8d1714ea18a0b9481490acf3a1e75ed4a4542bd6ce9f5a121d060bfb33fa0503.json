@@ -1,0 +1,72 @@
+{
+  "key": "8d1714ea18a0b9481490acf3a1e75ed4a4542bd6ce9f5a121d060bfb33fa0503",
+  "tag": "rewrite",
+  "request": {
+    "model": "qwen/qwen3.5-397b-a17b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nWrite 1 hour long story of a man who can see Ten minutes into the future. He uses this to his advantage in a battle."
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791080538-Z71jwKLLkkgSgAvqtEaL",
+    "object": "chat.completion",
+    "created": 1791080538,
+    "model": "qwen/qwen3.5-397b-a17b",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"human\": \"Can you whip up a one-hour story about a guy who sees ten minutes ahead and uses that trick to win a fight?\",\n  \"ai\": \"Compose a narrative with a duration of one hour featuring a male protagonist possessing the ability to perceive events ten minutes into the future, which he strategically leverages to gain an advantage during a battle.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 213,
+      "completion_tokens": 78,
+      "total_tokens": 291,
+      "cost": 0.00039015,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00039015,
+        "upstream_inference_prompt_cost": 0.00011715,
+        "upstream_inference_completions_cost": 0.000273
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 2.0289688110351562,
+  "timestamp": 1791080540.102831
+}

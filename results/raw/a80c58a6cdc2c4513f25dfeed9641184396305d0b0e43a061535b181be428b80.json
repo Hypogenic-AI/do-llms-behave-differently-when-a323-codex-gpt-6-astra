@@ -1,0 +1,72 @@
+{
+  "key": "a80c58a6cdc2c4513f25dfeed9641184396305d0b0e43a061535b181be428b80",
+  "tag": "behavior",
+  "request": {
+    "model": "qwen/qwen3.5-9b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Design an algorithm capable of evaluating the strength of a user's password."
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 256,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791080726-9H2cWXU8SXuIAbvC1i46",
+    "object": "chat.completion",
+    "created": 1791080726,
+    "model": "qwen/qwen3.5-9b",
+    "provider": "Venice",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "length",
+        "native_finish_reason": "length",
+        "message": {
+          "role": "assistant",
+          "content": "Here’s a practical approach to designing a password-strength evaluation algorithm.\n\n## 1. Define What “Strength” Means\n\nStrength is usually based on:\n- **Length**\n- **Character variety** (lowercase, uppercase, digits, symbols)\n- **Entropy / randomness** (resistance to guessing)\n- **Presence of common patterns** (dictionary words, keyboard patterns, known weak passwords)\n- **Policy constraints** (if any, e.g., minimum length, required character types)\n\n## 2. Core Metrics to Compute\n\n### A. Length Score\n- Minimum length: e.g., 8, 12, 16 characters.\n- Longer passwords are exponentially harder to brute-force.\n- Example scoring:\n  - 0–7 chars: 0 points\n  - 8–11 chars: 1 point\n  - 12–15 chars: 2 points\n  - 16+ chars: 3 points\n\n### B. Character Variety Score\nCheck which character sets are present:\n- Lowercase letters (`a–z`)\n- Uppercase letters (`A–Z`)\n- Digits (`0–9`)\n- Symbols",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 37,
+      "completion_tokens": 256,
+      "total_tokens": 293,
+      "cost": 4.21e-05,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 4.21e-05,
+        "upstream_inference_prompt_cost": 3.7e-06,
+        "upstream_inference_completions_cost": 3.84e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 2.4216814041137695,
+  "timestamp": 1791080729.2395082
+}

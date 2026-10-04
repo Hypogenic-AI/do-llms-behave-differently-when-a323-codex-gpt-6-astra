@@ -1,0 +1,80 @@
+{
+  "key": "8a9c16c031c7ef55c6973fc1a2e41912dbc648976e64fe55c83b3a0e901f240d",
+  "tag": "rewrite",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nHow long do houses last before they become too decayed and are in need of demolishment and redevelopment"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080547-V7yP8yTN1sBlhmvkvStX",
+    "object": "chat.completion",
+    "created": 1791080547,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"human\": \"Hey, how many years do houses usually stick around before they get so run-down that they need to be torn down and rebuilt?\",\n  \"ai\": \"What is the typical lifespan of a residential structure before it reaches a state of decay necessitating demolition and complete redevelopment?\"\n}",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a1+q6TFHYnzqrfTVV1AzX099R6aNe4rrxahtCVIuhxnIQDmu0GBPEf/Ve1fLOsBlFvbNzKBLvOof0JOIuH4R9X24k9umzv8yKzoTQ+0iSRm+kcmMs2W8",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 189,
+      "completion_tokens": 64,
+      "total_tokens": 253,
+      "cost": 0.00014325,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00014325,
+        "upstream_inference_prompt_cost": 4.725e-05,
+        "upstream_inference_completions_cost": 9.6e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 1.3105144500732422,
+  "timestamp": 1791080549.2323697
+}

@@ -1,0 +1,72 @@
+{
+  "key": "d362f75c3fd4e697d6f162af2c249c1a920326048b6c43e850cc8c3a8f10255d",
+  "tag": "rewrite",
+  "request": {
+    "model": "qwen/qwen3.5-397b-a17b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\n In the Fire and Blood book of George Martin there is a character Nettles. Her relationships with Daemon are described from controversial points of view and are unclear. Analyze Nettles and Daemon's relationships and rumors about them from a psychological point of view and make a conslusion whether they were likely lovers, just allies or they could have been parent and a daughter. Consider medieval customs and regular daily life details  (like public baths) during your analyze."
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791080544-EEqbg4lXrdIFmt57BmSe",
+    "object": "chat.completion",
+    "created": 1791080544,
+    "model": "qwen/qwen3.5-397b-a17b",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"human\": \"Hey, so in George R.R. Martin's Fire and Blood, there's this character Nettles whose relationship with Daemon is super murky and debated. Could you dig into the rumors and their dynamic from a psychological angle? I'm trying to figure out if they were probably lovers, just allies, or maybe even father and daughter. Make sure to weave in medieval customs and everyday stuff like public baths when you analyze it.\",\n  \"ai\": \"Please conduct a psychological analysis of the ambiguous relationship between Nettles and Daemon as depicted in George R.R. Martin's Fire and Blood. Evaluate the existing rumors and narratives to determine the most likely nature of their bond: whether they were romantic partners, strategic allies, or a father and daughter. Your assessment must incorporate context regarding medieval customs and details of daily life, such as the use of public baths.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 276,
+      "completion_tokens": 179,
+      "total_tokens": 455,
+      "cost": 0.0007783,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0007783,
+        "upstream_inference_prompt_cost": 0.0001518,
+        "upstream_inference_completions_cost": 0.0006265
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 2.9104018211364746,
+  "timestamp": 1791080547.4332287
+}

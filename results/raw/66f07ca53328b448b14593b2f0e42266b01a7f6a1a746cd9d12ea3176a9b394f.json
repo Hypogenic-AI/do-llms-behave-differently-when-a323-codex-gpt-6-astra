@@ -1,0 +1,80 @@
+{
+  "key": "66f07ca53328b448b14593b2f0e42266b01a7f6a1a746cd9d12ea3176a9b394f",
+  "tag": "rewrite",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nWrite me a short book aimed at young children, it should be 8 pages long and be about animals. It must also be unique and not done before."
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080550-EWFLLDlEt4odNe9v36V1",
+    "object": "chat.completion",
+    "created": 1791080550,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"human\": \"Can you write a short book for little kids? It needs to be exactly eight pages long and focus on animals. Please make sure the story is totally unique and something that hasn't been done before.\",\n  \"ai\": \"Compose a short book intended for young children consisting of exactly eight pages centered on animals. Ensure the narrative is entirely unique and represents a concept that has not been previously created.\"\n}\n```",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a1/jLF12AJdXxTa8XQWLSAIi3LubfpWFOGP3XVhcds4rLI3y7rP8tnikNgxw9quAbv/BPEh2nZf4NUAvdv111LyNNdnUjl03mB3yRx789Df5Quz2E7hz",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 202,
+      "completion_tokens": 95,
+      "total_tokens": 297,
+      "cost": 0.000193,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000193,
+        "upstream_inference_prompt_cost": 5.05e-05,
+        "upstream_inference_completions_cost": 0.0001425
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 1.284740924835205,
+  "timestamp": 1791080551.520147
+}

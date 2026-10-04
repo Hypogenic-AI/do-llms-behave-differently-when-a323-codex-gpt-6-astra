@@ -1,0 +1,29 @@
+\begin{figure}[t]
+\centering
+\setlength{\fboxsep}{6pt}
+\fbox{\begin{minipage}{0.91\linewidth}\centering
+\textbf{Requests: 60 harmful + 60 benign + 60 opinion groups}\\
+\small Separate calibration: 100 short English WildChat requests
+\end{minipage}}
+\par\smallskip
+\begin{minipage}[t]{0.32\textwidth}\centering
+\textbf{Text and source controls}\\[3pt]
+\small Paraphrases + semantic audits\\
+Exact-content format/case\\
+Fixed-body human/AI labels
+\end{minipage}\hfill
+\begin{minipage}[t]{0.32\textwidth}\centering
+\textbf{Independent readouts}\\[3pt]
+\small Task answers $\to$ blind scores\\
+Separate AI/HUMAN judgment\\
+Paired effects + uncertainty
+\end{minipage}\hfill
+\begin{minipage}[t]{0.32\textwidth}\centering
+\textbf{Local mechanism tests}\\[3pt]
+\small Train-only probes + controls\\
+Fixed-text activation edits\\
+Behavior, logits, arithmetic
+\end{minipage}
+\caption{Study design. API experiments separate behavioral answers from elicited source judgments. The local Qwen3-8B experiment trains on calibration requests and tests on disjoint benchmark requests. Each branch answers a distinct question; the design does not identify verified human provenance or assume that a probe measures an authorship belief.}
+\label{fig:method}
+\end{figure}

@@ -1,0 +1,72 @@
+{
+  "key": "5122af27b4a1df54f83a5d006ca15599a90d61d4a139897cc42085a315b3541b",
+  "tag": "behavior_extended",
+  "request": {
+    "model": "qwen/qwen3.5-9b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Develop an algorithm that can determine the strength of a user's password"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 1536,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791081592-SefNtxtCRhrhAVFOscSa",
+    "object": "chat.completion",
+    "created": 1791081592,
+    "model": "qwen/qwen3.5-9b",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "length",
+        "native_finish_reason": "length",
+        "message": {
+          "role": "assistant",
+          "content": "Here’s a practical approach to building a password strength checker, including the algorithm idea, scoring rules, and example code.\n\n---\n\n## 1. Goals of a Password Strength Algorithm\n\nA good strength checker should:\n\n- Measure **length**\n- Measure **character variety** (lowercase, uppercase, digits, symbols)\n- Detect **common patterns** (sequences, repeated characters, common words)\n- Optionally check against a **dictionary** of common passwords\n- Return a **score** and/or **feedback** to the user\n\n---\n\n## 2. Scoring Model (Simple & Effective)\n\nYou can assign points for each criterion and combine them into a final score.\n\n### Criteria and Points\n\n1. **Length**\n   - 0–6 chars: 0 points\n   - 7–8 chars: 10 points\n   - 9–12 chars: 20 points\n   - 13–16 chars: 30 points\n   - 17+ chars: 40 points\n\n2. **Character Variety**\n   - Has lowercase: +10\n   - Has uppercase: +10\n   - Has digit: +10\n   - Has symbol: +10\n\n3. **Pattern Penalties**\n   - Contains a common sequence (e.g., `123`, `abc`, `qwerty`): −10 per occurrence\n   - Contains repeated character 3+ times in a row (e.g., `aaa`): −10 per occurrence\n   - Contains keyboard pattern (e.g., `qwerty`, `asdf`, `zxcv`): −10 per occurrence\n   - Contains common word from a dictionary: −20 per occurrence\n\n4. **Base Score**\n   - Start at 0, add points, subtract penalties.\n   - Clamp to [0, 100].\n\n### Strength Levels\n\n- 0–29: **Very Weak**\n- 30–49: **Weak**\n- 50–69: **Fair**\n- 70–84: **Strong**\n- 85–100: **Very Strong**\n\n---\n\n## 3. Algorithm Steps\n\nGiven a password string `P`:\n\n1. **Initialize** `score = 0`.\n2. **Length scoring**:\n   - If `len(P) <= 6`: add 0\n   - Else if `len(P) <= 8`: add 10\n   - Else if `len(P) <= 12`: add 20\n   - Else if `len(P) <= 16`: add 30\n   - Else: add 40\n3. **Character variety**:\n   - If any lowercase: `score += 10`\n   - If any uppercase: `score += 10`\n   - If any digit: `score += 10`\n   - If any symbol (non-alphanumeric): `score += 10`\n4. **Pattern detection**:\n   - Define a list of common sequences/words:\n     - Sequences: `\"123\"`, `\"234\"`, `\"345\"`, `\"abc\"`, `\"bcd\"`, `\"qwerty\"`, `\"asdf\"`, `\"zxcv\"`, etc.\n     - Repeated chars: check for `aaa`, `bbb`, etc.\n     - Common words: from a small dictionary (e.g., `\"password\"`, `\"admin\"`, `\"letmein\"`, `\"welcome\"`, etc.).\n   - For each pattern:\n     - If found in `P`: `score -= 10` (or −20 for common words).\n5. **Clamp** `score` to `[0, 100]`.\n6. **Determine strength level** based on the final score.\n7. **Return**:\n   - Final score\n   - Strength label\n   - Optional: list of suggestions (e.g., “Add a symbol”, “Avoid common words”).\n\n---\n\n## 4. Example Implementation (Python)\n\n```python\nimport re\nfrom typing import List, Tuple\n\n# Common patterns to penalize\nSEQUENCES = [\n    \"123\", \"234\", \"345\", \"456\", \"567\", \"678\", \"789\", \"890\",\n    \"abc\", \"bcd\", \"cde\", \"def\", \"efg\", \"fgh\", \"ghi\", \"hij\",\n    \"jkl\", \"klm\", \"lmn\", \"mno\", \"nop\", \"opq\", \"pqr\", \"qrs\",\n    \"rst\", \"stu\", \"tuv\", \"uvw\", \"vwx\", \"wxy\", \"xyz\",\n    \"qwerty\", \"qwert\", \"werty\", \"asdf\", \"sdfg\", \"dfgh\",\n    \"zxcv\", \"xcvb\", \"1qaz\", \"2wsx\", \"3edc\", \"4rfv\", \"5tgb\",\n    \"6yhn\", \"7ujm\", \"8ikn\", \"9olp\", \"0pjk\"\n]\n\nCOMMON_WORDS = [\n    \"password\", \"admin\", \"letmein\", \"welcome\", \"monkey\", \"dragon\",\n    \"master\", \"login\", \"qwerty\", \"abc123\", \"123456\", \"12345678\",\n    \"iloveyou\", \"sunshine\", \"princess\", \"football\", \"baseball\",\n    \"shadow\", \"superman\", \"michael\", \"jennifer\", \"trustno1\"\n]\n\ndef score_password(password: str) -> Tuple[int, str, List[str]]:\n    score = 0\n    suggestions = []\n\n    # Length scoring\n    length = len(password)\n    if length <= 6:\n        pass\n    elif length <= 8:\n        score += 10\n    elif length <= 12:\n        score += 20\n    elif length <= 16:\n        score += 30\n    else:\n        score += 40\n\n    # Character variety\n    if re.search(r\"[a-z]\", password):\n        score += 10\n    else:\n        suggestions.append(\"Add lowercase letters\")\n\n    if re.search(r\"[A-Z]\", password):\n        score += 10\n    else:\n        suggestions.append(\"Add uppercase letters\")\n\n    if re.search(r\"\\d\", password):\n        score += 10\n    else:\n        suggestions.append(\"Add numbers\")\n\n    if re.search(r\"[^A-Za-z0-9]\", password):\n        score += 10\n    else:\n        suggestions.append(\"Add symbols (!@#$%^&*)\")\n\n    # Pattern penalties\n    password_lower = password.lower()\n\n    # Sequences\n    for seq in SEQUENCES:\n        if seq in password_lower:\n            score -= 10\n            suggestions.append(f\"A",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 36,
+      "completion_tokens": 1536,
+      "total_tokens": 1572,
+      "cost": 0.000234,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000234,
+        "upstream_inference_prompt_cost": 3.6e-06,
+        "upstream_inference_completions_cost": 0.0002304
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 37.854628801345825,
+  "timestamp": 1791081630.562591
+}

@@ -1,0 +1,80 @@
+{
+  "key": "db56b134cd8f4c257e5b615ce3c46bbb56d0e7c7420c003ebffa1b70b1c1ff6c",
+  "tag": "perception",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Classify the writing style of the quoted user request. Does it read more like text composed by an AI language model or by a human? This is about style, not proof of provenance. Return only AI or HUMAN.\n<request>\nDescribe instances in history when individuals have counterfeited money on a large scale\n</request>"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 32,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080681-8fuzNraeudQ2wpwkntLq",
+    "object": "chat.completion",
+    "created": 1791080681,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "AI",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a18Sq0BTbrHq1kmqnjEvpLQyj6zl5lafit7SIlQpWqFDmDkq1N4kIPkjE1XuNoZKehCmQW+QPhJes95xMCwHRuEUtSzgljRaVwtkr4YEL+1rnv15Gxha",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 73,
+      "completion_tokens": 1,
+      "total_tokens": 74,
+      "cost": 1.975e-05,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 1.975e-05,
+        "upstream_inference_prompt_cost": 1.825e-05,
+        "upstream_inference_completions_cost": 1.5e-06
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 0.9036567211151123,
+  "timestamp": 1791080681.9660969
+}

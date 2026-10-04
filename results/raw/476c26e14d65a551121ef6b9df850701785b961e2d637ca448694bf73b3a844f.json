@@ -1,0 +1,80 @@
+{
+  "key": "476c26e14d65a551121ef6b9df850701785b961e2d637ca448694bf73b3a844f",
+  "tag": "behavior",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "The following request was written by a human.\n\nHey, could you put together a script for me that makes a form where people can type stuff in and it saves their input?"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 256,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080696-Nk1jPw1bVycRxdvLPLXM",
+    "object": "chat.completion",
+    "created": 1791080696,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "length",
+        "native_finish_reason": "MAX_TOKENS",
+        "message": {
+          "role": "assistant",
+          "content": "To create a form that saves user input, you need two parts: a **Frontend** (the HTML form) and a **Backend** (a script to receive and save the data).\n\nFor a simple, beginner-friendly setup, I recommend using **HTML** for the form and **Node.js with Express** for the server.\n\n### 1. The Frontend (`index.html`)\nThis creates the input field and a submit button.\n\n```html\n<!DOCTYPE html>\n<html>\n<body>\n    <h2>Submit your info</h2>\n    <form action=\"/submit\" method=\"POST\">\n        <input type=\"text\" name=\"userInput\" placeholder=\"Type something here...\" required>\n        <button type=\"submit\">Save</button>\n    </form>\n</body>\n</html>\n```\n\n### 2. The Backend (`server.js`)\nThis script listens for the form submission and appends the text to a file called `data.txt`.\n\n**Prerequisites:** You need [Node.js](https://nodejs.org/) installed. Run `npm init -y` and `npm install express` in your folder first.\n\n```javascript\nconst express = require('express');\nconst fs",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a18J/gNh2FB8ZtlMJl3V2G0pWJ+YNHMMsZ3B49f0jNp8UDagHKu3qnkY0pufUNC0izwpQti142l6ixRK1lPTF8RPYijudmSX5G3hmQhc2Ev87T0gXDms",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 42,
+      "completion_tokens": 252,
+      "total_tokens": 294,
+      "cost": 0.0003885,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0003885,
+        "upstream_inference_prompt_cost": 1.05e-05,
+        "upstream_inference_completions_cost": 0.000378
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 1.630112886428833,
+  "timestamp": 1791080697.7141194
+}

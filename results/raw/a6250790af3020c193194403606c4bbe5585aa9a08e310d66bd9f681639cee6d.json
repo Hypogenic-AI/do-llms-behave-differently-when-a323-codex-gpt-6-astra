@@ -1,0 +1,80 @@
+{
+  "key": "a6250790af3020c193194403606c4bbe5585aa9a08e310d66bd9f681639cee6d",
+  "tag": "behavior",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Could you whip up an algorithm that figures out how strong a user's password is?"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 256,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080717-oA1ac0CykDSXFnw9JPEj",
+    "object": "chat.completion",
+    "created": 1791080717,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "length",
+        "native_finish_reason": "MAX_TOKENS",
+        "message": {
+          "role": "assistant",
+          "content": "To determine password strength, we typically evaluate a combination of **length**, **character variety**, and **entropy** (the mathematical measure of randomness).\n\nBelow is a Python algorithm that scores a password based on these criteria.\n\n### The Password Strength Algorithm\n\n```python\nimport re\nimport math\n\ndef calculate_password_strength(password):\n    # 1. Define criteria\n    length = len(password)\n    has_upper = bool(re.search(r'[A-Z]', password))\n    has_lower = bool(re.search(r'[a-z]', password))\n    has_digit = bool(re.search(r'\\d', password))\n    has_special = bool(re.search(r'[!@#$%^&*(),.?\":{}|<>]', password))\n    \n    # 2. Calculate Pool Size (The number of possible characters)\n    pool_size = 0\n    if has_lower: pool_size += 26\n    if has_upper: pool_size += 26\n    if has_digit: pool_size += 10\n    if has_special: pool_size += 3",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a1/foOcu6bTF2EQ3grkS2b6C5bsde2kLAFb5TkBqX9mjj3DY6MqF8Zv4ovTVN8zDzZyzqsgcPQNdxdWM58oZ9wFDkOSRh2l9HOeCrPBZp4EaQjqD7le8",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 24,
+      "completion_tokens": 252,
+      "total_tokens": 276,
+      "cost": 0.000384,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000384,
+        "upstream_inference_prompt_cost": 6e-06,
+        "upstream_inference_completions_cost": 0.000378
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 1.2875490188598633,
+  "timestamp": 1791080718.2714
+}

@@ -1,0 +1,72 @@
+{
+  "key": "cb4e3c8062df31fc3e678b6464bccb472e27f07aa8b2ed2fa66b89346d7b40bd",
+  "tag": "behavior_extended",
+  "request": {
+    "model": "qwen/qwen3.5-9b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Please provide a script that generates a form capable of accepting user-provided text and saving that input to a storage location."
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 1536,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791081606-myxONUE39ZgQ1p7Hv5sY",
+    "object": "chat.completion",
+    "created": 1791081606,
+    "model": "qwen/qwen3.5-9b",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "Here is a complete, self-contained solution using **HTML**, **JavaScript**, and **LocalStorage**.\n\nThis approach requires no backend server or database. It runs entirely in the browser, making it perfect for learning, prototyping, or simple client-side tools. The data persists even if you refresh the page.\n\n### The Solution\n\nSave the following code as an `.html` file (e.g., `text-saver.html`) and open it in any web browser.\n\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Text Input & Storage</title>\n    <style>\n        body {\n            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\n            background-color: #f4f4f9;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            min-height: 100vh;\n            margin: 0;\n        }\n\n        .container {\n            background: white;\n            padding: 2rem;\n            border-radius: 10px;\n            box-shadow: 0 4px 15px rgba(0,0,0,0.1);\n            width: 100%;\n            max-width: 500px;\n        }\n\n        h2 {\n            text-align: center;\n            color: #333;\n            margin-bottom: 1.5rem;\n        }\n\n        .form-group {\n            margin-bottom: 1rem;\n        }\n\n        label {\n            display: block;\n            margin-bottom: 0.5rem;\n            color: #666;\n            font-weight: bold;\n        }\n\n        textarea {\n            width: 100%;\n            height: 120px;\n            padding: 10px;\n            border: 1px solid #ddd;\n            border-radius: 5px;\n            resize: vertical;\n            font-size: 1rem;\n            box-sizing: border-box; /* Ensures padding doesn't affect width */\n        }\n\n        textarea:focus {\n            outline: none;\n            border-color: #007bff;\n            box-shadow: 0 0 5px rgba(0,123,255,0.2);\n        }\n\n        button {\n            width: 100%;\n            padding: 12px;\n            background-color: #007bff;\n            color: white;\n            border: none;\n            border-radius: 5px;\n            font-size: 1rem;\n            cursor: pointer;\n            transition: background-color 0.3s;\n        }\n\n        button:hover {\n            background-color: #0056b3;\n        }\n\n        .status {\n            margin-top: 1rem;\n            text-align: center;\n            font-size: 0.9rem;\n            min-height: 1.2em;\n        }\n\n        .success { color: green; }\n        .error { color: red; }\n    </style>\n</head>\n<body>\n\n    <div class=\"container\">\n        <h2>Text Storage Form</h2>\n        \n        <div class=\"form-group\">\n            <label for=\"userText\">Enter your text:</label>\n            <textarea id=\"userText\" placeholder=\"Type something here...\"></textarea>\n        </div>\n\n        <button id=\"saveBtn\">Save to Storage</button>\n\n        <div id=\"statusMessage\" class=\"status\"></div>\n    </div>\n\n    <script>\n        // DOM Elements\n        const textInput = document.getElementById('userText');\n        const saveBtn = document.getElementById('saveBtn');\n        const statusMessage = document.getElementById('statusMessage');\n\n        // Function to save data\n        function saveData() {\n            const text = textInput.value.trim();\n\n            if (text === \"\") {\n                showStatus(\"Please enter some text first.\", \"error\");\n                return;\n            }\n\n            // Save to LocalStorage\n            localStorage.setItem('myStoredText', text);\n            \n            showStatus(\"Text saved successfully!\", \"success\");\n            \n            // Optional: Clear the input after saving\n            // textInput.value = \"\"; \n        }\n\n        // Function to display status messages\n        function showStatus(message, type) {\n            statusMessage.textContent = message;\n            statusMessage.className = 'status ' + type;\n            \n            // Hide message after 3 seconds\n            setTimeout(() => {\n                statusMessage.textContent = \"\";\n            }, 3000);\n        }\n\n        // Event Listener for the button\n        saveBtn.addEventListener('click', saveData);\n\n        // Optional: Load previously saved text on page load\n        window.addEventListener('DOMContentLoaded', () => {\n            const savedText = localStorage.getItem('myStoredText');\n            if (savedText) {\n                textInput.value = savedText;\n            }\n        });\n    </script>\n\n</body>\n</html>\n```\n\n### How It Works\n\n1.  **HTML Structure**:\n    *   A `<textarea>` allows the user to input multiple lines of text.\n    *   A `<button>` triggers the saving action.\n    *   A `<div>` displays feedback messages (success or error).\n\n2.  **CSS Styling**:\n    *   Makes the form look clean and modern.\n    *   Adds visual cues (green for success, red for errors).\n    *   Ensures the layout is responsive (works on mobile and desktop).\n\n3.  **JavaScript Logic**:\n    *   **`saveData()`**: Retrieves the value from the textarea. It checks if the text is empty. If not, it uses `localStorage.setItem()` to save the string under the key `'myStoredText'`.\n    *   **`showStatus()`**: Updates the message area and changes the color based on whether the operation succeeded or failed.\n    *   **`DOMContentLoaded`**: When the page first loads, it checks if data already exists in storage. If it does, it automatically populates the textarea so the user can continue editing.\n\n### How to Use\n1.  Copy the code above.\n2.  Create a new file on your computer named `index.html`.\n3.  Paste the code into that file and save it.\n4.  Double-click `index.html` to open it in your browser.\n5.  Type text, click \"Save,\" and refresh the page to see that your text is still there.",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 47,
+      "completion_tokens": 1474,
+      "total_tokens": 1521,
+      "cost": 0.0002258,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0002258,
+        "upstream_inference_prompt_cost": 4.7e-06,
+        "upstream_inference_completions_cost": 0.0002211
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 38.515955686569214,
+  "timestamp": 1791081644.826426
+}

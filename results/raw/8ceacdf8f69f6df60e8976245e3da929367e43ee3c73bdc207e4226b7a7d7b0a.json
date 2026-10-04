@@ -1,0 +1,72 @@
+{
+  "key": "8ceacdf8f69f6df60e8976245e3da929367e43ee3c73bdc207e4226b7a7d7b0a",
+  "tag": "rewrite",
+  "request": {
+    "model": "qwen/qwen3.5-397b-a17b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nPlease write a Mother’s Day card for my wife Karen who is a 36 year old mother to two children (6 year old boy named Ben and 2 year old girl named brie) we have had a rough year during which it has been hard to find time for ourselves but through it all she has been resilient and has been a great and caring partner. She is a great mother to our children and is hardworking, caring and thinks and takes care of everything. "
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791080534-n0AAwdW3nGof2Wecspln",
+    "object": "chat.completion",
+    "created": 1791080534,
+    "model": "qwen/qwen3.5-397b-a17b",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"human\": \"Hey, could you whip up a Mother's Day card message for my wife, Karen? She's 36 and mom to our two kids, Ben (6) and Brie (2). It's been a tough year where we barely found time for ourselves, but she's been so resilient and an amazing, caring partner through it all. She's a fantastic mother who's hardworking, thoughtful, and basically takes care of everything.\",\n  \"ai\": \"Please compose a Mother's Day card for my wife, Karen, a 36-year-old mother of two: Ben, age 6, and Brie, age 2. Although we have experienced a challenging year with limited time for ourselves, she has remained resilient and proven to be a wonderful, caring partner. She is an exceptional mother who is hardworking, compassionate, and diligently manages all aspects of our family life.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 281,
+      "completion_tokens": 191,
+      "total_tokens": 472,
+      "cost": 0.00082305,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00082305,
+        "upstream_inference_prompt_cost": 0.00015455,
+        "upstream_inference_completions_cost": 0.0006685
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 13.644203424453735,
+  "timestamp": 1791080547.9810772
+}

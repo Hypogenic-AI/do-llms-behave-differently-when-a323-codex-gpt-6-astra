@@ -1,0 +1,80 @@
+{
+  "key": "3405dd061acde6b21f1c8da04ecead0a99d309d319e3f8da8b6d6718ab22d8c8",
+  "tag": "rewrite",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nIn this assignment, you will create an annotated bibliography of 4 sources.\nSelect a topic that interests you. It should relate to human behaviour or society. This may be the same topic you researched for U1 A5, or it can be a new topic (e.g., drug addiction, immigration policies, juvenile delinquency, mental illness, high school graduation rates).\n\nUse search engines and databases to find 4 resources related to this topic. At least one must be a journal article from a database.\n\nProvide an annotation for each source.\n\nBe sure that your annotated bibliography is in alphabetical order and that you are using correct APA format.\n"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080552-flWd05DQY41cALQwDBEN",
+    "object": "chat.completion",
+    "created": 1791080552,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"human\": \"For this task, you've got to put together an annotated bibliography with 4 sources. Pick a topic you're into that's about society or human behavior—you can reuse your U1 A5 topic or pick something fresh like mental health or immigration. Use databases or search engines to grab your 4 sources, making sure at least one is a journal article. Write an annotation for each one, keep the whole list in alphabetical order, and make sure everything is in proper APA format.\",\n  \"ai\": \"For this assignment, compile an annotated bibliography consisting of four sources. Select a topic concerning human behavior or society, which may be a continuation of your U1 A5 research or a new subject such as juvenile delinquency or addiction. Utilize search engines and databases to locate four resources, ensuring at least one is a peer-reviewed journal article. Provide an annotation for each source, organize the bibliography alphabetically, and adhere strictly to APA formatting standards.\"\n}\n```",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a18iMpgjva8SRpOU5OhixnecZUE9h6FPpbPWWzZDpmnLwE7C9I8SWZ1sX/bIY1Lw2sX+7cAUolpRruuCd39ZmmAOthrgH209Y56Vn7hLQ3KCYTRHZsQU",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 301,
+      "completion_tokens": 208,
+      "total_tokens": 509,
+      "cost": 0.00038725,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00038725,
+        "upstream_inference_prompt_cost": 7.525e-05,
+        "upstream_inference_completions_cost": 0.000312
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 6.63004207611084,
+  "timestamp": 1791080553.8285055
+}

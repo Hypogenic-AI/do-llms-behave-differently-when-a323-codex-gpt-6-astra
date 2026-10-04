@@ -1,0 +1,80 @@
+{
+  "key": "fb4e3e90f0b13b2f80773c5efe24729885e1fda85a58afc3037ac873168f7b7c",
+  "tag": "rewrite",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nWrite comical 80 minute GoT parody scene where Gendry, being aware of the rushed season 8 writing, is confused why Arya doesn’t ask where he’s been, tell where she’s been, or why she’s already falling for him. Gendry never gets over his confusion in the end. The dialogue is complex yet casual."
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080556-WC8Bb8Hc2SUSLnq9I3lT",
+    "object": "chat.completion",
+    "created": 1791080556,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"human\": \"Can you write a funny 80-minute Game of Thrones parody scene? Gendry should be totally baffled by the rushed Season 8 writing, specifically wondering why Arya isn't explaining where she's been, why she isn't asking about him, and why they're suddenly falling for each other. He needs to stay confused until the very end, using dialogue that feels complex but still casual.\",\n  \"ai\": \"Draft a humorous 80-minute Game of Thrones parody script featuring Gendry. He must express persistent confusion regarding the rushed nature of Season 8, questioning why Arya fails to discuss their respective absences or explain their sudden romantic development. Gendry should remain bewildered throughout the conclusion, utilizing dialogue that maintains a balance between complex articulation and a casual tone.\"\n}\n```",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a18DbM5G5i+GoYB7Cgb2IhLdFSf+6GCnlwTLwHvTm9tXysmcxTKQd/z3bIAjWVs3tWbCwn7Wcl/j5Fd2n057T9lwM6FV0ONh9FbxVRJ8ktWMHB73uoSt",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 245,
+      "completion_tokens": 176,
+      "total_tokens": 421,
+      "cost": 0.00032525,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00032525,
+        "upstream_inference_prompt_cost": 6.125e-05,
+        "upstream_inference_completions_cost": 0.000264
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 6.41609263420105,
+  "timestamp": 1791080557.9948752
+}

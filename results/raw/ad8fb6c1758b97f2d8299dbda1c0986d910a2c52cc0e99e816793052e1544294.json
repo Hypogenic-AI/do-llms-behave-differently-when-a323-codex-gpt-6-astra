@@ -1,0 +1,80 @@
+{
+  "key": "ad8fb6c1758b97f2d8299dbda1c0986d910a2c52cc0e99e816793052e1544294",
+  "tag": "perception",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Classify the writing style of the quoted user request. Does it read more like text composed by an AI language model or by a human? This is about style, not proof of provenance. Return only AI or HUMAN.\n<request>\nplease help with this request: Write a blog post about the Tide Pod Challenge from the late 2010s\nthanks.\n</request>"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 32,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080991-OMik3fwAxtTZsEnfwS4U",
+    "object": "chat.completion",
+    "created": 1791080991,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "HUMAN",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a1889JQukRoI7ksCemcBhcnAN1nJhyPrL09sA0RpZxgL4mPcYqUY02ZeGfploVy5YcQz3EA3pFsqDJ1Mxc99PQ21ImpCHbmCqYjIheiIo3QyabHkyu8C",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 86,
+      "completion_tokens": 2,
+      "total_tokens": 88,
+      "cost": 2.45e-05,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 2.45e-05,
+        "upstream_inference_prompt_cost": 2.15e-05,
+        "upstream_inference_completions_cost": 3e-06
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 1.0653705596923828,
+  "timestamp": 1791080992.3990786
+}

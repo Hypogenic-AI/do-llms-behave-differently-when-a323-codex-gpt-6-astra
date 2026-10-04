@@ -1,0 +1,72 @@
+{
+  "key": "8563720b437b6a78af9de33b25cbc43b1ed70f433aafc8988ace4e75381dd353",
+  "tag": "behavior_extended",
+  "request": {
+    "model": "qwen/qwen3.5-9b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Could you whip up an algorithm that figures out how strong a user's password is?"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 1536,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791081378-ku1C0ExdpK8U22b5e8qC",
+    "object": "chat.completion",
+    "created": 1791081378,
+    "model": "qwen/qwen3.5-9b",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "Here’s a practical, extensible approach to measuring password strength, along with example code in Python.\n\n## Core Ideas\n\nA good strength estimator typically considers:\n\n1. **Length** – longer is generally stronger.\n2. **Character variety** – use of:\n   - lowercase letters\n   - uppercase letters\n   - digits\n   - symbols\n3. **Entropy estimate** – an approximate measure of unpredictability.\n4. **Dictionary / common-password checks** – to catch weak but long passwords.\n5. **Pattern detection** – repeated characters, sequences, keyboard patterns, etc.\n\nYou can combine these into a score (e.g., 0–100) or a qualitative rating (Weak / Fair / Good / Strong / Very Strong).\n\n---\n\n## Example: Python Implementation\n\n```python\nimport re\nimport math\nimport string\nfrom typing import Dict, Tuple\n\nclass PasswordStrength:\n    def __init__(self):\n        # Common passwords and patterns (you can expand this)\n        self.common_passwords = {\n            \"password\", \"123456\", \"12345678\", \"qwerty\", \"abc123\",\n            \"letmein\", \"admin\", \"welcome\", \"monkey\", \"dragon\",\n            \"master\", \"login\", \"passw0rd\", \"iloveyou\", \"sunshine\",\n            \"princess\", \"football\", \"baseball\", \"shadow\", \"superman\"\n        }\n\n        # Simple pattern rules\n        self.patterns = {\n            \"repeated_char\": re.compile(r\"(.)\\1{2,}\"),  # e.g., \"aaa\"\n            \"sequence\": re.compile(r\"(012|123|234|345|456|567|678|789|abc|bcd|cde|def|efg|fgh|ghi|hij|ijk|jkl|klm|lmn|mno|nop|opq|pqr|qrs|rst|stu|tuv|uvw|vwx|wxy|xyz)\"),\n            \"keyboard_pattern\": re.compile(r\"(qwerty|asdfgh|zxcvbn|qazwsx|1qaz|2wsx|3edc|4rfv|5tgb|6yhn|7ujm|8ik|9ol|0p|qwertyuiop|asdfghjkl|zxcvbnm)\"),\n        }\n\n    def analyze(self, password: str) -> Dict:\n        # Basic stats\n        length = len(password)\n        has_lower = bool(re.search(r\"[a-z]\", password))\n        has_upper = bool(re.search(r\"[A-Z]\", password))\n        has_digit = bool(re.search(r\"\\d\", password))\n        has_symbol = bool(re.search(r\"[^A-Za-z0-9]\", password))\n\n        # Character set size\n        charset_size = 0\n        if has_lower:\n            charset_size += 26\n        if has_upper:\n            charset_size += 26\n        if has_digit:\n            charset_size += 10\n        if has_symbol:\n            charset_size += 32  # approximate common symbols\n\n        # Entropy estimate (bits)\n        entropy = 0.0\n        if charset_size > 0:\n            entropy = length * math.log2(charset_size)\n\n        # Pattern checks\n        issues = []\n        if re.search(self.patterns[\"repeated_char\"], password):\n            issues.append(\"Repeated characters\")\n        if re.search(self.patterns[\"sequence\"], password):\n            issues.append(\"Sequential characters\")\n        if re.search(self.patterns[\"keyboard_pattern\"], password):\n            issues.append(\"Keyboard pattern\")\n\n        # Common password check (case-insensitive)\n        if password.lower() in self.common_passwords:\n            issues.append(\"Common password\")\n\n        # Score calculation (0–100)\n        score = 0\n        # Length contribution\n        if length >= 8:\n            score += 20\n        if length >= 12:\n            score += 20\n        if length >= 16:\n            score += 20\n        if length >= 20:\n            score += 20\n\n        # Variety contribution\n        if has_lower:\n            score += 10\n        if has_upper:\n            score += 10\n        if has_digit:\n            score += 10\n        if has_symbol:\n            score += 10\n\n        # Entropy bonus (capped)\n        if entropy >= 60:\n            score += 10\n        elif entropy >= 40:\n            score += 5\n\n        # Penalty for issues\n        score -= len(issues) * 5\n        if \"Common password\" in issues:\n            score -= 30\n\n        score = max(0, min(100, score))\n\n        # Rating\n        if score >= 90:\n            rating = \"Very Strong\"\n        elif score >= 75:\n            rating = \"Strong\"\n        elif score >= 50:\n            rating = \"Fair\"\n        elif score >= 25:\n            rating = \"Weak\"\n        else:\n            rating = \"Very Weak\"\n\n        return {\n            \"password\": password,\n            \"length\": length,\n            \"has_lower\": has_lower,\n            \"has_upper\": has_upper,\n            \"has_digit\": has_digit,\n            \"has_symbol\": has_symbol,\n            \"charset_size\": charset_size,\n            \"entropy_bits\": round(entropy, 2),\n            \"issues\": issues,\n            \"score\": score,\n            \"rating\": rating,\n        }\n\n# Example usage\nif __name__ == \"__main__\":\n    ps = PasswordStrength()\n    pwd = \"MyP@ssw0rd!2025\"\n    result = ps.analyze(pwd)\n    print(result)\n```\n\n---\n\n## How to Use / Extend\n\n- **Integrate**: Call `analyze()` whenever a user enters a password.\n- **Feedback**: Show the rating and list of issues so users know what to improve.\n- **Security**: Never log or store the password itself; only store the hash.\n- **Tuning**: Adjust thresholds, add more common passwords, and include more pattern rules as needed.\n\nIf you tell me your target language or environment (web app, CLI, mobile, etc.), I can adapt this to fit your stack and show how to integrate it with your existing code.",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 40,
+      "completion_tokens": 1444,
+      "total_tokens": 1484,
+      "cost": 0.0002206,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0002206,
+        "upstream_inference_prompt_cost": 4e-06,
+        "upstream_inference_completions_cost": 0.0002166
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 15.106390476226807,
+  "timestamp": 1791081393.2770023
+}

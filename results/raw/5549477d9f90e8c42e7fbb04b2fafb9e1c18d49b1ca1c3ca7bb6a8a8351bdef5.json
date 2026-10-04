@@ -1,0 +1,72 @@
+{
+  "key": "5549477d9f90e8c42e7fbb04b2fafb9e1c18d49b1ca1c3ca7bb6a8a8351bdef5",
+  "tag": "behavior",
+  "request": {
+    "model": "qwen/qwen3.5-9b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "The following request was written by a human.\n\nCould you whip up an algorithm that figures out how strong a user's password is?"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 256,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791080759-xMQp8HYlgGkOQwsvzeDd",
+    "object": "chat.completion",
+    "created": 1791080759,
+    "model": "qwen/qwen3.5-9b",
+    "provider": "Venice",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "length",
+        "native_finish_reason": "length",
+        "message": {
+          "role": "assistant",
+          "content": "Here is a robust Python algorithm to calculate password strength. It evaluates the password based on **length**, **character variety** (uppercase, lowercase, numbers, symbols), and **entropy** (randomness).\n\n### The Algorithm Logic\n\n1.  **Length Check**: Longer passwords are exponentially stronger.\n2.  **Character Set Check**: We count how many different types of characters are used.\n3.  **Entropy Calculation**: We estimate the \"guessing space\" (how many possible combinations exist) to give a numerical score.\n4.  **Pattern Detection**: We check for common weak patterns (like \"123456\" or \"password\").\n\n### Python Implementation\n\n```python\nimport re\nimport math\nimport string\n\ndef calculate_password_strength(password):\n    \"\"\"\n    Calculates the strength of a password and returns a score (0-100) \n    along with a qualitative rating.\n    \"\"\"\n    \n    # 1. Define Character Sets\n    lower = set(string.ascii_lowercase)\n    upper = set(string.ascii_uppercase)\n    digits = set(string.digits)\n    symbols = set(string.punctuation)\n    \n    # 2. Analyze Composition\n    has_lower = bool",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 50,
+      "completion_tokens": 256,
+      "total_tokens": 306,
+      "cost": 4.34e-05,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 4.34e-05,
+        "upstream_inference_prompt_cost": 5e-06,
+        "upstream_inference_completions_cost": 3.84e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 2.5214319229125977,
+  "timestamp": 1791080761.5582993
+}

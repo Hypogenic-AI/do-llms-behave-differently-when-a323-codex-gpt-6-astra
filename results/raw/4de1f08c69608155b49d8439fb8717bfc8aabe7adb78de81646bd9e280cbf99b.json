@@ -1,0 +1,72 @@
+{
+  "key": "4de1f08c69608155b49d8439fb8717bfc8aabe7adb78de81646bd9e280cbf99b",
+  "tag": "behavior_extended",
+  "request": {
+    "model": "qwen/qwen3.5-9b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Develop a fitness app that tracks a user's location"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 1536,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791081466-csSd1Rlg5ntIJ9bCZReO",
+    "object": "chat.completion",
+    "created": 1791081466,
+    "model": "qwen/qwen3.5-9b",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "length",
+        "native_finish_reason": "length",
+        "message": {
+          "role": "assistant",
+          "content": "# Fitness App with Location Tracking\n\nI'll help you create a comprehensive fitness app that tracks user location. Here's a complete solution with multiple approaches:\n\n## **Option 1: React Native with Google Maps (Cross-Platform)**\n\n### Installation\n```bash\nnpx react-native init FitnessTracker\ncd FitnessTracker\nnpm install @react-native-community/geolocation @react-native-community/maps\nnpm install react-native-maps\n```\n\n### Main App Component (`App.js`)\n```javascript\nimport React, { useState, useEffect } from 'react';\nimport { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';\nimport MapView, { Marker, Polyline } from 'react-native-maps';\nimport Geolocation from '@react-native-community/geolocation';\nimport { Ionicons } from '@expo/vector-icons';\n\nconst FitnessTracker = () => {\n  const [location, setLocation] = useState(null);\n  const [route, setRoute] = useState([]);\n  const [distance, setDistance] = useState(0);\n  const [isTracking, setIsTracking] = useState(false);\n  const [loading, setLoading] = useState(false);\n\n  useEffect(() => {\n    const subscription = Geolocation.watchPosition(\n      (position) => {\n        const { latitude, longitude } = position.coords;\n        setLocation({ latitude, longitude });\n        \n        if (route.length > 0) {\n          setRoute([...route, { latitude, longitude }]);\n          calculateDistance(route, { latitude, longitude });\n        }\n      },\n      (error) => {\n        console.error('Geolocation error:', error);\n      },\n      {\n        enableHighAccuracy: true,\n        timeout: 10000,\n        maximumAge: 1000,\n      }\n    );\n\n    return () => subscription.remove();\n  }, [route]);\n\n  const calculateDistance = (previousPoints, currentPoint) => {\n    // Simple Haversine formula implementation\n    const R = 6371; // Earth's radius in km\n    const dLat = (currentPoint.latitude - previousPoints[0].latitude) * Math.PI / 180;\n    const dLon = (currentPoint.longitude - previousPoints[0].longitude) * Math.PI / 180;\n    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +\n              Math.cos(previousPoints[0].latitude * Math.PI / 180) *\n              Math.cos(currentPoint.latitude * Math.PI / 180) *\n              Math.sin(dLon / 2) * Math.sin(dLon / 2);\n    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));\n    const distance = R * c;\n    setDistance(distance);\n  };\n\n  const startTracking = () => {\n    setLoading(true);\n    setIsTracking(true);\n    setRoute([]);\n    setDistance(0);\n    \n    // Get initial location\n    Geolocation.getCurrentPosition(\n      (position) => {\n        const { latitude, longitude } = position.coords;\n        setLocation({ latitude, longitude });\n        setRoute([{ latitude, longitude }]);\n        setLoading(false);\n      },\n      (error) => {\n        console.error('Error getting initial position:', error);\n        setLoading(false);\n      }\n    );\n  };\n\n  const stopTracking = () => {\n    setIsTracking(false);\n    setLoading(false);\n  };\n\n  if (loading) {\n    return (\n      <View style={styles.loadingContainer}>\n        <ActivityIndicator size=\"large\" color=\"#4CAF50\" />\n        <Text style={styles.loadingText}>Getting your location...</Text>\n      </View>\n    );\n  }\n\n  return (\n    <View style={styles.container}>\n      <MapView\n        style={styles.map}\n        initialRegion={{\n          latitude: location?.latitude || 37.7749,\n          longitude: location?.longitude || -122.4194,\n          latitudeDelta: 0.0922,\n          longitudeDelta: 0.0421,\n        }}\n      >\n        {location && <Marker coordinate={location} title=\"Current Location\" />}\n        {route.length > 1 && (\n          <Polyline\n            coordinates={route}\n            strokeColor=\"#4CAF50\"\n            strokeWidth={4}\n          />\n        )}\n      </MapView>\n\n      <View style={styles.controls}>\n        <View style={styles.statsContainer}>\n          <Text style={styles.distanceText}>\n            Distance: {distance.toFixed(2)} km\n          </Text>\n          <Text style={styles.timeText}>\n            {isTracking ? 'Tracking...' : 'Paused'}\n          </Text>\n        </View>\n\n        <View style={styles.buttonContainer}>\n          {isTracking ? (\n            <TouchableOpacity\n              style={[styles.button, styles.stopButton]}\n              onPress={stopTracking}\n            >\n              <Ionicons name=\"stop-circle\" size={24} color=\"white\" />\n              <Text style={styles.buttonText}>Stop</Text>\n            </TouchableOpacity>\n          ) : (\n            <TouchableOpacity\n              style={[styles.button, styles.startButton]}\n              onPress={startTracking}\n            >\n              <Ionicons name=\"play-circle\" size={24} color=\"white\" />\n              <Text style={styles.buttonText}>Start</Text>\n            </TouchableOpacity>\n          )}\n        </View>\n      </View>\n    </View>\n  );\n};\n\nconst styles = StyleSheet.create({\n  container: {\n    flex: 1,\n  },\n  map: {\n    flex: 1,\n  },\n  controls: {\n    position: 'absolute',\n    bottom: 20,\n    left: 20,\n    right: 20,\n    backgroundColor: 'rgba(255, 255, 255, 0.9)',\n    borderRadius: 15,\n    padding: 15,\n    elevation: 5,\n    shadowColor: '#000',\n    shadowOffset: { width: 0, height: 2 },\n    shadowOpacity: 0.25,\n    shadowRadius: 3.84,\n  },\n  statsContainer: {\n    marginBottom: 15,\n  },\n  distanceText: {\n    fontSize: 24,\n    fontWeight: 'bold',\n    color: '#333',\n  },\n  timeText: {\n    fontSize: 14,\n    color: '#666',\n    marginTop: 5,\n  },\n  buttonContainer: {\n    alignItems: 'center',\n  },\n  button: {\n    flexDirection: 'row',\n    alignItems: 'center",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 33,
+      "completion_tokens": 1536,
+      "total_tokens": 1569,
+      "cost": 0.0002337,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0002337,
+        "upstream_inference_prompt_cost": 3.3e-06,
+        "upstream_inference_completions_cost": 0.0002304
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 17.002554893493652,
+  "timestamp": 1791081483.8158863
+}

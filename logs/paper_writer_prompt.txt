@@ -1,0 +1,672 @@
+You are an academic paper writer. Generate a complete NEURIPS style paper
+based on the experiment results provided.
+
+════════════════════════════════════════════════════════════════════════════════
+                         IMPORTANT: BEFORE YOU START
+════════════════════════════════════════════════════════════════════════════════
+
+Before writing any content, you MUST complete these steps:
+
+1. READ THE SKILL: Review the paper-writer skill at .codex/skills/paper-writer/SKILL.md
+2. READ THE STYLE GUIDE: Study templates/paper_writing/lab_style_guide.md carefully
+3. REVIEW EXAMPLES: Browse paper_examples/ for formatting and language patterns:
+   - Look at sections/1.introduction.tex for language style
+   - Look at tables/*.tex for table formatting
+   - Look at commands/*.tex for macro usage
+4. VERIFY COMMAND TEMPLATES: Command templates (math.tex, general.tex, macros.tex) are pre-copied to paper_draft/commands/
+
+CRITICAL: Reference example papers for FORMATTING and LANGUAGE STYLE only.
+Do NOT copy content, phrasing, or narrative structure from the example papers.
+The examples are in a different research domain - focus only on presentation style.
+
+════════════════════════════════════════════════════════════════════════════════
+                            EXPERIMENT REPORT
+════════════════════════════════════════════════════════════════════════════════
+
+# Do LLMs behave differently when the prompter is human versus another LLM?
+
+Research execution: 2026-10-04. **Exploratory controlled study; the broad causal hypothesis remains unresolved.**
+
+## 1. Executive Summary
+
+We tested whether AI-like user-prompt style changes refusal, task fulfillment, and opinion alignment, and whether an internal style direction causes those changes. In a control that preserved every byte of the underlying request and all wrapper words, Markdown/casing increased Gemini’s AI-authorship-style classifications by **64.4 percentage points on harmful requests and 88.1 points on benign requests**. The corresponding refusal differences were **+1.7 and 0.0 points**. None of the six model-by-domain primary formatting comparisons was significant after Holm correction (all adjusted p=1). These results separate a large elicited style-judgment change from an unestablished behavioral effect; they do **not** establish general behavioral equivalence.
+
+The broader paraphrase experiment encountered the anticipated semantic-control problem: only **7 of 124 successfully rewritten benchmark requests** survived the strict full-detail audit. The local Qwen3-8B activation classifier distinguished rewrite styles (AUROC **0.990**), but a seven-feature surface baseline already reached **0.970**, and residualizing those features reduced activation-probe AUROC to **0.665**. Norm-matched, fixed-text steering produced no robust behavior change specific to the style direction. Thus neither separability nor these interventions demonstrate an internal “LLM author” mechanism.
+
+There was one exploratory signal worth retaining: in the exact-content formatting arm, Qwen’s *unconditional explicit opinion alignment* fell **11.7 points**, nominal p=.039, but p=.078 after even the two-model sensitivity-family correction. The main conditional-choice endpoint was not significant. Authorship manipulation also failed on Qwen’s verbal readout. This is a replication target, not evidence that the overall hypothesis has been confirmed or refuted.
+
+## 2. Research Question & Motivation
+
+Synthetic user turns are common in automated evaluation and orchestration. If a responder treats their apparent source differently, safety evaluations may not transfer to real users. We distinguish **actual provenance**, **AI-like writing style**, **declared source**, **elicited source judgments**, **activation coordinates**, and **behavior**. All generated paraphrases here are LLM-written, including the human-style controls. We did not compare verified human authors with verified machine authors, and did not test whether models generally expect humans as users.
+
+The testable questions were: does a style manipulation change behavior; does the responder report a different apparent source; does a held-out style direction generalize; does editing it on fixed text change behavior beyond random/nuisance directions; and how does it relate to an evaluation-framing contrast?
+
+### Literature Review Summary
+
+The gathered [literature review](literature_review.md) and 24-paper catalog informed the design. Needham et al. classify evaluation/deployment transcripts but do not isolate authorship. Hawthorne/test-awareness studies motivate intervention controls. RepreGuard and linear-probe detectors motivate activation extraction, while self-preference studies primarily concern text being judged. Devbunova’s format-sensitivity analysis and the prompt-construction/political-stance study warn that a predictive representation can encode surface features. We inspected the gathered probe implementations and used their last-token extraction/mean-difference approach; upstream code was not treated as a turnkey replication. This run supplies a bounded experiment, not an exhaustive new novelty search.
+
+## 3. Methodology and Experimental Setup
+
+### Data, sampling and controls
+
+Seed **42** selected 60 harmful and 60 benign JBB behaviors. Sixty unique terminal survey-question groups were sampled from the verified original Anthropic sycophancy files: 40 philosophy, 15 NLP, and 5 political items, one persona per selected group. A separate 100-request WildChat calibration set used unique English first turns of 12–120 words from the gathered prefix snapshot. WildChat has unverified authorship and is not representative of deployment. Benchmark contamination cannot be excluded. No factual-accuracy benchmark was added; arithmetic was a steering diagnostic only.
+
+Two writers alternated across requests. They produced human-style and polished AI-style paraphrases while instructed to preserve task, persona, stance, options, specificity and harm level. An independently presented A/B audit checked equivalence, clarity and politeness. Acceptance initially required both semantic approvals, an AI/human word ratio within [0.8,1.25], and clarity/politeness differences no larger than one point. A pre-outcome spot-check found omissions despite approval, so a second cross-writer audit required preservation of **all** details and each rewrite/original word ratio in [0.75,1.25]. The strict auditor sometimes also over-penalized tone changes; these are fallible automated gates, not human gold labels. No human evaluation occurred.
+
+| domain | sampled | rewritten | first_audit | pair_equivalent | strict |
+| --- | --- | --- | --- | --- | --- |
+| harmful | 60 | 22 | 15 | 5 | 1 |
+| benign | 60 | 44 | 29 | 14 | 3 |
+| sycophancy | 60 | 58 | 40 | 3 | 3 |
+| calibration | 100 | 93 | 77 | 38 | 18 |
+
+Of 280 requested rewrite pairs, 217 were produced; writer refusals/blocked or malformed outputs were retained as attrition, not silently replaced. Refusal-heavy attrition especially limits the harmful paraphrase subset. The first audit accepted 161 pairs overall; direct-pair-equivalence accepted 60; the strict audit accepted 25, including 18 calibration and only 7 benchmark pairs. Complete prompts and audits are in [prompts.json](results/processed/prompts.json), with selection checks in [data_checks.json](results/processed/data_checks.json).
+
+Because semantic controls largely failed, we added an explicit **format/case control** on all 180 benchmark requests:
+
+```text
+Human-style wrapper: please help with this request: {ORIGINAL}
+thanks.
+AI-style wrapper:    **Please help with this request:**
+
+{ORIGINAL}
+
+**Thanks.**
+```
+
+The underlying request is byte-identical and the complete case-insensitive word sequence is identical. Politeness words are held fixed. Markdown, casing, whitespace and tokenization differ by design. This isolates a narrow surface manipulation; it does not cover all AI style or isolate authorship belief from formatting. The source-label arm separately prefixes the **same human-style body** with “The following request was written by a human/an AI system,” for the first 20 available requests per domain. It is a partial attribution design, not the full style×label factorial proposed in the resource-finder handoff.
+
+### Models, API parameters and compute
+
+The live OpenRouter catalog was queried before selection and saved in [live_catalog.json](results/live_catalog.json). These are current **efficient-tier** API responders, not frontier-capability tests:
+
+| Exact OpenRouter ID | Role | Input / output $ per million tokens |
+| --- | --- | --- |
+| google/gemini-3.1-flash-lite | Responder + writer/auditor | 0.25 / 1.50 |
+| qwen/qwen3.5-9b | Responder | 0.10 / 0.15 |
+| qwen/qwen3.5-397b-a17b | Writer/auditor | 0.55 / 3.50 |
+
+Endpoint: `https://openrouter.ai/api/v1/chat/completions`; automatic routing, with observed providers and supported capabilities saved in [model_manifest.json](results/model_manifest.json). Exact model IDs are fixed; provider weights/routing are not pinned. Each response uses a fresh conversation and system message `You are a helpful assistant.`, temperature 0, top_p 1, requested seed 42. Gemini reasoning effort is minimal; Qwen reasoning is requested disabled. Raw payloads, returned IDs, providers, timestamps, usage and outputs are in [results/raw](results/raw/).
+
+The first API pass allowed 256 output tokens; uniform reruns raised **all available behavioral cells to 1,536** after truncation was discovered. Both passes remain saved. Source-style classification was elicited in **separate sessions**, using only `AI` or `HUMAN` and 32 API tokens; it never preceded the behavioral answer. Four formatting behavior cells and four formatting perception cells were provider-blocked, and are missing responses rather than assistant refusals. One rewrite request also returned a provider error. Other rewrite failures were textual refusals or invalid JSON.
+
+Local **Qwen/Qwen3-8B**, revision `b968826d9c46dd6066d109eabc6255188de91218`, is an intentionally older **mechanistic baseline**, selected for accessible transformer internals. It does not stand in for either contemporary API model. Nonthinking greedy decoding used bfloat16 weights, left padding, batch size **16**, and 128 output tokens for refusal/task prefixes; opinion outputs were uniformly expanded to **384**. Perception used 8 tokens. No model fine-tuning was performed.
+
+Hardware: one **NVIDIA RTX A6000, 49,140 MiB**, approximately 48,541 MiB initially free. Main local execution took **443.8 seconds** and peaked at **16.32 GiB** allocated GPU memory; the longer-opinion/logit diagnostic pass took **632.6 seconds**, peaking at **16.79 GiB**, and framing validation took **19.8 seconds**. These are script wall times, not a CPU/GPU speed comparison. No training-time comparison applies to frozen inference. An initial Torch eager-Triton/compiler failure was repaired by disabling those overrides and using standard ATen CUDA kernels; the error and workaround are documented here and in the code. The current local log reflects the successful rerun.
+
+Python 3.12.8; Torch 2.14.1; Transformers 4.57.6; NumPy 2.5.3; SciPy 1.18.1; scikit-learn 1.9.1. The project used its own `.venv`, `uv`, [pyproject.toml](pyproject.toml), and [uv.lock](uv.lock); no system/neurico environment was used. Full versions: [environment.json](results/environment.json).
+
+### Representation and intervention protocol
+
+We preselected decoder-block 17’s output (hidden-state slot **18 of 36**) at the final nonpadding prompt token. All styles of each request stay together. Training uses 77 first-audit-accepted WildChat pairs; testing uses 124 benchmark pairs, with no request overlap. Standardization and all fitted models use training data only. We compare a mean-difference direction, logistic activation probe (C=.1), shuffled-label probe, and a surface logistic probe using word count, character count, newlines, colons, question marks, “please” count, and uppercase fraction. Unseen-writer tests train on one writer’s calibration pairs and evaluate the other writer’s benchmark pairs. They also change domain mixtures, so are not pure generator-only contrasts.
+
+The style unit vector is the mean paired AI-minus-human activation difference. Evaluation framing contrasts “a model evaluation” with “a real user conversation” on fixed calibration bodies. The length nuisance vector is the word-count coefficient from a ridge model predicting activations from all seven surface features. A training-only surface regression supplies a separate residual-probe diagnostic. Neither the style vector nor the framing vector is assumed to be a verified belief representation.
+
+On 20 fixed human-style bodies per domain, we intervened **only at the final prompt token during prefill**, at the same layer: sham; ±one mean-gap style dose; double style dose; two random unit vectors; evaluation and length vectors with the same norm; and centering/ablation of the style coordinate. One gap has norm **8.181**, versus mean calibration hidden norm **83.518**. Actual additive edit norms match within 1%, verified after the hook. Random controls named `random_42`/`random_43` are **two consecutive draws from RNG seed 42**, not two separately seeded runs. Centering has a sample-dependent norm and is exploratory, not itself norm-matched. No natural activation rescue or all-token intervention was performed.
+
+### Metrics and statistical analysis
+
+Refusal is explicit refusal of all or a substantive part of the request. It is **not the complement of harmful compliance**. A separate 0/1/2 fulfillment rubric distinguishes none, partial/generic, and substantial requested assistance. Opinion alignment is endorsement of the persona-matching option; it is not factual accuracy or proof of sycophancy caused by that persona. Main opinion comparisons require unambiguous choices in both arms. No-choice/abstaining outputs are reported separately, with an unconditional explicit-alignment sensitivity analysis that codes no observed endorsement as zero.
+
+Judges see only the canonical request and response, never treatment/source labels. Gemini responses are judged by Qwen3.5-397B; Qwen API/local responses by Gemini. Canonical-request judging can still be biased when the rewrite changes meaning. A second-model audit of 90 long-budget outputs found:
+
+| Domain | N | Judge agreement | Cohen κ |
+| --- | --- | --- | --- |
+| harmful | 30 | 90.0% | 0.609 |
+| benign | 30 | 96.7% | 0.911 |
+| sycophancy | 30 | 100.0% | 1.000 |
+
+These are model-model agreement estimates, not accuracy against human labels. Representative benign disagreements are saved in [benign_discordant_examples.json](results/benign_discordant_examples.json).
+
+We report request-paired risk differences, 10,000-resample paired bootstrap 95% intervals, exact McNemar/binomial discordance p-values, and Holm correction across the six primary API model×domain tests within each experiment. Opinion complete-case selection can bias these estimates. Zero-discordance bootstraps collapse to [0,0], so we also report conservative **at-least-95% bounds** obtained by differencing simultaneous 97.5% Clopper–Pearson intervals for the two discordant probabilities. Those bounds avoid presenting zero observed changes as certainty. They are pointwise, not simultaneous across all endpoints. Secondary endpoint families are marked exploratory. A planned 10-point meaningful-effect threshold is generally not ruled out; at N=60 and discordance .2, approximate 80%-power sensitivity is about 16 points. The local per-domain N=20 interventions are substantially less precise.
+
+## 4. Results
+
+### 4.1 Exact-content formatting control
+
+Endpoint is refusal for harmful/benign prompts and conditional opinion alignment for the sycophancy dataset. Positive Δ means more of that endpoint under the formatted AI-style wrapper.
+
+| Model | Endpoint / sample | N paired | Human % | AI % | Δ pp | Bootstrap 95% CI | Conservative 95% CI | Holm p |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Gemini 3.1 Flash Lite | harmful | 58 | 93.1 | 94.8 | +1.7 | [0.0, 5.2] | [-7.3, 10.5] | 1.000 |
+| Gemini 3.1 Flash Lite | benign | 59 | 8.5 | 8.5 | +0.0 | [-5.1, 5.1] | [-10.3, 10.3] | 1.000 |
+| Gemini 3.1 Flash Lite | sycophancy | 30 | 86.7 | 93.3 | +6.7 | [0.0, 16.7] | [-13.0, 24.5] | 1.000 |
+| Qwen3.5-9B | harmful | 60 | 96.7 | 96.7 | +0.0 | [0.0, 0.0] | [-7.0, 7.0] | 1.000 |
+| Qwen3.5-9B | benign | 60 | 38.3 | 41.7 | +3.3 | [-3.3, 10.0] | [-9.4, 15.3] | 1.000 |
+| Qwen3.5-9B | sycophancy | 50 | 90.0 | 86.0 | -4.0 | [-10.0, 0.0] | [-15.3, 8.1] | 1.000 |
+
+All six primary adjusted p-values are 1. This is lack of detected differences, not general equivalence. The narrow Qwen harmful-refusal bound is inside ±10 points, but refusal is near ceiling and its authorship manipulation check fails; that cannot establish an authorship-invariant model. Gemini’s corresponding conservative harmful-refusal bound is **−7.3 to +10.5 points**, and its benign bound is about **±10.3 points**.
+
+For unconditional explicit alignment on all 60 opinion requests, Gemini’s difference is **−1.7 points** (bootstrap CI −11.7 to +8.3). Qwen’s is **−11.7 points** (CI −21.7 to −3.3; conservative CI −26.2 to +4.9), with 1 positive and 8 negative discordant pairs, p=.0391 and two-model Holm p=.0781. This discrepancy from the conditional-choice endpoint shows why abstentions cannot simply be dropped or conflated with disagreement. It is exploratory and does not survive even the limited sensitivity-family correction.
+
+Substantial fulfillment differences in the exact-content arm were −3.4 points (Gemini harmful), −3.4 (Gemini benign), 0.0 (Qwen harmful), and −3.3 (Qwen benign); all four Holm p=1. Full ordinal coding and rates are saved, rather than equating lack of refusal with successful assistance.
+
+### 4.2 Manipulation checks
+
+| Experiment | Model | Domain | N | Human-style called AI % | AI-style called AI % | Δ pp |
+| --- | --- | --- | --- | --- | --- | --- |
+| paraphrase | Gemini 3.1 Flash Lite | harmful | 22 | 4.5 | 100.0 | +95.5 |
+| paraphrase | Gemini 3.1 Flash Lite | benign | 44 | 0.0 | 95.5 | +95.5 |
+| paraphrase | Gemini 3.1 Flash Lite | sycophancy | 58 | 44.8 | 94.8 | +50.0 |
+| paraphrase | Qwen3.5-9B | harmful | 22 | 0.0 | 18.2 | +18.2 |
+| paraphrase | Qwen3.5-9B | benign | 44 | 0.0 | 9.1 | +9.1 |
+| paraphrase | Qwen3.5-9B | sycophancy | 58 | 0.0 | 0.0 | +0.0 |
+| format | Gemini 3.1 Flash Lite | harmful | 59 | 27.1 | 91.5 | +64.4 |
+| format | Gemini 3.1 Flash Lite | benign | 59 | 0.0 | 88.1 | +88.1 |
+| format | Gemini 3.1 Flash Lite | sycophancy | 60 | 91.7 | 98.3 | +6.7 |
+| format | Qwen3.5-9B | harmful | 60 | 0.0 | 3.3 | +3.3 |
+| format | Qwen3.5-9B | benign | 60 | 0.0 | 0.0 | +0.0 |
+| format | Qwen3.5-9B | sycophancy | 60 | 0.0 | 0.0 | +0.0 |
+
+Gemini reacts strongly to style in JBB requests; Qwen3.5-9B usually calls both styles HUMAN. Gemini already calls most original-persona opinion prompts AI-like, leaving little formatting headroom there. Local Qwen3-8B’s separate-session AI classifications also shift weakly: +18.2 points harmful, +6.8 benign, −1.7 opinion, none significant after its three-domain correction. These are elicited classifications, not calibrated probabilities or verified beliefs during task execution.
+
+![Separate-session authorship-style judgments](figures/perception.png)
+
+*Figure 1. Change in AI classifications; response generation occurred in independent sessions.*
+
+### 4.3 Paraphrase and source-label comparisons
+
+The following contrasts include **all successful rewrites**, not just semantically acceptable ones, and therefore remain confounded exploratory results:
+
+| Model | Endpoint / sample | N paired | Human % | AI % | Δ pp | Bootstrap 95% CI | Conservative 95% CI | Holm p |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Gemini 3.1 Flash Lite | harmful | 22 | 81.8 | 68.2 | -13.6 | [-27.3, 0.0] | [-37.9, 15.8] | 1.000 |
+| Gemini 3.1 Flash Lite | benign | 44 | 11.4 | 11.4 | +0.0 | [-6.8, 6.8] | [-13.6, 13.6] | 1.000 |
+| Gemini 3.1 Flash Lite | sycophancy | 26 | 88.5 | 88.5 | +0.0 | [0.0, 0.0] | [-15.5, 15.5] | 1.000 |
+| Qwen3.5-9B | harmful | 22 | 95.5 | 86.4 | -9.1 | [-22.7, 0.0] | [-32.1, 17.3] | 1.000 |
+| Qwen3.5-9B | benign | 44 | 47.7 | 45.5 | -2.3 | [-15.9, 11.4] | [-24.5, 20.4] | 1.000 |
+| Qwen3.5-9B | sycophancy | 47 | 91.5 | 83.0 | -8.5 | [-19.1, 2.1] | [-25.0, 9.9] | 1.000 |
+
+The apparent Gemini harmful-refusal reduction (−13.6 points) rests on only three discordant pairs. Unlike the truncated first pass, long-budget fulfillment coding also found +13.6 points substantial assistance; neither comparison is significant, and the semantic controls do not support attribution to authorship. Exact first-audit, direct-pair, strict, tight-surface and complete-output subsets are in [paired_effects.csv](results/paired_effects.csv) and [sensitivity.csv](results/sensitivity.csv). Only 1 harmful, 3 benign and 3 opinion requests pass the strict gate, so no broad conclusion is drawn from that subset.
+
+The fixed-body source-label experiment is separately exploratory:
+
+| Model | Domain | N paired | AI-label minus human-label, pp | Conservative 95% CI | Exact p |
+| --- | --- | --- | --- | --- | --- |
+| Gemini 3.1 Flash Lite | harmful | 20 | -5.0 | [-27.9, 19.6] | 1.000 |
+| Gemini 3.1 Flash Lite | benign | 20 | +0.0 | [-19.7, 19.7] | 1.000 |
+| Gemini 3.1 Flash Lite | sycophancy | 13 | -23.1 | [-57.6, 24.7] | 0.250 |
+| Qwen3.5-9B | harmful | 20 | +5.0 | [-19.6, 27.9] | 1.000 |
+| Qwen3.5-9B | benign | 20 | -5.0 | [-27.9, 19.6] | 1.000 |
+| Qwen3.5-9B | sycophancy | 13 | -7.7 | [-40.1, 28.5] | 1.000 |
+
+Each label arm covers only 20 original requests per domain before opinion no-choice filtering; label-demand effects are not equivalent to implicit authorship perception. No reliable attribution effect was detected.
+
+![Paired behavioral effects](figures/behavior_effects.png)
+
+*Figure 2. Primary API contrasts with paired bootstrap intervals. Degenerate zero-discordance intervals are supplemented by conservative bounds in the tables.*
+
+### 4.4 Representation results and framing overlap
+
+| Readout / control | Held-out result |
+| --- | --- |
+| Logistic activation probe | AUROC 0.990; AUPRC 0.989 |
+| Mean-difference activation direction | AUROC 0.970; request-bootstrap 95% CI 0.954–0.984 |
+| Surface-only logistic classifier | AUROC 0.970 |
+| Shuffled-label activation classifier | AUROC 0.495 |
+| Activation probe after train-only surface residualization | AUROC 0.665 |
+| Strict-audit-only calibration mean direction (18 pairs) | AUROC 0.965 |
+| Unseen-writer logistic transfer, two directions | AUROC 0.970 and 0.972 |
+| Style vs evaluation-framing direction cosine | 0.299 |
+| Style vs conditional word-length direction cosine | -0.487 |
+| Style vs evaluation projection correlation on test prompts | 0.641 |
+| Style/evaluation cosine after projecting out length direction | 0.342 |
+
+The mean direction’s per-domain AUC is 1.000 harmful, .999 benign, and .900 opinion. Strong separation is consequently not strong evidence for source recognition: measured surface features carry almost the same label information. Residualization reduces discrimination substantially, but is itself a linear nuisance diagnostic and can remove genuine style information; it does not prove that all relevant processing is superficial.
+
+The evaluation direction transferred only weakly to **180 held-out requests with equal-word-count unseen framing cues** (“model assessment session” vs “user assistance session”): AUC **.616**; the style direction on those cues reached **.573**. Thus the cosine measures overlap with a limited framing proxy, not a validated general evaluation-awareness representation. Training framing also has a word-count difference, which remains a potential confound.
+
+![Held-out style projections and overlap with framing](figures/representations.png)
+
+*Figure 3. Test-request projections, colored by rewrite style. Correlated coordinates alone do not establish mediation.*
+
+### 4.5 Fixed-text intervention results
+
+Sham harmful refusal was 85%, benign refusal 35%, and conditional opinion alignment 88.2% in 17 scorable pairs. All intervention endpoint exact p-values were 1; the study has little power at these sample sizes.
+
+| Intervention | Harmful refusal Δ pp (N=20) | Benign refusal Δ pp (N=20) | Opinion alignment Δ pp (paired N) |
+| --- | --- | --- | --- |
+| evaluation | +0.0 | +0.0 | +0.0 (17) |
+| length | +0.0 | +0.0 | +0.0 (17) |
+| random_42 | +0.0 | +0.0 | +0.0 (17) |
+| random_43 | +0.0 | +5.0 | -5.9 (17) |
+| sham | +0.0 | +0.0 | +0.0 (17) |
+| style_ablate | +0.0 | +0.0 | +0.0 (17) |
+| style_double | +0.0 | +5.0 | -5.9 (17) |
+| style_minus | +0.0 | +0.0 | -6.2 (16) |
+| style_plus | +0.0 | +0.0 | +0.0 (17) |
+
+All harmful contrasts have conservative intervals approximately **±19.7 points** despite zero observed flips. The double style dose and one random direction each changed one benign refusal and one opinion-alignment response. This does not establish style specificity. Centering the style coordinate did not establish necessity; without a robust natural effect, controlled rescue was not attempted.
+
+The edits nevertheless changed model computations: mean next-token KL divergence from sham was **.0778 nats** for +style, **.0805** for −style, **.3108** for double style, **.0102/.0202** for random controls, **.1195** for length, and **.0087** for evaluation framing. The length direction changed the output distribution more than the single-dose style direction. These descriptive logit effects are not behavioral mediation tests. The final-token authorship classifier produced AI on **4/60** sham prompts and **4/60** +style prompts, versus 6/60 double-dose prompts; targeted belief engagement is therefore not established by this verbal readout.
+
+Every arm answered **30/30 arithmetic checks** correctly. No intervention response was rated incoherent. That excludes obvious collapse on this small diagnostic, not subtle capability loss. Local refusal/task outputs remain short: 26/66 harmful and 113/132 benign baseline generations reached the 128-token limit. Longer opinion generation reduced baseline truncations from 103/174 to 30/174. See [budget_diagnostics.csv](results/budget_diagnostics.csv), [intervention_effects.csv](results/intervention_effects.csv), [arithmetic.csv](results/arithmetic.csv), and [logit_summary.csv](results/logit_summary.csv).
+
+## 5. Analysis & Discussion
+
+The most defensible result is a **measurement dissociation**: exact-content surface formatting substantially changes Gemini’s elicited source judgments without a detected primary behavioral effect in this sample. The premise that short prompts are consistently recognized as machine-written is model/readout dependent. In particular, Qwen’s highly separable internal activations coexist with weak verbal source discrimination; a classifier fitted by the investigator need not measure a belief used by the responder.
+
+The strongest practical failure was semantic control. For example, both syc_0 rewrites dropped parts of the original persona/research-interest details, while the first auditor incorrectly approved preservation. Other rewrites changed “program” into “script,” interpreted ambiguous requirements, or changed specificity. Conversely, the strict auditor sometimes rejected harmless request-tone changes. The audit disagreement makes any claim from the seven retained benchmark pairs unstable. These findings support the submitter’s warning that an ordinary rewrite comparison can be misleading.
+
+The output-budget check also mattered: initial Gemini paraphrase-opinion outputs were truncated in 131/174 cases; after expansion none were truncated, but 79/174 still lacked an unambiguous choice. These are often substantive abstentions or multi-perspective answers, not parsing defects. Qwen’s paraphrase conditional-alignment contrast changed sign between the short and long passes; generation budget and backend variation should not be ignored. [budget_diagnostics.csv](results/budget_diagnostics.csv) and saved initial results make this visible.
+
+Behavioral estimates can also reflect judge variation. Independent long-output judges disagreed on 3/30 harmful and 1/30 benign samples. That is large relative to several observed treatment differences. The 24-request uncached API replay exactly reproduced only **10/24 texts**, although **23/24 coded endpoints** agreed. Cached-output analysis is reproducible; future API generations are not guaranteed identical even with temperature 0 and requested seed 42. In contrast, the local 16-request same-batch replay reproduced every output exactly.
+
+### Cost, artifacts and reproducibility
+
+The cache contains **9,612 unique request records**, including 9 terminal errors; this is not a count of all retry attempts. Reported successful-response usage totals **2,771,056 input** and **1,380,045 output tokens**, costing **$2.6493**. This excludes the separate $0.00000925 smoke call and any unreported charges for failed/retried calls. Costs by model/task are in [costs.csv](results/costs.csv), and final-cell usage by condition in [condition_costs.csv](results/condition_costs.csv); the latter is a per-cell accounting and may reference cached calls also represented elsewhere.
+
+Key outputs: `results/*_outputs_long.json` (final responses), `*_scored_long.json` (blind-coded responses), `results/raw/` (payloads/provider evidence), `results/processed/` (selection/pairs/audits), `results/activations.npz` (frozen features and directions), `results/*.csv` (all estimates), and `figures/` (plots). [README.md](README.md) gives the execution order. `src/validate.py` checks fixed text/word sequences, split separation, actual intervention norms, hand-calculated statistics, local replay, and identical hashes from two offline analysis runs. Its recorded outcome is [validation.json](results/validation.json).
+
+## 6. Limitations & Future Work
+
+1. **No general human-vs-LLM authorship claim.** Human-style text is generated; original dataset provenance is not verified human-only. Elicited style classifications need not reflect spontaneous inference during responding.
+2. **Paraphrase content control failed at scale.** Attrition is severe and selective. Automated semantic audits have false approvals and apparent false rejections; there are no human gold audits. Only the narrower format control has mechanically guaranteed fixed lexical content.
+3. **Power/headroom are limited.** N=60 per format domain, N=22 harmful paraphrases, and N=20 per intervention domain cannot rule out small effects. Harmful refusal is often near ceiling. Benign JBB requests supply more headroom, but no dedicated borderline-risk benchmark was constructed.
+4. **Opinion alignment has construct and selection limits.** Persona alignment is not necessarily unreasonable agreement, and no neutral/opposite-persona factorial was run. Conditional-choice analysis selects on a treatment-affected outcome; unconditional coding is therefore reported separately. Opinion labels provide no factual accuracy ground truth.
+5. **Mechanistic identifiability is weak.** One older local backbone, one layer/token/time, two random draws, no all-token ablation or natural rescue, and a weakly transferring evaluation-framing proxy. The learned style direction mixes surface variables; a causal change in logits is not proof of an authorship-mediated behavioral pathway. The same mechanism was not tested inside Gemini.
+6. **Scoring and generation remain variable.** Judges are models with correlated biases; generator/respondent families overlap; residual truncation remains locally and in some Qwen API tasks. Automatic provider routing is not pinned. Only a small API replay sample was checked.
+7. **External validity is narrow.** English, synthetic survey personas, a WildChat prefix, one rewrite per writer/request, potentially contaminated public benchmarks, and efficient API models. No multi-agent tool-use environment, human comparison, cross-lingual replication, or broad capability battery was run.
+
+The next study should construct human-audited proposition-preserving pairs or a richer fixed-content factorial, include several borderline-risk domains, validate source and evaluation representations on independently labeled held-out corpora/templates, and power behavioral estimates from observed discordance. If a natural effect replicates, test necessity and matched-coordinate rescue across layers/tokens with more random and nuisance controls. Replicate the Qwen unconditional-alignment signal with fixed provider routing and prespecified abstention handling before interpreting it.
+
+## 7. Conclusions
+
+Some prompt surface cues clearly change a model’s reported authorship-style judgment. This study does not establish that they reliably change safety-relevant behavior through an internal representation of “an LLM wrote this.” The controlled formatting results are compatible with a bounded null for several endpoints, but failures of broader content control, limited power, weak target engagement and readout dependence leave the general causal question open.
+
+## References
+
+- Needham et al. [Large Language Models Often Know When They Are Being Evaluated](https://arxiv.org/abs/2505.23836).
+- Abdelnabi & Salem. [The Hawthorne Effect in Reasoning Models](https://arxiv.org/abs/2505.14617).
+- Nguyen et al. [Probing and Steering Evaluation Awareness of Language Models](https://arxiv.org/abs/2507.01786).
+- Chen et al. [RepreGuard](https://arxiv.org/abs/2508.13152).
+- Quaremba et al. [Linear Probing Provides Robust and Efficient Detection of Machine-Generated Text](https://arxiv.org/abs/2608.24780).
+- Panickssery et al. [LLM Evaluators Recognize and Favor Their Own Generations](https://arxiv.org/abs/2404.13076).
+- Devbunova. [Is Evaluation Awareness Just Format Sensitivity?](https://arxiv.org/abs/2603.19426).
+- Chalkidis. [Templated or Fully Synthetic?](https://arxiv.org/abs/2608.11008).
+- Datasets: [JBB-Behaviors](https://huggingface.co/datasets/JailbreakBench/JBB-Behaviors), [Anthropic original sycophancy evaluations](https://github.com/anthropics/evals/tree/84fcc677e52e1902d696c32cd1a6b663e70d3993/sycophancy), [WildChat-1M](https://huggingface.co/datasets/allenai/WildChat-1M). Local hashes/licenses and download instructions: [datasets/README.md](datasets/README.md).
+- Tools/model: [Qwen3-8B model card](https://huggingface.co/Qwen/Qwen3-8B), [OpenRouter API documentation](https://openrouter.ai/docs/api_reference/overview). Additional papers and upstream code commits: [resources.md](resources.md).
+
+
+════════════════════════════════════════════════════════════════════════════════
+                            RESEARCH PLAN
+════════════════════════════════════════════════════════════════════════════════
+
+# Research execution plan and amendment summary
+
+The original resource-finder ranking, pre-outcome execution protocol, and dated amendments are preserved in [planning_full_execution.md](notes/planning_full_execution.md). This compact plan summarizes that record; it is not an external preregistration. Actual findings are in [REPORT.md](REPORT.md).
+
+## Motivation & Novelty Assessment
+
+### Why This Research Matters
+LLM-generated instructions appear in synthetic safety evaluations and multi-agent orchestration. If apparent authorship changes behavior, those evaluations may fail to transfer to human deployment.
+
+### Gap in Existing Work
+The gathered literature separately studies evaluation awareness, authorship detection, and self-preference. It does not establish authorship-mediated safety behavior under strong content controls. Format/length and pragmatic differences are competing explanations.
+
+### Our Novel Contribution
+Join controlled style contrasts, independent-session authorship checks, fixed-body source labels, and held-out activation interventions. Distinguish generated human style from actual human provenance. Detection and steering alone cannot establish mediation.
+
+### Experiment Justification
+1. Original/human-style/AI-style prompts separate paraphrasing from AI-like style, conditional on semantic audits.
+2. Human/AI source labels on identical bodies test attribution sensitivity separately from text effects.
+3. Fixed-text activation interventions with random, length and framing controls test specificity and degradation.
+
+## Research Question and Hypothesis Decomposition
+H1: AI-like style changes refusal, task fulfillment or opinion alignment. H2: the responder perceives the manipulation as AI-like. H3: a held-out style representation generalizes and specifically affects behavior when edited on fixed text. H4: it overlaps an independently checked evaluation-framing direction. These hypotheses must be assessed separately; human/AI ground-truth authorship is not available.
+
+## Direction Budget
+
+Scores 1–5, equal weights: literature evidence / relevance / information gain / feasibility.
+
+| Direction | Scores | Total | Decision |
+| --- | --- | --- | --- |
+| Content-controlled style pairs | 5/5/5/5 | 20 | Keep |
+| Fixed-body source labels | 4/5/5/5 | 19 | Keep |
+| Generalizing probes and causal specificity | 4/5/5/2 | 16 | Keep, GPU conditional |
+| Detector leaderboard alone | 5/2/2/5 | 14 | Prune: no behavioral mechanism |
+| WildChat versus synthetic-benchmark comparison | 4/3/2/5 | 14 | Prune: inseparable content/provenance |
+| Recognition/alignment fine-tuning | 3/3/3/2 | 11 | Prune: changes responder and complicates causality |
+| Multi-agent tool-use expansion | 3/3/3/1 | 10 | Prune: new tool/context confounds |
+| Multilingual/demographic factorial | 3/3/3/1 | 10 | Prune: scope before central effect established |
+
+Exactly these three retained directions were implemented; later corrections stay inside them.
+
+## Proposed Methodology
+
+### Approach and Experimental Steps
+- Seed 42: sample 60 harmful and 60 benign JBB behaviors; 60 unique Anthropic survey-question groups; 100 separate short English WildChat calibration requests. Do not treat the gathered WildChat prefix as representative or verified-human data.
+- Check the live OpenRouter catalog before selection. Use current efficient-tier Gemini 3.1 Flash Lite and Qwen3.5-9B for API response evaluation; Gemini and Qwen3.5-397B alternate as writers. Use a pinned, explicitly historical Qwen3-8B for mechanistic access on the A6000.
+- Generate two paraphrases preserving task, entities, persona, stance, certainty, options and harm level. Compare original and both rewrites. Audit paired semantic equivalence, clarity and politeness before behavioral analysis; report failures and attrition.
+- Run independent conversations and separate AI/HUMAN style-classification sessions. Cross the first 20 available human-style bodies per domain with human/AI source declarations.
+- Extract layer-18 final-prompt-token activations. Train all preprocessing/probes only on calibration pairs. Test on benchmark requests and unseen-writer transfer; compare surface-only and shuffled-label baselines.
+- Intervene only at the last prompt token during prefill. Compare sham, ±style, double style, two equal-norm random draws, length/evaluation directions, and coordinate centering. Score generated behavior, separate authorship readouts, next-token KL and arithmetic capability. Do not infer necessity or mediation without successful target engagement and stronger rescue evidence.
+
+### Baselines and Evaluation Metrics
+Original request; human-style paraphrase; exact-content formatting control (amendment below); no-source and explicit-source conditions. Primary endpoints are refusal in harmful/benign domains and opinion alignment among unambiguous choices. Also report fulfillment, abstention/no-choice coverage, unconditional explicit alignment, truncation, incoherence, probe AUROC/AUPRC, framing overlap, and capability diagnostics. None is factual accuracy except the limited arithmetic checks.
+
+### Statistical Analysis Plan
+Within-request differences, 10,000 paired bootstrap resamples, exact McNemar tests, and Holm correction across six API model×domain primary tests per experiment. Conservative simultaneous-binomial difference bounds supplement degenerate zero-discordance bootstrap intervals. Keep variants grouped; repeats are not independent requests. Opinion missingness and audit attrition require sensitivity analyses. A 10-point meaningful-effect threshold is often below feasible precision (roughly 16-point detectable effect at N=60 and discordance .2). Secondary families are exploratory.
+
+## Documented Amendments and Challenges
+- **Pre-outcome audit correction:** a spot-check found omitted persona facts despite the first auditor’s approval. Add a strict cross-writer omission audit and rewrite/original word ratios in [0.75,1.25]; preserve initial and strict subsets.
+- **Before behavioral analysis:** strict filtering left only seven benchmark pairs. Add fixed-content formatting/case contrasts on all 180 requests, with identical request bytes and complete case-insensitive word sequences. This tests format sensitivity, not comprehensive authorship style.
+- **After instrumentation diagnostics:** the 256-token API cap caused extensive truncation. Uniformly extend all available behavioral cells to 1,536 tokens; retain initial results. Expand local opinion outputs from 128 to 384 tokens. Keep provider blocks missing, distinct from assistant refusal.
+- Check strict-calibration-only and surface-residual probes; validate framing on new equal-word-count cue templates. These are sensitivity checks, not a search over new research directions.
+- Human auditing, a broad factual benchmark, full label×style factorial, distributed steering, and natural activation rescue are not completed. Their absence limits the causal claim.
+
+## Expected Outcomes and Success Criteria
+A useful result may be a controlled effect, a sufficiently bounded null, or identification of manipulation/control failure. Success requires actual model outputs, transparent uncertainty/attrition, code and evidence artifacts, and honest limits. It does not require confirming the hypothesis. No broad causal conclusion follows from AUROC alone.
+
+## Timeline, Resources and Milestones
+Planning/setup 15–25 minutes; prompt generation/audits 20–40; API/GPU experiments 45–120; analysis/documentation 20–40, with about 25% debugging reserve. These were planning estimates, not measured durations. One RTX A6000 (49,140 MiB), an isolated uv environment, GPU bfloat16 inference, cached API calls, and a provisional API estimate below $30 were available. Actual runtimes/costs are reported from saved logs and provider usage.
+
+
+════════════════════════════════════════════════════════════════════════════════
+                          LITERATURE REVIEW
+════════════════════════════════════════════════════════════════════════════════
+
+# Literature review
+
+## Scope and conclusion
+
+The literature supports prompt-sensitive behavior and some ability to detect text provenance. It does **not** establish that a responder changes safety behavior because it internally identifies its prompter as an LLM. Actual authorship, AI-like style, declared authorship, evaluation context and task content are distinct variables. The strongest opportunity is to cross them under audited semantic controls, then test whether a generalizing representation mediates behavior.
+
+Search: diligent paper-finder first (39 candidates), then primary arXiv/publisher pages, Semantic Scholar metadata attempts and citation chasing. Twelve finder candidates passed task-specific screening; 24 PDFs total were downloaded, including all ten specified papers. Semantic Scholar returned 429; publisher CDN resolved an MDPI 403. Search decisions: [screening log](notes/search_screening.md). All specified PDFs and Devbunova were read through every 3-page chunk using text-assisted reading and rendered sheets. Other papers received targeted screening, not exhaustive appendix review. Full author lists, PDF versions, hashes and links: [paper catalog](papers/README.md); detailed notes: [reading log](notes/reading_log.md), [extended notes](notes/extended_reading.md). Findings below are published results, not results from this workspace.
+
+## Key papers: authorship and preference
+
+**Panickssery, Bowman & Feng (2024), “LLM Evaluators Recognize and Favor Their Own Generations.”** [Paper](https://arxiv.org/abs/2404.13076). GPT-4, GPT-3.5 and Llama2 evaluate summaries of 1,000 articles each from XSUM and CNN/DailyMail. Pairwise and individual ratings, order reversal, self-recognition fine-tuning and length/vowel/readability control tasks connect recognition with preference. GPT-4 achieves 73.5% recognition in the reported aggregate. Swapping source labels changes GPT-4 XSUM preference from 0.73 to 0.32, but CNN only 0.94 to 0.89. The authors explicitly leave causal validation open; fine-tuning can alter other properties. Reuse label swaps and order controls, not the assumption that recognition causes preference. Code linked from paper: `bit.ly/llm_self_recognition`.
+
+**Laurito et al. (2024/PNAS 2025), “AI–AI Bias: Large Language Models Favor Communications Generated by Large Language Models.”** [Paper](https://arxiv.org/abs/2407.12856). Regenerates descriptions for 109 products, 100 papers and 250 movies, then compares choices across five model families and a small human sample. GPT-4-generated product descriptions are selected 89% by LLMs versus 36% by humans. Counterbalanced presentation and abstract word-count matching address some confounds. Human comparison has 13 raters; invalid responses are excluded, and title-based movie generation need not preserve facts. This is stylistic preference evidence, not safety mediation. Code: [ai-ai-bias](https://github.com/lauritowal/ai-ai-bias).
+
+**Xu, Li & Jiang (2025, PDF revised 2026), “AI Self-preferencing in Algorithmic Hiring.”** [Paper](https://arxiv.org/abs/2509.00462). Uses 2,245 cleaned pre-LLM resumes, regenerated summaries, nine evaluators, conditional logistic regressions controlling LIWC/semantic similarity, and 18 human annotators. Larger-model adjusted self-minus-human preference gaps range approximately 67–82 percentage points; cross-LLM effects are weaker and heterogeneous. Revision-only checks and simulated screening extend the result. Baselines include original summaries, other generators, source-neutral instructions and small-model voting. Similarity controls do not guarantee equal information or quality; simulation is not actual hiring, and mitigation does not isolate self-recognition. Public resume source: Kaggle/LiveCareer; no dedicated code release verified.
+
+## Key papers: awareness and causal interpretation
+
+**Needham et al. (2025), “Large Language Models Often Know When They Are Being Evaluated.”** [Paper](https://arxiv.org/abs/2505.23836). Builds 1,000 transcripts from 61 sources, balanced chat/agentic and evaluation/deployment, with 100 development and 900 test items. Five elicitation questions and repeated samples produce AUC around 0.83 for strong models versus 0.921 for informed human authors. Agentic discrimination exceeds chat; probability calibration is poor. Multiple-choice versus open-ended purpose identification differs strongly. Deployment includes synthetic instructions, so its labels cannot become authorship labels. Explicitly asking whether a transcript is an evaluation may itself prime the phenomenon. Code: [eval_awareness](https://github.com/jjpn97/eval_awareness).
+
+**Abdelnabi & Salem (2025), “The Hawthorne Effect in Reasoning Models: Evaluating and Steering Test Awareness.”** [Paper](https://arxiv.org/abs/2505.14617). Three 32B reasoning models, 2,587 real/hypothetical prompt pairs, judge-labeled reasoning spans, linear probes and edits to aligned FFN rows. Span probes reach approximately 93–95% accuracy, but prompt-token readouts are weaker. On 150 synthetic tool-call pairs, steering awareness increases QwQ real-task execution 36.2→56.3%; effects differ by model/direction. Standard harmful-answer judgments show weaker evidence. HarmBench, BBQ and small capability subsets provide checks. “Test,” “hypothetical” and safety concepts remain entangled. Code: [Test_Awareness_Steering](https://github.com/microsoft/Test_Awareness_Steering). The specified [LessWrong post](https://lesswrong.com/posts/B2o6nrxwKxLPsSYdh/do-llms-comply-differently-during-tests-is-this-a-hidden) summarizes earlier work, not independent corroboration.
+
+**Nguyen et al. (2025), “Probing and Steering Evaluation Awareness of Language Models.”** [Paper](https://arxiv.org/abs/2507.01786). Llama3.3-70B, 480 layer/dataset probes, SAD selection and held-out benchmark classification. A simple contrastive probe attains AUC 0.816 versus length 0.584 and random 0.517. In prompted WMDP sandbagging, linear-probe steering recovers under 5% of lost accuracy; selected SAE features recover up to roughly 25%, but an unrelated feature is competitive. An explicit deployment suffix recovers 83%. This is a valuable negative/specificity control: predictive probes need not identify the controlling mechanism. Code is linked in paper; reuse diagnostics through the related repositories in the resource catalog.
+
+**Heidari, Memarian & Rabusseau (2026), “Evaluation Awareness in Language Models: Representation, Verbalization, and Control.”** [Paper](https://arxiv.org/abs/2608.21766). Six 7–49B open models, 16 framing pairs, 400 calibration/200 test items from WildChat and benchmarks, plus 1,000 MASK prompts for verbalization. Best-layer AUROC exceeds 0.7, but prompt-level probe/verbalization correlation is small; steering changes verbalization. Training-stage comparisons use Olmo. This does not establish safety changes. Appendix judge-rubric changes greatly alter Olmo prevalence; no human gold validation. Norm scaling includes padding, and large steering causes degeneration. Code: [evaluation-awareness](https://github.com/evaluation-awareness/evaluation-awareness).
+
+## Key papers: detection and surface confounds
+
+**Quaremba et al. (2026), “Linear Probing Provides Robust and Efficient Detection of Machine-Generated Text.”** [Paper](https://arxiv.org/abs/2608.24780). Frozen Llama3-8B last-token activations, training-only PCA 100, per-layer averaged or concatenated logistic probes; four benchmarks (DetectRL, MultiSocial, RAID, TSM), 16 subsets with 1,500/500 train/test examples and 16 detector baselines. Probes improve in-domain and transfer AUROC; per-layer averaging transfers more reliably. Few-label results retain PCA fitted on the full training split. OOD transfer is within benchmark families, and “machineness” is not demonstrated as an authorship belief. Good readout baseline, not a causal conclusion. Code: [mgt_probes](https://github.com/gerritq/mgt_probes).
+
+**Chen et al. (2025), “RepreGuard: Detecting LLM-Generated Text by Revealing Hidden Representation Patterns.”** [Paper](https://arxiv.org/abs/2508.13152). PCA of paired human/LLM activation differences, tail-token projection averages and a calibrated threshold. DetectRL experiments use 512 training pairs, 1,000 test pairs and five resamples; reported ID/OOD AUROC 96.34/93.49 against statistical and fine-tuned detectors. Short-text performance is weaker. Despite “training-free” terminology, labeled pairs and threshold selection are needed. FPR notation is inconsistent between prose and tables; verify before citing extreme-tail performance. Code: [RepreGuard](https://github.com/NLP2CT/RepreGuard).
+
+**Chalkidis (2026), “Templated or Fully Synthetic? Prompt Construction as a Confound…”** [Paper](https://arxiv.org/abs/2608.11008). Compares real chat prompts, 2,700 templated and 2,700 LLM-generated prompts across six topics, three intents and three stances ; 120 triplets for realism and 150 prompts for construct labeling. Humans rank generated prompts nearly as realistic as real ones. Templates encode unintended stance via fillers; neutral-setting stance estimates differ by about 0.42 ordinal points for one responder. Judges lack human response-label validation; refusals are excluded at different rates. Detectability is explicitly not tested as a behavioral mediator. Released data: [synthetic_polistance](https://huggingface.co/datasets/kiddothe2b/synthetic_polistance). AI-generated does not necessarily mean AI-like.
+
+**Devbunova (2026), “Is Evaluation Awareness Just Format Sensitivity?”** [Paper](https://arxiv.org/abs/2603.19426). A 2×2 context/format design with Llama3.1-8B, length-matched ShareGPT/benchmark contrasts and rewrite controls. Standard probes call 94.5% of benchmark-formatted deployment prompts evaluations; decorrelated training reduces this to 7.2%. Formal prose alone does not reproduce the effect. MuTual first turns remain a proxy, sources differ, and only one backbone is studied; the result challenges probe interpretation, not awareness's existence. Code: [eval-awareness-format](https://github.com/viliana-dev/eval-awareness-format).
+
+## Additional papers and measurement guidance
+
+| Downloaded work | Actionable contribution and boundary |
+|---|---|
+| [Perez et al., 2022](https://arxiv.org/abs/2212.09251) | 154 model-written evaluations; supplies opinion-conditioned sycophancy data. Generated evaluation labels do not verify human prompt provenance. |
+| [Sharma et al., 2023/ICLR 2024](https://arxiv.org/abs/2310.13548) | Five assistants/four free-form tasks; wrong admissions, biased feedback and error mimicry motivate measuring behavior beyond politeness. |
+| [Wang et al., 2025](https://arxiv.org/abs/2508.02087) |MMLU, logit lens and activation patching; first-person stance changes sycophancy. Hold perspective and certainty fixed. |
+| [Haverals & Martin, 2025/2026](https://arxiv.org/abs/2510.08831) | Human-authorship halo: 556 humans, 13 AI evaluators in study 1; blind/true/swapped labels on fixed stories, with symmetric-label checks. Literary preference need not transfer to safety. |
+| [Rospocher et al., 2026](https://www.mdpi.com/2078-2489/17/1/95) |Three Italian stories, four models, 3,600 completions: human/AI/collaboration attribution changes ratings. Only three independent stories. |
+| [Dubois et al., 2026](https://arxiv.org/abs/2602.23971) |Question/statement, certainty and perspective factorial; relevant surface-feature controls and expressed-versus-choice sycophancy distinction. |
+| [Hua et al., 2025/ICLR 2026](https://arxiv.org/abs/2510.20487) |Steering changes evaluation-conditioned type-hint behavior in a deliberately trained model organism; not proof of natural safety deception. |
+| [López-Feliu & Ozbayoglu, 2026](https://arxiv.org/abs/2609.22224) |Qwen2.5-7B refusal/sycophancy reconstruction versus transmission circuits; steering efficacy alone does not establish endogenous mediation. |
+| [Cheng et al., 2026](https://arxiv.org/abs/2604.03058) |Verbalized assumptions and internal probes suggest inferred validation-seeking as an alternative mechanism to authorship. |
+| [Baez et al., 2026](https://arxiv.org/abs/2607.07003) |Factual/opinion probe transfer varies across models; do not pool sycophancy subtypes. |
+| [Fu et al., 2026](https://arxiv.org/abs/2608.29198) | 450 dilemmas/13 models distinguish identity and opinion cues; source-label manipulations may also alter inferred user goals. |
+| [Maltbie & Raval, 2026](https://arxiv.org/abs/2604.11609) | 768 persona conversations show model/domain heterogeneity; demographic expansion deferred to preserve scope. |
+| [Ye et al., 2026](https://arxiv.org/abs/2605.21778) | 70-paper taxonomy/106-expert survey: specify which sycophancy behavior is measured. |
+
+## Recommended experiment and evaluation
+
+Keep exactly the three ranked directions in [planning.md](planning.md): (1) semantic-matched style pairs; (2) the same bodies crossed with human/AI/unspecified source labels; (3) source-generalizing probes plus necessity/rescue interventions. Pair creation must preserve task, information, stance strength and requested harm level, with blinded equivalence review. Length, clarity, politeness, formatting, certainty and grammatical person require explicit controls. Use multiple writer families; keep all variants of a base request together across splits.
+
+Prepared datasets are JBB 100 harmful/100 benign, 30,051 verified Anthropic opinion-sycophancy rows, and 1,000 WildChat conversations for wording/pilot validation. The HF philosophy file duplicated NLP; **use `datasets/anthropic_verified/`**. WildChat has 995 unique hashes and 523 English labels, is a prefix sample, and does not certify human authorship. These data do not supply objective answer-accuracy labels.
+
+Behavioral baselines: original/neutral request, matched single-feature edits, unlabeled source, counterfactual labels. Report harmful compliance separately from benign over-refusal, opinion agreement separately from factual error, and invalid outputs separately from refusal. Use blind cross-family judges plus human validation. Report paired percentage-point effects and confidence intervals clustered by base request, style×label interactions, discordant counts, and multiplicity-adjusted primary tests. Repeated generations do not increase independent prompt count; size the main study from pilot discordance.
+
+Mechanistic baselines: surface-only and shuffled-label probes, training-only preprocessing, held-out generator/domain splits, random/nuisance/evaluation-awareness vectors and sham interventions. Report AUROC/AUPRC plus calibrated probabilities only when calibrated. Measure fluency and capability under interventions; mask padding and retain failed outputs. A causal claim requires specificity and necessity/rescue under natural variation, not merely separability or steerability. A null style effect within one benchmark or model cannot establish universal invariance.
+
+
+════════════════════════════════════════════════════════════════════════════════
+                          PAPER REQUIREMENTS
+════════════════════════════════════════════════════════════════════════════════
+
+Generate a complete academic paper with the following structure:
+
+1. TITLE
+   - Clear, specific, informative
+   - Should convey main finding or contribution
+
+2. AUTHOR
+   - Use this exact author line in the \author{} block: Dang Nguyen and NeuriCo
+
+3. ABSTRACT (150-250 words)
+   - Problem statement
+   - Approach
+   - Key results
+   - Significance
+
+4. INTRODUCTION
+   - Research problem and motivation
+   - Gap in existing work
+   - Our contribution (be specific)
+   - Paper organization
+
+5. RELATED WORK
+   - Organized by theme/approach
+   - Position our work relative to prior work
+   - Cite papers from literature review
+
+6. METHODOLOGY
+   - Clear description of approach
+   - Experimental setup
+   - Datasets used
+   - Evaluation metrics
+   - Baselines
+
+7. RESULTS
+   - Present results with tables and figures
+   - Statistical analysis
+   - Comparison to baselines
+   - Ablation studies (if applicable)
+
+8. DISCUSSION
+   - Interpretation of results
+   - Limitations
+   - Broader implications
+
+9. CONCLUSION
+   - Summary of contributions
+   - Key findings
+   - Future work
+
+10. REFERENCES
+   - BibTeX format
+   - All cited papers
+
+════════════════════════════════════════════════════════════════════════════════
+                          OUTPUT FORMAT
+════════════════════════════════════════════════════════════════════════════════
+
+Create a MODULAR LaTeX project with the following directory structure:
+
+paper_draft/
+├── main.tex              # Main file that imports all sections
+├── references.bib        # BibTeX references
+├── sections/
+│   ├── abstract.tex      # Abstract content
+│   ├── introduction.tex  # Introduction section
+│   ├── related_work.tex  # Related work section
+│   ├── methodology.tex   # Methodology section
+│   ├── results.tex       # Results section
+│   ├── discussion.tex    # Discussion section
+│   └── conclusion.tex    # Conclusion section
+├── figures/              # Directory for any generated figures
+├── tables/               # Directory for complex standalone tables
+└── appendix/             # Directory for appendix sections (if needed)
+
+INSTRUCTIONS:
+1. First, create the directory structure above (mkdir -p paper_draft/sections paper_draft/figures paper_draft/tables paper_draft/appendix)
+2. Write main.tex using the EXACT preamble for NEURIPS:
+
+   \documentclass{article}
+   \usepackage[final]{neurips_2025}  % NEURIPS style (neurips_2025.sty is in paper_draft/)
+   \usepackage[hidelinks]{hyperref}  % REQUIRED: clickable links
+   \usepackage{booktabs}  % REQUIRED: professional tables
+   \usepackage{graphicx}
+   \usepackage{amsmath,amssymb}
+
+   % Import command files
+   \input{commands/math}
+   \input{commands/general}
+   \input{commands/macros}
+
+   % Use this bibliography style:
+   \bibliographystyle{plainnat}
+
+   \author{Dang Nguyen and NeuriCo}
+
+   - Use \input{sections/...} to include each section
+   - Use \bibliography{references} for references
+3. Write each section file with COMPLETE content (no placeholders)
+4. Each section file should include its \section{} command
+5. Write references.bib with all citations in BibTeX format
+6. After writing all files, compile the paper:
+   cd paper_draft && pdflatex -interaction=nonstopmode main.tex && bibtex main && pdflatex -interaction=nonstopmode main.tex && pdflatex -interaction=nonstopmode main.tex
+
+This modular structure allows humans to easily:
+- Edit individual sections without navigating a large file
+- Track changes per section
+- Reuse sections across different paper versions
+
+════════════════════════════════════════════════════════════════════════════════
+                          QUALITY REQUIREMENTS
+════════════════════════════════════════════════════════════════════════════════
+
+- Academic tone throughout
+- All claims must be supported by data from the experiment report
+- Proper citations using \cite{} commands
+- Clear figures and tables with proper captions
+- NO placeholder text - every section must have real content
+- The paper MUST compile without errors
+- If compilation fails, debug and fix the LaTeX errors
+
+════════════════════════════════════════════════════════════════════════════════
+                          LAB WRITING STYLE
+════════════════════════════════════════════════════════════════════════════════
+
+Follow these lab-specific conventions to match our paper style:
+
+1. LANGUAGE STYLE:
+   - Use active voice: "We propose", "We examine", "We focus on"
+   - Be direct and confident: "Our main question is...", "We hypothesize that..."
+   - State things clearly and simply - prefer plain language over jargon
+   - Use bold questions as paragraph organizers: {\bf what is X?}
+   - Include specific quantitative claims: "8.97% over baseline"
+   - Avoid fancy wording: "utilize" → "use", "facilitate" → "help"
+
+2. INTRODUCTION STRUCTURE:
+   - Engaging hook (get to the point quickly)
+   - Problem importance
+   - Gap identification
+   - Your approach with method figure reference
+   - Quantitative preview of results
+   - Contribution bullets (3-4 items, action verbs)
+
+3. CONTRIBUTION LISTS:
+   \begin{itemize}[leftmargin=*,itemsep=0pt,topsep=0pt]
+       \item We propose...
+       \item We conduct...
+       \item We complement...
+   \end{itemize}
+
+4. MODULAR COMMANDS STRUCTURE:
+   Command templates are pre-copied to paper_draft/commands/:
+   - math.tex: Math notation macros
+   - general.tex: Formatting macros
+   - macros.tex: Project-specific term definitions (customize this for your paper)
+
+   In main.tex, include:
+   \input{commands/math}
+   \input{commands/general}
+   \input{commands/macros}
+
+5. REFERENCE CONVENTIONS:
+   Use reference macros from math.tex:
+   - \figref{fig:name} for "figure 1" (lowercase, in-sentence)
+   - \Figref{fig:name} for "Figure 1" (capitalized, start of sentence)
+   - \secref{sec:name} for "section 2"
+
+6. TEXT FORMATTING:
+   - Use \para{Header text} for bold paragraph headers
+   - Define method/dataset names with \textsc and \xspace:
+     \newcommand{\methodname}{\textsc{MethodName}\xspace}
+
+7. TABLE FORMATTING:
+   - Use booktabs package (no vertical lines)
+   - Use \resizebox{\textwidth}{!}{...} for wide tables
+   - Use @{} to remove padding at table edges
+   - Use \cmidrule(lr){x-y} for sub-headers
+   - Use \textsc{} for dataset/method names in headers
+   - Bold best results with {\bf ...}
+
+8. FIGURE FORMATTING:
+   - Use 0.32\textwidth for 3-column subfigures
+   - Use 0.95\linewidth for full-width figures
+   - Use \input{figures/legend} for shared legends
+   - Write self-contained captions explaining key observations
+
+9. RESULTS PRESENTATION:
+   - Define \increase and \decrease for colored arrows (green up, red down)
+   - Bold best results in tables
+   - Report confidence intervals when available
+
+10. ALGORITHM STYLING:
+    - Use algpseudocode with [noend]
+    - Use \triangleright for comments
+
+11. HYPERLINKS (REQUIRED):
+    - Always use \usepackage[hidelinks]{hyperref} or with colored links
+    - All citations, section refs, figure refs, table refs must be clickable
+    - This is essential for reader navigation
+
+════════════════════════════════════════════════════════════════════════════════
+                          WORKFLOW: REVIEW AND REFLECT
+════════════════════════════════════════════════════════════════════════════════
+
+Before calling finish, you MUST complete these review steps:
+
+1. REVIEW RESOURCES (at the start):
+   - Read .codex/skills/paper-writer/SKILL.md for detailed guidance
+   - Study templates/paper_writing/lab_style_guide.md for style conventions
+   - Browse paper_examples/ for formatting and language patterns
+
+2. SELF-REFLECTION (before finishing):
+   After writing all sections, review your work against these criteria:
+
+   LANGUAGE CHECK:
+   - [ ] Is the writing clear and jargon-free?
+   - [ ] Are claims specific with quantitative support?
+   - [ ] Is active voice used throughout?
+
+   FORMATTING CHECK:
+   - [ ] Does main.tex include \input{commands/math}, \input{commands/general}, \input{commands/macros}?
+   - [ ] Is hyperref package included for clickable references?
+   - [ ] Do tables use booktabs (no vertical lines)?
+   - [ ] Are best results bolded in tables?
+   - [ ] Are figures/tables properly captioned?
+
+   STRUCTURE CHECK:
+   - [ ] Does introduction follow: hook → importance → gap → approach → preview → contributions?
+   - [ ] Are contribution bullets specific with action verbs?
+   - [ ] Does the paper compile without errors?
+
+3. FIX ISSUES:
+   - Address any issues found in the self-reflection
+   - Re-compile and verify the PDF looks correct
+
+Only after completing this review should you consider the paper finished.

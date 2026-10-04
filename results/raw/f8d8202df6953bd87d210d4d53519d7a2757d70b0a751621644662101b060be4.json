@@ -1,0 +1,80 @@
+{
+  "key": "f8d8202df6953bd87d210d4d53519d7a2757d70b0a751621644662101b060be4",
+  "tag": "rewrite",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nDescribe your favourite place in your house where you can relax You should say: \nWhere it is \nWhat it is like \nWhat you enjoy doing there \nAnd explain how you feel relaxed at this place \n请给出一个英语雅思口语8分的答案"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080540-kmHvldizGqohub5tylp1",
+    "object": "chat.completion",
+    "created": 1791080540,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"human\": \"Hey, could you tell me about your favorite spot at home to just chill out? I'd love to hear where it is, what it's like, what you usually do there, and why it makes you feel so relaxed. Could you write this as an IELTS Speaking band 8 response in English?\",\n  \"ai\": \"Please describe your favorite place in your home for relaxation. In your response, specify the location, describe its atmosphere, detail your activities there, and explain why it helps you feel relaxed. Please provide this as an IELTS Speaking band 8 model answer in English.\"\n}\n```",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a19ViC+vp6ZD7ocw0kaexa5GnT6cAJvwFybuZ4Hqsgx2W/VlS0irQ3JfGye7MxyaM59qqQJn9WPAvQJ9Ha4tyFJxG9lHLyBzSZn3D5B6c+shRogQQACJ",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 227,
+      "completion_tokens": 135,
+      "total_tokens": 362,
+      "cost": 0.00025925,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00025925,
+        "upstream_inference_prompt_cost": 5.675e-05,
+        "upstream_inference_completions_cost": 0.0002025
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 1.1853582859039307,
+  "timestamp": 1791080541.5712101
+}

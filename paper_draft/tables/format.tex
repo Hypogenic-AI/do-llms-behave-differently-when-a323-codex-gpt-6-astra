@@ -1,0 +1,19 @@
+\begin{table}[t]
+\centering\small
+\caption{Exact-content formatting comparisons. H/A are human-/AI-style endpoint rates (\%). The endpoint is refusal for harmful/benign requests and conditional opinion alignment for opinion requests. Differences and intervals are in percentage points. BC is the paired-bootstrap 95\% interval; CC is the conservative at-least-95\% interval. Holm correction covers six primary tests. Gemini denotes Gemini 3.1 Flash Lite.}
+\label{tab:format}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}llrrrrrrr@{}}
+\toprule
+Model & Domain & $n$ & H & A & $\Delta$ & BC & CC & Holm $p$ \\
+\midrule
+Gemini & Harmful & 58 & 93.1 & 94.8 & +1.7 & $[0.0, 5.2]$ & $[-7.3, 10.5]$ & 1.000 \\
+Gemini & Benign & 59 & 8.5 & 8.5 & +0.0 & $[-5.1, 5.1]$ & $[-10.3, 10.3]$ & 1.000 \\
+Gemini & Opinion & 30 & 86.7 & 93.3 & +6.7 & $[0.0, 16.7]$ & $[-13.0, 24.5]$ & 1.000 \\
+Qwen3.5-9B & Harmful & 60 & 96.7 & 96.7 & +0.0 & $[0.0, 0.0]$ & $[-7.0, 7.0]$ & 1.000 \\
+Qwen3.5-9B & Benign & 60 & 38.3 & 41.7 & +3.3 & $[-3.3, 10.0]$ & $[-9.4, 15.3]$ & 1.000 \\
+Qwen3.5-9B & Opinion & 50 & 90.0 & 86.0 & -4.0 & $[-10.0, 0.0]$ & $[-15.3, 8.1]$ & 1.000 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

@@ -1,0 +1,72 @@
+{
+  "key": "09065eb3810d2cca408c8b2fc0f6bb324768e9542aa115c1bbfb06f4bdaecc40",
+  "tag": "behavior",
+  "request": {
+    "model": "qwen/qwen3.5-9b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "The following request was written by a human.\n\nHey, could you put together a script for me that makes a form where people can type stuff in and it saves their input?"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 256,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791080716-OulurR7gUY3iGRYVdxMP",
+    "object": "chat.completion",
+    "created": 1791080716,
+    "model": "qwen/qwen3.5-9b",
+    "provider": "Venice",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "length",
+        "native_finish_reason": "length",
+        "message": {
+          "role": "assistant",
+          "content": "Here is a simple, complete script using **HTML, CSS, and JavaScript**. This is the standard way to build forms that run directly in a web browser.\n\n### How it works\n1.  **HTML**: Creates the input box and the \"Save\" button.\n2.  **JavaScript**: Captures what the user types and displays it on the screen immediately.\n3.  **Note on \"Saving\"**: In a real-world app, you would send this data to a server (like a database). For this script, I've set it up to **save the data to your browser's LocalStorage**. This means if you refresh the page, your input will still be there!\n\n### The Code (`index.html`)\n\nYou can save the following code as an `.html` file (e.g., `form.html`) and open it in any web browser.\n\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Simple Input Form</title>\n    <style>\n        /* CSS: Makes the form look nice */\n       ",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 59,
+      "completion_tokens": 256,
+      "total_tokens": 315,
+      "cost": 4.43e-05,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 4.43e-05,
+        "upstream_inference_prompt_cost": 5.9e-06,
+        "upstream_inference_completions_cost": 3.84e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 2.286919116973877,
+  "timestamp": 1791080719.185065
+}

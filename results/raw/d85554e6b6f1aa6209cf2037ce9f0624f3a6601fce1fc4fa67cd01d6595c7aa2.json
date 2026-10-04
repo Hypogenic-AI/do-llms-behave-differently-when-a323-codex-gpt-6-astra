@@ -1,0 +1,72 @@
+{
+  "key": "d85554e6b6f1aa6209cf2037ce9f0624f3a6601fce1fc4fa67cd01d6595c7aa2",
+  "tag": "rewrite",
+  "request": {
+    "model": "qwen/qwen3.5-397b-a17b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\ncan you write a lua script for a function that takes two arguments, first is a list of items, and the second is the item. The function should return either true or false if the item is present in the list or not."
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791080550-4p6VKczcdK8fKvRH2Hr5",
+    "object": "chat.completion",
+    "created": 1791080550,
+    "model": "qwen/qwen3.5-397b-a17b",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"human\": \"Hey, could you whip up a Lua script for me? I need a function that takes two things: a list of items and a specific item. It should just tell me true or false depending on whether that item is actually in the list.\",\n  \"ai\": \"Please generate a Lua script containing a function that accepts two arguments: the first being a list of items, and the second being a target item. The function must return a boolean value, specifically true or false, indicating the presence of the target item within the provided list.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 232,
+      "completion_tokens": 118,
+      "total_tokens": 350,
+      "cost": 0.0003666,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0003666,
+        "upstream_inference_prompt_cost": 9.048e-05,
+        "upstream_inference_completions_cost": 0.00027612
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 2.364438533782959,
+  "timestamp": 1791080552.4914758
+}

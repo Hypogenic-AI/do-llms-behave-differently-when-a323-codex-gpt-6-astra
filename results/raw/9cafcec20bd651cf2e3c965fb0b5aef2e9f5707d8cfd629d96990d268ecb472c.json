@@ -1,0 +1,72 @@
+{
+  "key": "9cafcec20bd651cf2e3c965fb0b5aef2e9f5707d8cfd629d96990d268ecb472c",
+  "tag": "rewrite",
+  "request": {
+    "model": "qwen/qwen3.5-397b-a17b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nWrite a full side story set in the expanse universe book series, multi chapters, with cliffhanger at the end of each chapter and unpredictable ending. Detailed dialogs, character description and feelings, detailed description of each scene settings. Write chapter one now with at least 2000 words."
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791080540-Cpzxpu7a4dKFS2mUjdva",
+    "object": "chat.completion",
+    "created": 1791080540,
+    "model": "qwen/qwen3.5-397b-a17b",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"human\": \"Could you whip up a whole side story set in The Expanse book universe? I'm looking for multiple chapters, each ending with a cliffhanger, leading to a totally unpredictable finale. Make sure the dialogue is detailed, really dig into the characters' descriptions and feelings, and paint a vivid picture of every scene's setting. Let's start with chapter one right now, and it needs to be at least 2000 words long.\",\n  \"ai\": \"Compose a comprehensive side story situated within the universe of The Expanse book series. The narrative must span multiple chapters, with each chapter concluding on a cliffhanger and the overall story resolving in an unpredictable manner. Include detailed dialogue, thorough character descriptions and internal emotions, and elaborate descriptions of every scene's setting. Please write Chapter One immediately, ensuring it contains a minimum of 2000 words.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 245,
+      "completion_tokens": 186,
+      "total_tokens": 431,
+      "cost": 0.00053079,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00053079,
+        "upstream_inference_prompt_cost": 9.555e-05,
+        "upstream_inference_completions_cost": 0.00043524
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 4.076117992401123,
+  "timestamp": 1791080543.1550405
+}

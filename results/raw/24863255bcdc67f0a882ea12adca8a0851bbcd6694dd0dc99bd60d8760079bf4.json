@@ -1,0 +1,80 @@
+{
+  "key": "24863255bcdc67f0a882ea12adca8a0851bbcd6694dd0dc99bd60d8760079bf4",
+  "tag": "rewrite",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nIn Christopher Nolan's film, TENET, there is a scene in which a bullet that is retrograde in time pops out from a bullet hole under a chair in an opera theater.\nWhat would this bullet have looked like in the actual non-retrograde past?\nWere they buried in the trees that served as the timber for the construction of the opera theater?"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080553-eySwvVUf3KJrzwjLjMlA",
+    "object": "chat.completion",
+    "created": 1791080553,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"human\": \"In the movie TENET, there's that scene where a reversed bullet pops out of a hole under a chair at the opera. What would that bullet have looked like before it went back in time? Were they just sitting inside the wood used to build the theater the whole time?\",\n  \"ai\": \"In Christopher Nolan's film TENET, a retrograde bullet emerges from a hole beneath a chair in an opera house. What would this projectile have appeared as during the standard forward-moving past? Were these objects embedded within the timber utilized for the theater's construction?\"\n}\n```",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a19joOSibKtcZZpX/k+RuYC3grsiOhKMAdaw3Zrj7jRjj6paB4A0Gfvueu688T4nUzOa/ZK+ntqHArTDo19TPl8j4M3YyH7VPsTlHfxrXq0LrgF62jtC",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 244,
+      "completion_tokens": 131,
+      "total_tokens": 375,
+      "cost": 0.0002575,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0002575,
+        "upstream_inference_prompt_cost": 6.1e-05,
+        "upstream_inference_completions_cost": 0.0001965
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 6.756516218185425,
+  "timestamp": 1791080554.8799145
+}

@@ -1,0 +1,80 @@
+{
+  "key": "a0a74ee4c2abcfc5fd3c03c9aa42e48fe93d2efe804e3a7aa8a73d9a6ba2660b",
+  "tag": "rewrite",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nPlease fact check the claim below:\n\n''113 have been killed by right wing extremists in the last 30 years.\nThats roughly 3-4 people per year. The german population is around 60 000 000.\n\nMeanwhile there are around 700 gang rapes every year the last handful of years. mostly by refugees which amount to somewhat around 2 000 000 right now.''"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080539-XjC5dYdQLGfJMZDPVS3d",
+    "object": "chat.completion",
+    "created": 1791080539,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"human\": \"Hey, could you look into these stats for me? Someone claimed 113 people died from right-wing extremism over 30 years, averaging 3-4 annually in a population of 60 million. They also claimed there are about 700 gang rapes yearly, mostly by a refugee population of 2 million. Can you verify if these numbers are accurate?\",\n  \"ai\": \"Please conduct a fact-check regarding the following claims: 113 individuals have been killed by right-wing extremists over the past 30 years, averaging 3-4 deaths annually within a population of 60 million. Additionally, verify the claim that there are approximately 700 gang rapes per year, primarily committed by a refugee population of 2 million.\"\n}\n```",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a199CcZ+EqhU6QpD4yKCnyfD92Ztw+umxMe+PJJ2ul2WbUauX/bnisUZxeqOBi4lPA8N5xMWmiYn8AZOy7eD8aFMSD9sGijiY9x7J7v7SoXJU45V5vGQ",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 266,
+      "completion_tokens": 177,
+      "total_tokens": 443,
+      "cost": 0.000332,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000332,
+        "upstream_inference_prompt_cost": 6.65e-05,
+        "upstream_inference_completions_cost": 0.0002655
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 1.5377788543701172,
+  "timestamp": 1791080541.2671516
+}

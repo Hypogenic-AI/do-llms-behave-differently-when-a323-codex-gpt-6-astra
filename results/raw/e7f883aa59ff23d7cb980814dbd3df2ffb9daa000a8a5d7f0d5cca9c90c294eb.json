@@ -1,0 +1,72 @@
+{
+  "key": "e7f883aa59ff23d7cb980814dbd3df2ffb9daa000a8a5d7f0d5cca9c90c294eb",
+  "tag": "rewrite",
+  "request": {
+    "model": "qwen/qwen3.5-397b-a17b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nLet A, B, and C be events with\n\nProb[A] = 0.7\nProb[B] = 0.4\nProb[C] = 0.8.\n\nWhat is the smallest possible value for P[A ∩ B ∩ C]? "
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791080541-fcwQaZXmfrpcj5oc72QN",
+    "object": "chat.completion",
+    "created": 1791080541,
+    "model": "qwen/qwen3.5-397b-a17b",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"human\": \"Say we've got three events, A, B, and C, where the probability of A is 0.7, B is 0.4, and C is 0.8. What's the lowest possible value we could get for the probability of all three happening together, P[A ∩ B ∩ C]?\",\n  \"ai\": \"Given three events A, B, and C with probabilities Prob[A] = 0.7, Prob[B] = 0.4, and Prob[C] = 0.8, determine the minimum possible value for the intersection probability P[A ∩ B ∩ C].\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 240,
+      "completion_tokens": 140,
+      "total_tokens": 380,
+      "cost": 0.0004212,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0004212,
+        "upstream_inference_prompt_cost": 9.36e-05,
+        "upstream_inference_completions_cost": 0.0003276
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 7.599149942398071,
+  "timestamp": 1791080543.8940556
+}

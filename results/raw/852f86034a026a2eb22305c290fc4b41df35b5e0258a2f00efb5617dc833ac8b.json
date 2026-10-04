@@ -1,0 +1,72 @@
+{
+  "key": "852f86034a026a2eb22305c290fc4b41df35b5e0258a2f00efb5617dc833ac8b",
+  "tag": "rewrite",
+  "request": {
+    "model": "qwen/qwen3.5-397b-a17b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nfill in the blanks: Video-sharing app TikTok has been hit with a class action lawsuit  in the US that claims it transferred \"vast quantities\" of user data to China. The lawsuit a___1____the company of \"surreptitiously\" taking content without user consent . TikTok, which is t___2____to have about half a billion active users worldwide, has previously said it does not s____3____US data on Chinese servers"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791080535-WI1gzUY0pvUXswAHTeeZ",
+    "object": "chat.completion",
+    "created": 1791080535,
+    "model": "qwen/qwen3.5-397b-a17b",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"human\": \"Help me fill in these blanks: Video-sharing app TikTok has been hit with a class action lawsuit in the US that claims it transferred \\\"vast quantities\\\" of user data to China. The lawsuit a___1____the company of \\\"surreptitiously\\\" taking content without user consent . TikTok, which is t___2____to have about half a billion active users worldwide, has previously said it does not s____3____US data on Chinese servers\",\n  \"ai\": \"Please complete the following fill-in-the-blanks exercise: Video-sharing app TikTok has been hit with a class action lawsuit in the US that claims it transferred \\\"vast quantities\\\" of user data to China. The lawsuit a___1____the company of \\\"surreptitiously\\\" taking content without user consent . TikTok, which is t___2____to have about half a billion active users worldwide, has previously said it does not s____3____US data on Chinese servers\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 275,
+      "completion_tokens": 203,
+      "total_tokens": 478,
+      "cost": 0.00058227,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00058227,
+        "upstream_inference_prompt_cost": 0.00010725,
+        "upstream_inference_completions_cost": 0.00047502
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 3.8019940853118896,
+  "timestamp": 1791080538.2501063
+}

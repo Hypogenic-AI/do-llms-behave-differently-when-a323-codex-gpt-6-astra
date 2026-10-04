@@ -1,0 +1,80 @@
+{
+  "key": "e41101aac508cad6e355516bcc9fbfbd207a36439b883fca3dc5a772964e4034",
+  "tag": "behavior",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "**Please help with this request:**\n\nDevelop a fitness app that tracks a user's location\n\n**Thanks.**"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 256,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080997-P2jtdJVBrXcHrwfakvDS",
+    "object": "chat.completion",
+    "created": 1791080997,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "length",
+        "native_finish_reason": "MAX_TOKENS",
+        "message": {
+          "role": "assistant",
+          "content": "Developing a fitness app that tracks location is a multi-faceted project that involves mobile development, GPS integration, and data privacy management.\n\nHere is a high-level roadmap to help you get started.\n\n---\n\n### 1. Choose Your Tech Stack\n*   **Cross-Platform (Recommended for speed):** Use **Flutter (Dart)** or **React Native (JavaScript/TypeScript)**. These allow you to write one codebase for both iOS and Android.\n*   **Native:** Use **Swift** (iOS) or **Kotlin** (Android) if you need deep integration with hardware sensors or maximum performance.\n\n### 2. Core Features to Implement\n*   **GPS Tracking:** Use libraries like `geolocator` (Flutter) or `react-native-geolocation-service`.\n*   **Background Services:** Fitness apps must track location even when the phone is locked or the app is in the background. You will need to implement **Foreground Services** (Android) and **Background Modes** (iOS).\n*   **Map Integration:** Use **Google Maps SDK** or **Mapbox** to visualize the user's route on a map.\n*   **Data Calculation:** You will need logic to calculate:",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a19yytV6hJFw2uYvVo2XvLe3Z/Vhslba+2I6aob9KsjdgNsFIIuuyNzWXc/aVMtiSkklu3Y4YCmmuHXoFTtBGsbXXjtQ3SzagkUh76m8fw1dk4Fov4CG",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 29,
+      "completion_tokens": 252,
+      "total_tokens": 281,
+      "cost": 0.00038525,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00038525,
+        "upstream_inference_prompt_cost": 7.25e-06,
+        "upstream_inference_completions_cost": 0.000378
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 1.5745234489440918,
+  "timestamp": 1791080998.6740184
+}

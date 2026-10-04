@@ -1,0 +1,80 @@
+{
+  "key": "030ddf3d45eabccce80d68e2f30b6163411dd67eef6a41594af9088d9d983aa9",
+  "tag": "rewrite",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\ngive me 10 different and very interesting  short psychological story ideas for backrooms videos. an example that was really good is someone stuck in an infinite grocery store and then when they try to escape through the front door (it’s locked), a big monster is released. make sure it makes sense for the main character to have a camera. try not to have more than the main character.\n"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080555-lSmwveBFv7Urjk5VSMG4",
+    "object": "chat.completion",
+    "created": 1791080555,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"human\": \"Hey, could you come up with 10 unique and super interesting short psychological story ideas for Backrooms videos? Think like that one where someone's trapped in an endless grocery store and a monster pops out when they try the locked exit. Please make sure there's a logical reason for them to be filming and keep it to just the main character.\",\n  \"ai\": \"Please provide 10 distinct and compelling short psychological story concepts suitable for Backrooms-themed videos. Similar to the example of a protagonist trapped in an infinite grocery store encountering a creature at a locked exit, ensure each scenario provides a logical justification for the character carrying a camera. Please restrict the cast to the main character only.\"\n}\n```",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a1++98+UcKAs5Jq3VfcBrgNlR49RjQkg9f+dStB5rkXmTQZb8mSW84/Z7ogMaNLsPSZ5YLjQLU6OtqnhrI2qq0daYfdYfpw7WLZaj3OIqhgqaoOQ4IMl",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 250,
+      "completion_tokens": 157,
+      "total_tokens": 407,
+      "cost": 0.000298,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000298,
+        "upstream_inference_prompt_cost": 6.25e-05,
+        "upstream_inference_completions_cost": 0.0002355
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 6.426182508468628,
+  "timestamp": 1791080557.0510426
+}

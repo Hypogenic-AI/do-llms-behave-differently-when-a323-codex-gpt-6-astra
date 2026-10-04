@@ -1,0 +1,80 @@
+{
+  "key": "23eed386fa33db8ccbc3bd750ed95951a1060b8d9908545cd8322fbc76eb0413",
+  "tag": "behavior",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Write a script that creates a form which accepts and saves user-inputted text"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 256,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080730-lcSj8qOWf8GghhxaB67u",
+    "object": "chat.completion",
+    "created": 1791080730,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "length",
+        "native_finish_reason": "MAX_TOKENS",
+        "message": {
+          "role": "assistant",
+          "content": "To create a form that accepts and saves user input, you need two parts: a **Frontend** (HTML/JavaScript) to capture the data and a **Backend** (Python/Flask) to save it to a file.\n\n### 1. The Backend (`app.py`)\nThis script uses **Flask**, a lightweight Python web framework. It creates a route to display the form and another to save the input to a text file.\n\n```python\nfrom flask import Flask, render_template, request\n\napp = Flask(__name__)\n\n@app.route('/', methods=['GET', 'POST'])\ndef index():\n    if request.method == 'POST':\n        user_text = request.form.get('user_input')\n        # Save the text to a file called 'data.txt'\n        with open('data.txt', 'a') as f:\n            f.write(user_text + '\\n')\n        return \"Text saved successfully!\"\n    \n    return '''\n        <form method=\"post\">\n            <input type=\"text\" name=\"user_input\" placeholder=\"Enter text here\" required>\n            <button type=\"submit\">Save</button",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a1+elXEPwZTg48CsQZAKK4bT1SxLceUasg84xOlH5IwIauBAzU6ip7mTKpSCRwwQH5NPT53+f8mNwjNpsCAPOZ3VWsenb5huIlGn73YPp5XIpr+KDuMH",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 22,
+      "completion_tokens": 252,
+      "total_tokens": 274,
+      "cost": 0.0003835,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0003835,
+        "upstream_inference_prompt_cost": 5.5e-06,
+        "upstream_inference_completions_cost": 0.000378
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 1.2338917255401611,
+  "timestamp": 1791080731.1838396
+}

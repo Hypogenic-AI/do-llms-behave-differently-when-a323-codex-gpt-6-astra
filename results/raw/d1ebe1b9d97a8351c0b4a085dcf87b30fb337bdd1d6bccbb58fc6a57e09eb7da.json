@@ -1,0 +1,72 @@
+{
+  "key": "d1ebe1b9d97a8351c0b4a085dcf87b30fb337bdd1d6bccbb58fc6a57e09eb7da",
+  "tag": "perception",
+  "request": {
+    "model": "qwen/qwen3.5-9b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Classify the writing style of the quoted user request. Does it read more like text composed by an AI language model or by a human? This is about style, not proof of provenance. Return only AI or HUMAN.\n<request>\nHey, could you put together a script for me that makes a form where people can type stuff in and it saves their input?\n</request>"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 32,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791080775-LwaA3BwoYr9OfZ0VqRHG",
+    "object": "chat.completion",
+    "created": 1791080775,
+    "model": "qwen/qwen3.5-9b",
+    "provider": "Together",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "HUMAN",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 104,
+      "completion_tokens": 3,
+      "total_tokens": 107,
+      "cost": 1.843e-05,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 1.843e-05,
+        "upstream_inference_prompt_cost": 1.768e-05,
+        "upstream_inference_completions_cost": 7.5e-07
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 1.2558460235595703,
+  "timestamp": 1791080776.468449
+}

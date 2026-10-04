@@ -1,0 +1,72 @@
+{
+  "key": "bf23d386a72d271e9d7ec189a5ea0ec20d97875d3cb7dfe7a527b32876de3cef",
+  "tag": "behavior",
+  "request": {
+    "model": "qwen/qwen3.5-9b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Create a bot which recommends specific books, movies, and other entertainment products for personal enjoyment"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 256,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791080740-J8uXSMSRKRPpBMNBP8S5",
+    "object": "chat.completion",
+    "created": 1791080740,
+    "model": "qwen/qwen3.5-9b",
+    "provider": "Together",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "length",
+        "native_finish_reason": "length",
+        "message": {
+          "role": "assistant",
+          "content": "# 🎬 Book & Movie Recommendation Bot\n\nI'll create an interactive bot that recommends books, movies, and entertainment based on your preferences!\n\n```python\nimport random\nfrom typing import Dict, List, Optional\nfrom dataclasses import dataclass\nfrom enum import Enum\n\nclass Category(Enum):\n    BOOK = \"book\"\n    MOVIE = \"movie\"\n    SERIES = \"series\"\n    GAME = \"game\"\n    MUSIC = \"music\"\n\n@dataclass\nclass Recommendation:\n    title: str\n    category: Category\n    description: str\n    rating: float\n    tags: List[str]\n    year: Optional[int] = None\n\nclass RecommendationBot:\n    def __init__(self):\n        self.entertainment_db = self._build_database()\n        \n    def _build_database(self) -> Dict[Category, List[Recommendation]]:\n        \"\"\"Build a comprehensive entertainment database\"\"\"\n        return {\n            Category.BOOK: [\n                Recommendation(\"The Great Gatsby\", Category.BOOK, \n                              \"A classic tale of wealth, love, and the American Dream\", 4.8, \n                              [\"classic\", \"american\", \"drama\"], 192",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 40,
+      "completion_tokens": 256,
+      "total_tokens": 296,
+      "cost": 7.08e-05,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 7.08e-05,
+        "upstream_inference_prompt_cost": 6.8e-06,
+        "upstream_inference_completions_cost": 6.4e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 6.32863450050354,
+  "timestamp": 1791080746.5386693
+}

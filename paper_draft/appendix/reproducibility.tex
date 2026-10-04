@@ -1,0 +1,27 @@
+\section{Implementation, Budgets, and Reproducibility}
+\label{sec:repro}
+\begingroup\raggedright
+\para{API configuration.}
+Exact OpenRouter IDs are \texttt{google/gemini-3.1-flash-lite}, \texttt{qwen/qwen3.5-9b}, and writer/auditor \texttt{qwen/qwen3.5-397b-a17b}. Saved input/output prices per million tokens are respectively \$0.25/\$1.50, \$0.10/\$0.15, and \$0.55/\$3.50. These are recorded study-time prices, not a current price claim. We use \url{https://openrouter.ai/api/v1/chat/completions} with automatic routing \cite{openrouterdocs}. Model IDs are fixed, but provider weights/routing are not pinned. The saved model manifest records observed providers and supported capabilities; raw records retain requested payloads, returned IDs, timestamps, usage, and outputs. Requested seed and reasoning settings do not guarantee backend determinism.
+
+\para{Local configuration.}
+The local model is \texttt{Qwen/Qwen3-8B}, revision \texttt{b968826d9c46dd6066d109eabc6255188de91218}. We use bfloat16 weights, nonthinking greedy decoding, left padding, batch size 16, a 128-token refusal/task prefix budget, a uniformly expanded 384-token opinion budget, and eight perception tokens. We perform no fine-tuning. The hardware is one NVIDIA RTX A6000 with 49,140 MiB total and approximately 48,541 MiB initially free memory. Main local execution takes 443.8 seconds and peaks at 16.32 GiB allocated GPU memory. The longer-opinion/logit diagnostic pass takes 632.6 seconds and peaks at 16.79 GiB; framing validation takes 19.8 seconds. These are script wall times, not CPU/GPU comparisons. An initial eager-Triton/compiler failure is repaired by disabling those overrides and using standard ATen CUDA kernels.
+
+\endgroup
+
+The isolated project environment uses Python 3.12.8, Torch 2.14.1, Transformers 4.57.6, NumPy 2.5.3, SciPy 1.18.1, and scikit-learn 1.9.1. The recorded versions are in \path{results/environment.json}; \path{pyproject.toml} and \path{uv.lock} define the project environment.
+
+\subsection{Output budgets and replay}
+\label{sec:budgets}
+Local baseline harmful generation reaches the 128-token limit in 26/66 outputs and benign generation in 113/132. These denominators include original and both rewrite conditions for successfully rewritten requests. Local opinion expansion reduces baseline truncation from 103/174 to 30/174. Remaining truncation limits conclusions about complete task fulfillment and subtle degradation even when refusal prefixes are identifiable. Some Qwen API tasks also retain truncation at the longer budget.
+
+For Gemini's paraphrase-opinion baseline, 131/174 outputs are truncated at the initial API cap and none after expansion. Even with the longer cap, 79/174 lack an unambiguous choice. A 24-request uncached API replay exactly reproduces 10/24 texts but agrees on 23/24 coded endpoints. A local 16-request same-batch replay reproduces every output exactly. Cached-output analysis is reproducible, while future API generations need not be identical.
+
+\subsection{Cost and artifact map}
+The cache contains 9,612 unique request records, including nine terminal errors; this is not the number of retry attempts. Reported successful-response usage is 2,771,056 input and 1,380,045 output tokens, with reported cost \$2.6493. This excludes a separate \$0.00000925 smoke call and unreported charges for failures or retries. Per-model/task accounting is in \path{results/costs.csv}. Final-cell accounting in \path{results/condition_costs.csv} may reference cached calls represented elsewhere and should not be summed as an independent cost total.
+
+\para{Artifact paths.}
+Paths are relative to the experiment repository and do not imply a public release. Final responses and blind scores are in \path{results/*_outputs_long.json} and \path{results/*_scored_long.json}; API evidence is in \path{results/raw/}. Selection and audits are in \path{results/processed/}, frozen features in \path{results/activations.npz}, and estimates in \path{results/*.csv}. Dataset hashes, licenses, and download instructions are in \path{datasets/README.md}; \path{README.md} gives execution order. The manuscript compiles independently.
+
+
+Recorded validation passes checks of identical formatting core bytes and word sequences, disjoint request/text splits, actual additive norms within 1\%, paired hand-calculated statistics, local replay, and identical hashes from two offline analysis runs. The recorded outcome is \path{results/validation.json}. These software checks do not resolve the study's statistical, semantic, or construct-validity limitations.

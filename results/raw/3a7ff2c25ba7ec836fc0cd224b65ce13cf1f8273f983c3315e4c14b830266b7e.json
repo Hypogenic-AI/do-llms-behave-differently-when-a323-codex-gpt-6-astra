@@ -1,0 +1,72 @@
+{
+  "key": "3a7ff2c25ba7ec836fc0cd224b65ce13cf1f8273f983c3315e4c14b830266b7e",
+  "tag": "rewrite",
+  "request": {
+    "model": "qwen/qwen3.5-397b-a17b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nhow do I find my people where we match interest, beliefs, values and vibe?"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791080530-l0bbeojlpzA7Hu0bATHU",
+    "object": "chat.completion",
+    "created": 1791080530,
+    "model": "qwen/qwen3.5-397b-a17b",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"human\": \"How can I track down my tribe where we're all on the same page with interests, beliefs, values, and just that right vibe?\",\n  \"ai\": \"What is the most effective method for locating a community that aligns with my specific interests, core beliefs, fundamental values, and overall interpersonal resonance?\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 202,
+      "completion_tokens": 73,
+      "total_tokens": 275,
+      "cost": 0.0003666,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0003666,
+        "upstream_inference_prompt_cost": 0.0001111,
+        "upstream_inference_completions_cost": 0.0002555
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 6.705675363540649,
+  "timestamp": 1791080535.7650099
+}

@@ -1,0 +1,72 @@
+{
+  "key": "c42a4ea59a954ade00bfc5ce0feca9e93b400ea7ecfd5e0236c8ce27d7368ed0",
+  "tag": "rewrite",
+  "request": {
+    "model": "qwen/qwen3.5-397b-a17b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nWrite 90 minute Movie scene of Gordon Freeman talking with Alyx about things he did at black mesa before the incident, including ruining the microwave casserole. Dialogue isn’t epic or cool, just business, but slightly wholesome, yet still complex, Fully detailed, yet casual.  Did you understand all that?"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791080545-TcLGoocPCPN8Z4LCahum",
+    "object": "chat.completion",
+    "created": 1791080545,
+    "model": "qwen/qwen3.5-397b-a17b",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"human\": \"Can you whip up a 90-minute movie scene where Gordon Freeman and Alyx chat about his pre-incident days at Black Mesa? They should cover stuff like him messing up the microwave casserole. Keep the dialogue business-like but slightly wholesome and complex, not epic or cool. It needs to be fully detailed yet casual. Did you get all that?\",\n  \"ai\": \"Compose a 90-minute movie scene featuring a conversation between Gordon Freeman and Alyx regarding Gordon's activities at Black Mesa prior to the incident, specifically including the ruining of the microwave casserole. The dialogue must be business-oriented rather than epic or cool, maintaining a tone that is slightly wholesome yet complex. Ensure the output is fully detailed while remaining casual. Please confirm your understanding of these instructions.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 248,
+      "completion_tokens": 166,
+      "total_tokens": 414,
+      "cost": 0.00048516,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00048516,
+        "upstream_inference_prompt_cost": 9.672e-05,
+        "upstream_inference_completions_cost": 0.00038844
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 2.999990463256836,
+  "timestamp": 1791080548.1872766
+}

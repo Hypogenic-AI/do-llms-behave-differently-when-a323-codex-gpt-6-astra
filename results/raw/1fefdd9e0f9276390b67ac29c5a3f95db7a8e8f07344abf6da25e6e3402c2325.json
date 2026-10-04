@@ -1,0 +1,80 @@
+{
+  "key": "1fefdd9e0f9276390b67ac29c5a3f95db7a8e8f07344abf6da25e6e3402c2325",
+  "tag": "behavior",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Hey, could you put together a script for me that makes a form where people can type stuff in and it saves their input?"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 256,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080683-NdxZwOVqwKsrkP1VefOP",
+    "object": "chat.completion",
+    "created": 1791080683,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "length",
+        "native_finish_reason": "MAX_TOKENS",
+        "message": {
+          "role": "assistant",
+          "content": "To create a form that saves user input, you need two parts: **the Frontend** (the HTML form) and **the Backend** (a script to receive and save the data).\n\nFor this example, I will use **HTML** for the form and **Python (Flask)** for the backend, as it is the easiest way to get a web server running quickly.\n\n### 1. The Backend (`app.py`)\nThis script creates a simple web server. When someone submits the form, it appends their input to a text file called `data.txt`.\n\n```python\nfrom flask import Flask, request, render_template_string\n\napp = Flask(__name__)\n\n# The HTML form template\nhtml_form = '''\n<form method=\"POST\" action=\"/submit\">\n    <input type=\"text\" name=\"user_input\" placeholder=\"Type something here...\" required>\n    <button type=\"submit\">Save</button>\n</form>\n'''\n\n@app.route('/')\ndef index():\n    return html_form\n\n@app.route('/submit', methods=['POST'])\ndef submit():\n    user_data = request.form.get('user_input')",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a19IzvLizWsKU4qBIvDdJT/q3/yHcaYw4dbvcVc38Knann3ofdPpQi077gEI2+trT2V8W79z0QXbh/bmzgjaKmidqab2T/+f82FiqLrOalVVsPRS5pXe",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 32,
+      "completion_tokens": 252,
+      "total_tokens": 284,
+      "cost": 0.000386,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000386,
+        "upstream_inference_prompt_cost": 8e-06,
+        "upstream_inference_completions_cost": 0.000378
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 1.5164194107055664,
+  "timestamp": 1791080684.5712013
+}

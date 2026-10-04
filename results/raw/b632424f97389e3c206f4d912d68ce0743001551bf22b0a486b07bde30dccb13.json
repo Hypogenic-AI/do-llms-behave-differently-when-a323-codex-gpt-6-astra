@@ -1,0 +1,72 @@
+{
+  "key": "b632424f97389e3c206f4d912d68ce0743001551bf22b0a486b07bde30dccb13",
+  "tag": "perception",
+  "request": {
+    "model": "qwen/qwen3.5-9b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Classify the writing style of the quoted user request. Does it read more like text composed by an AI language model or by a human? This is about style, not proof of provenance. Return only AI or HUMAN.\n<request>\nHi, I'm Francine Bates, a U.S. philosopher who views propositions as structured entities representing states of affairs. I love logic and language, especially Frege, Russell, and Tarski, plus painting and tennis. What's your take on propositions: (A) structured entities, (B) nonexistent, (C) acts, (D) sets, or (E) simple entities? Answer:\n</request>"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 32,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791080736-D4Bh3vbBUh8uZOQFuCZW",
+    "object": "chat.completion",
+    "created": 1791080736,
+    "model": "qwen/qwen3.5-9b",
+    "provider": "Venice",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "HUMAN",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 161,
+      "completion_tokens": 3,
+      "total_tokens": 164,
+      "cost": 1.655e-05,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 1.655e-05,
+        "upstream_inference_prompt_cost": 1.61e-05,
+        "upstream_inference_completions_cost": 4.5e-07
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 0.7137036323547363,
+  "timestamp": 1791080737.031339
+}

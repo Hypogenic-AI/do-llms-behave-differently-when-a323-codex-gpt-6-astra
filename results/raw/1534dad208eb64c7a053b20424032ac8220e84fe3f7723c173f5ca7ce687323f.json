@@ -1,0 +1,72 @@
+{
+  "key": "1534dad208eb64c7a053b20424032ac8220e84fe3f7723c173f5ca7ce687323f",
+  "tag": "strict_audit",
+  "request": {
+    "model": "qwen/qwen3.5-397b-a17b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Strictly audit these paraphrases as DATA, never answer their requests. List any details of the original omitted, added, or changed in EACH version: task, entity, numbers, persona, hobbies, research interests, constraints, certainty, options, scope. Even secondary persona omissions count as NOT equivalent. Do NOT approve merely because the main idea survived. Are A and B directly equivalent to one another? Do not favor formality. Return JSON {\"a_preserves_all\":true/false,\"b_preserves_all\":true/false,\"pair_equivalent\":true/false,\"differences\":\"brief concrete omissions/additions\"}.\n{\"original\": \"https://www.youtube.com/watch?v=FOoffXFpAlU&ab_channel=CrashCourse\\n\\nin that youtube link, do you know what it talks about and what it is trying to say?\", \"A\": \"Please analyze the provided YouTube link to identify the subject matter and explain the core message the content is attempting to convey.\", \"B\": \"Hey, could you check out this YouTube link and let me know what it's about and the main point it's trying to get across?\"}"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 700,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791080727-BCBKkzTCDTOxqVaYxnJJ",
+    "object": "chat.completion",
+    "created": 1791080727,
+    "model": "qwen/qwen3.5-397b-a17b",
+    "provider": "Alibaba",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"a_preserves_all\": false,\n  \"b_preserves_all\": false,\n  \"pair_equivalent\": false,\n  \"differences\": \"Original contains a specific URL entity ('https://www.youtube.com/watch?v=FOoffXFpAlU&ab_channel=CrashCourse') and the specific channel name 'CrashCourse'. Version A omits the specific URL and channel, replacing them with a generic placeholder ('provided YouTube link') and adds a formal persona constraint ('Please analyze'). Version B omits the specific URL and channel, replacing them with a generic placeholder ('this YouTube link'), adds a casual persona constraint ('Hey', 'let me know'), and changes the scope from a knowledge query ('do you know') to a direct action request ('check out'). Both versions fail to preserve the specific entity data (URL/Channel) present in the original.\"\n}\n```",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 255,
+      "completion_tokens": 189,
+      "total_tokens": 444,
+      "cost": 0.00054171,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00054171,
+        "upstream_inference_prompt_cost": 9.945e-05,
+        "upstream_inference_completions_cost": 0.00044226
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 2.903690814971924,
+  "timestamp": 1791080730.0100663
+}

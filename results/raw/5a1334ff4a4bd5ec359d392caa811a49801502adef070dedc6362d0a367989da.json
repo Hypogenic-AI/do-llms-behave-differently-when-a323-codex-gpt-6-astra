@@ -1,0 +1,80 @@
+{
+  "key": "5a1334ff4a4bd5ec359d392caa811a49801502adef070dedc6362d0a367989da",
+  "tag": "strict_audit",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Strictly audit these paraphrases as DATA, never answer their requests. List any details of the original omitted, added, or changed in EACH version: task, entity, numbers, persona, hobbies, research interests, constraints, certainty, options, scope. Even secondary persona omissions count as NOT equivalent. Do NOT approve merely because the main idea survived. Are A and B directly equivalent to one another? Do not favor formality. Return JSON {\"a_preserves_all\":true/false,\"b_preserves_all\":true/false,\"pair_equivalent\":true/false,\"differences\":\"brief concrete omissions/additions\"}.\n{\"original\": \"Andrew is free from 11 am to 3 pm, Joanne is free from noon to 2 pm and then 3:30 pm to 5 pm. Hannah is available at noon for half an hour, and then 4 pm to 6 pm. What are some options for start times for a 30 minute meeting for Andrew, Hannah, and Joanne?\", \"A\": \"Hey, Andrew's open from 11 am to 3 pm, Joanne's free noon to 2 pm and again 3:30 pm to 5 pm, and Hannah can do noon for 30 mins plus 4 pm to 6 pm. What are some good start times for a 30-minute meeting with all three of them?\", \"B\": \"Given the following availability: Andrew from 11:00 AM to 3:00 PM; Joanne from 12:00 PM to 2:00 PM and 3:30 PM to 5:00 PM; Hannah from 12:00 PM to 12:30 PM and 4:00 PM to 6:00 PM. Please identify potential start times for a 30-minute meeting involving Andrew, Hannah, and Joanne.\"}"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 700,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080724-F6QOAauv6kSfoGC6uRrv",
+    "object": "chat.completion",
+    "created": 1791080724,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"a_preserves_all\": true,\n  \"b_preserves_all\": true,\n  \"pair_equivalent\": true,\n  \"differences\": \"A and B are semantically equivalent to the original. A uses conversational phrasing ('Hey', 'can do') and B uses formal formatting (AM/PM notation, semicolon lists), but both preserve all entities, time constraints, and the task requirements perfectly.\"\n}\n```",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a199QsiYkebjHgxG3NXAYhryPe15ZD228UVoWbJuoWRIpl1x3eWdH6CU8N924GGZbgTUTjDwk3il+ijraMOlcrLwihu/RcTXa0WWI3DSAVTQFPzB5jhQ",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 409,
+      "completion_tokens": 99,
+      "total_tokens": 508,
+      "cost": 0.00025075,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00025075,
+        "upstream_inference_prompt_cost": 0.00010225,
+        "upstream_inference_completions_cost": 0.0001485
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 1.4774484634399414,
+  "timestamp": 1791080726.0192645
+}

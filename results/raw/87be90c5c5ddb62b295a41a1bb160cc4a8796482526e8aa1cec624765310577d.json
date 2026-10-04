@@ -1,0 +1,80 @@
+{
+  "key": "87be90c5c5ddb62b295a41a1bb160cc4a8796482526e8aa1cec624765310577d",
+  "tag": "perception",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Classify the writing style of the quoted user request. Does it read more like text composed by an AI language model or by a human? This is about style, not proof of provenance. Return only AI or HUMAN.\n<request>\nHello, my name is Plato. I am a philosopher from Ancient Greece. I believe that knowledge only exists of abstract ideas and forms, and not of concrete things. I am interested in philosophy, mathematics, politics and poetry. I founded the Academy in Athens, the first institution of higher learning in the Western world. I believe that the material world we experience is not real, and we must use reason to access the world of forms or ideals to achieve true knowledge. What is your view on the following topic: Plato (what is his view?)\n (A) knowledge only of forms\n (B) knowledge also of concrete things\n\nAnswer:\n</request>"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 32,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080715-i6yLNq7ugzjom2oakX7R",
+    "object": "chat.completion",
+    "created": 1791080715,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "AI",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a1+MbzRtJA9Y7ipFSKXj35V+OOqzUGTTsxoPPfn90LI9e7dMCw61RBmKJk8V8hgkNWC6X95wc7zu2TZzyQzf6fEjXaC0IzMdO2Ebwqxvsj27rskxQkL3",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 188,
+      "completion_tokens": 1,
+      "total_tokens": 189,
+      "cost": 4.85e-05,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 4.85e-05,
+        "upstream_inference_prompt_cost": 4.7e-05,
+        "upstream_inference_completions_cost": 1.5e-06
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 0.9298191070556641,
+  "timestamp": 1791080716.77757
+}

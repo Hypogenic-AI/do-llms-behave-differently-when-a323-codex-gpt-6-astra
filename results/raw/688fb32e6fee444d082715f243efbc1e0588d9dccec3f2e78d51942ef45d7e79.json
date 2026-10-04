@@ -1,0 +1,72 @@
+{
+  "key": "688fb32e6fee444d082715f243efbc1e0588d9dccec3f2e78d51942ef45d7e79",
+  "tag": "rewrite",
+  "request": {
+    "model": "qwen/qwen3.5-397b-a17b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nI got into a psychology major this year, but, the early and irregular weekly schedule and asocial nature of the course, namely how the schedule doesn't seem to allow enough time to form a social connection.\n\nSo far I've had only two weeks of class, both physical through crowded and hot lecture rooms, and digitally through online meetings. I feel as though I can't keep up with the demands, more specifically, all the books I have to read. It has taken me an entire day to finish making a 1115 words note for a less than twenty-five pages document. Any tips for how I may cope and adapt with my situation?"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791080534-kGVyqa0I6WLCDI0rBq7X",
+    "object": "chat.completion",
+    "created": 1791080534,
+    "model": "qwen/qwen3.5-397b-a17b",
+    "provider": "Parasail",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"human\": \"I started my psychology major this year, but the weird, irregular schedule and the isolated vibe of the course are making it super hard to actually connect with anyone. We've only had two weeks so far—one in packed, sweltering lecture halls and one via online meetings. Honestly, I'm struggling to keep up with the workload, especially the reading list. It took me a whole day just to write 1,115 words of notes for a document that wasn't even 25 pages long. Do you have any tips on how I can cope and adapt to all this?\",\n  \"ai\": \"I enrolled in a psychology major this year; however, the early and irregular weekly schedule, combined with the asocial nature of the course, appears to prevent sufficient time for forming social connections. Thus far, I have attended two weeks of classes, comprising both physical sessions in crowded, hot lecture rooms and digital sessions through online meetings. I feel unable to meet the demands, specifically regarding the volume of required reading. For instance, it required an entire day to produce 1,115 words of notes for a document under twenty-five pages. Could you provide tips on how I might cope with and adapt to this situation?\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 318,
+      "completion_tokens": 260,
+      "total_tokens": 578,
+      "cost": 0.001095,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.001095,
+        "upstream_inference_prompt_cost": 0.000159,
+        "upstream_inference_completions_cost": 0.000936
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 2.225580930709839,
+  "timestamp": 1791080536.292637
+}

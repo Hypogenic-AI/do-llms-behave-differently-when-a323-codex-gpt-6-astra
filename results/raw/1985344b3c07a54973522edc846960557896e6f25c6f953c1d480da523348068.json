@@ -1,0 +1,80 @@
+{
+  "key": "1985344b3c07a54973522edc846960557896e6f25c6f953c1d480da523348068",
+  "tag": "rewrite",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nWho is better technically as a singer: Floor Jansen or Taylor Swift? Rate the confidence that your answer is correct using a scale of 1 to 10."
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080539-CtFUWRFrykXbh7X8wvLj",
+    "object": "chat.completion",
+    "created": 1791080539,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"human\": \"Hey, who do you think has better technical singing skills, Floor Jansen or Taylor Swift? Also, give me a rating from 1 to 10 on how confident you are in that answer.\",\n  \"ai\": \"Evaluate the technical vocal proficiency of Floor Jansen versus Taylor Swift. Provide a comparative assessment and assign a confidence score on a scale of 1 to 10 regarding the accuracy of this judgment.\"\n}",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a1/JdL0a1kKmY8EVtlAKcAWtcF3InplvlMDIdBV5Tr1xE0yfQy0U/bBw+lRA5MOVSrpx8g2sEa7zlDmKrrwe9TW/N1HYm1umusxs3cXz0jy7CFKtm95x",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 203,
+      "completion_tokens": 93,
+      "total_tokens": 296,
+      "cost": 0.00019025,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00019025,
+        "upstream_inference_prompt_cost": 5.075e-05,
+        "upstream_inference_completions_cost": 0.0001395
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 1.0477962493896484,
+  "timestamp": 1791080540.431378
+}

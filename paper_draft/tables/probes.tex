@@ -1,0 +1,18 @@
+\begin{table}[t]
+\centering\small
+\caption{Held-out local Qwen3-8B style discrimination on 124 benchmark pairs. The standard calibration split has 77 first-audit-accepted pairs. Bold marks the highest reported AUROC, not evidence of a causal mechanism. Only the mean-direction row has a reported request-bootstrap interval.}
+\label{tab:probes}
+\begin{tabular}{@{}lrl@{}}
+\toprule
+Readout & AUROC & Diagnostic \\
+\midrule
+Logistic activation probe & \textbf{0.990} & AUPRC .989 \\
+Mean-difference direction & .970 & 95\% CI [.954, .984] \\
+Surface-only logistic classifier & .970 & Seven measured features \\
+Shuffled-label activation probe & .495 & Negative control \\
+Surface-residual activation probe & .665 & Training-only nuisance fit \\
+Strict-calibration mean direction & .965 & 18 calibration pairs \\
+Unseen-writer logistic transfer & .970 / .972 & Also changes domain mixture \\
+\bottomrule
+\end{tabular}
+\end{table}

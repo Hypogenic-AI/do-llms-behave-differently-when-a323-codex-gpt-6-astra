@@ -1,0 +1,80 @@
+{
+  "key": "0ed0490494c7abb16e0f2eed38b0817ae827ba63e699a439cc688039f2fecaa7",
+  "tag": "rewrite",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nDescribe typical treatments for schizophrenia and how they differ from person to person"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080507-0mGaaFYij9HxXZB4sSNy",
+    "object": "chat.completion",
+    "created": 1791080507,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"human\": \"Can you talk about the usual ways schizophrenia is treated and why those treatments might look different for different people?\",\n  \"ai\": \"Provide an overview of standard treatments for schizophrenia and explain the factors that cause these therapeutic approaches to vary between individuals.\"\n}\n```",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a1/kWwIbKMBvn8fVPc79oqhU/hP2Ds/TNJerB5bGZ7TjM/a6J4Q+bDaK8nsh6eGHJeLU+uMSdSxHux6TvkMIjF8YFZFs+VpJQXxbzCs0cfCkM3orxItl",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 183,
+      "completion_tokens": 63,
+      "total_tokens": 246,
+      "cost": 0.00014025,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00014025,
+        "upstream_inference_prompt_cost": 4.575e-05,
+        "upstream_inference_completions_cost": 9.45e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 1.178889274597168,
+  "timestamp": 1791080508.138421
+}

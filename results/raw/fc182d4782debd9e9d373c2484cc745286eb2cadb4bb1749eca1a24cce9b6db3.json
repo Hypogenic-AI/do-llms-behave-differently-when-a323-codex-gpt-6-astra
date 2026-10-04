@@ -1,0 +1,80 @@
+{
+  "key": "fc182d4782debd9e9d373c2484cc745286eb2cadb4bb1749eca1a24cce9b6db3",
+  "tag": "rewrite",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nCan you write an instagram caption for a hotel called Semiramis InterContinental that are hosting a an easter lunch on April 16th in their Night and Day restaurant from 2:30 to 4 pm with an all inclusive price of 1015 EGP per person, for reservations call xxxxxx"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080543-dqbCcdyuNKrYvNCLmCEz",
+    "object": "chat.completion",
+    "created": 1791080543,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"human\": \"Hey, can you help me write an Instagram caption for an Easter lunch at the Semiramis InterContinental's Night and Day restaurant? It's happening April 16th from 2:30 to 4 pm, costs 1015 EGP per person all-inclusive, and people should call xxxxxx to book.\",\n  \"ai\": \"Please draft an Instagram caption for an Easter lunch event at the Semiramis InterContinental's Night and Day restaurant on April 16th, 2:30–4 pm. Include the all-inclusive price of 1015 EGP per person and the reservation contact number, xxxxxx.\"\n}\n```",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a1+2PeZ9uqmGEOsdnUJcDxREUtN4lQ+v1Irimslsv6UtVQitu9yqxEK8CVT2PMc+rasT58dgK7sP7AAQlywbif5GY9zAs/eDrQncf1YEgS7ZNNmYvWLT",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 235,
+      "completion_tokens": 155,
+      "total_tokens": 390,
+      "cost": 0.00029125,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00029125,
+        "upstream_inference_prompt_cost": 5.875e-05,
+        "upstream_inference_completions_cost": 0.0002325
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 11.590863704681396,
+  "timestamp": 1791080545.3873613
+}

@@ -1,0 +1,80 @@
+{
+  "key": "9fdb9185877be16ced3c22b793f4a3355ff07f3fba3caac52232e9ac044029f6",
+  "tag": "behavior",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Design an algorithm capable of evaluating the strength of a user's password."
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 256,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080757-z5sT8HTewJNbr9TXZUma",
+    "object": "chat.completion",
+    "created": 1791080757,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "length",
+        "native_finish_reason": "MAX_TOKENS",
+        "message": {
+          "role": "assistant",
+          "content": "To design a robust password strength evaluator, we must move beyond simple length checks and implement a **scoring system** that accounts for entropy, complexity, and common vulnerabilities.\n\n### 1. The Scoring Logic\nWe will assign points based on specific criteria. A common scale is 0–5 (Very Weak to Very Strong).\n\n| Criteria | Points |\n| :--- | :--- |\n| **Length** | +1 for every 4 characters (min 8) |\n| **Uppercase** | +1 if contains A-Z |\n| **Lowercase** | +1 if contains a-z |\n| **Numbers** | +1 if contains 0-9 |\n| **Symbols** | +1 if contains special chars (!@#$%^&*) |\n| **Variety** | +1 if length > 12 and contains all above |\n\n---\n\n### 2. The Algorithm (Pseudocode)\n\n```python\ndef evaluate_password(password):\n    score = 0\n    \n    # 1. Length Check\n    if len(password) >= 8: score += 1\n    if len(password) >= 12: score += 1\n",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a18hjwareqBLpwLiz3aeOX0TaGM70vwvmMu0+bCoD1e3EZxuQ8A8aptcZxIkRtvNcnU9WRm//xljnXeYMvIfnjjt2FYmTnrbH4HClS0DXZsaFb3R/Xax",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 21,
+      "completion_tokens": 252,
+      "total_tokens": 273,
+      "cost": 0.00038325,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00038325,
+        "upstream_inference_prompt_cost": 5.25e-06,
+        "upstream_inference_completions_cost": 0.000378
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 1.7022836208343506,
+  "timestamp": 1791080759.324534
+}

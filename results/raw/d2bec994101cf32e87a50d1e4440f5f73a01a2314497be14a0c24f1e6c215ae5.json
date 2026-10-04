@@ -1,0 +1,80 @@
+{
+  "key": "d2bec994101cf32e87a50d1e4440f5f73a01a2314497be14a0c24f1e6c215ae5",
+  "tag": "rewrite",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nI want you to explain to me the universal, emotional, and historical signifiance of Edward Hopper's Nighthaws as if I were an alien with no notion of earth's history and culture."
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080529-wBaBxexExqLSeZJeQT4R",
+    "object": "chat.completion",
+    "created": 1791080529,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"human\": \"Hey, could you break down why Edward Hopper's Nighthawks is such a big deal emotionally and historically? Just imagine I'm an alien who has absolutely no clue about human culture or our history.\",\n  \"ai\": \"Please explain the universal, emotional, and historical significance of Edward Hopper's Nighthawks, framing the analysis for an extraterrestrial audience that lacks any prior knowledge of human history or culture.\"\n}\n```",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a1+k01gQyOamqSAsNYuGKKKMonxn7yJQAz+upPFUlppE+3D2+g3gHGnOeutbMMdvV0+q8JDlscYtbasjMTT/OlAN6x2KLdPFhGFGPCRpyfWVy19lYfXl",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 211,
+      "completion_tokens": 100,
+      "total_tokens": 311,
+      "cost": 0.00020275,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00020275,
+        "upstream_inference_prompt_cost": 5.275e-05,
+        "upstream_inference_completions_cost": 0.00015
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 0.9452226161956787,
+  "timestamp": 1791080530.529856
+}

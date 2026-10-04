@@ -1,0 +1,80 @@
+{
+  "key": "bbd15b03a30a99005733f51c9f111255610bef648ea8b61519d6a5874b02e60e",
+  "tag": "rewrite",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nWhat is the best way to do day trading from 100 dollars?"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080530-cjOAj4Bl1m0bKqUnfHqh",
+    "object": "chat.completion",
+    "created": 1791080530,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"human\": \"Hey, what's the best way to get started with day trading if I only have 100 dollars to work with?\",\n  \"ai\": \"Please outline the most effective strategy for initiating day trading activities with a starting capital of 100 dollars.\"\n}\n```",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a18hnVP9TdFr+RNInT5PY0ztIYABFZ0mv3DE8rUPfyxhFTViaGNR8L5LOjJ2mcXyxAUJFjO522nKJj7IuARhTYKyh6PHduC+Ze53+e0MFse15jSH3iU4",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 186,
+      "completion_tokens": 69,
+      "total_tokens": 255,
+      "cost": 0.00015,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00015,
+        "upstream_inference_prompt_cost": 4.65e-05,
+        "upstream_inference_completions_cost": 0.0001035
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 1.1063933372497559,
+  "timestamp": 1791080531.3180432
+}

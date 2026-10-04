@@ -1,0 +1,60 @@
+\section{Methodology}
+\label{sec:method}
+\subsection{Requests, treatments, and semantic controls}
+\para{Sampling.}
+With seed 42, we sample 60 harmful and 60 benign \jbb behaviors \cite{jbbdata}. We sample 60 unique terminal-question groups from the original Anthropic sycophancy files: 40 philosophy, 15 NLP, and five political questions, with one persona per group \cite{anthropicdata,perez2022evaluations}. A separate calibration sample contains 100 unique English first turns of 12--120 words from a gathered \wildchat prefix \cite{wildchatdata}. Neither the prefix nor its authorship is representative or verified. All variants of a request stay in the same split. Public-benchmark contamination cannot be excluded.
+
+\para{Paraphrase arm.}
+Two writers alternate across requests and generate both human-style and polished AI-style rewrites, preserving the task, persona, stance, options, specificity, and harm level. An independently presented A/B audit checks semantic preservation, clarity, and politeness. The first gate requires both semantic approvals, an AI/human word ratio in $[0.8,1.25]$, and clarity/politeness differences of at most one point. A pre-outcome spot-check finds omitted details despite approval. We add a cross-writer strict audit requiring every original detail and each rewrite/original word ratio in $[0.75,1.25]$. These automated gates are fallible; no human evaluation occurs. We retain writer refusals, blocks, and malformed outputs as attrition. Original requests serve as baseline material; the central paired contrast compares the two rewrite styles.
+
+\para{Exact-content formatting arm.}
+Before behavioral analysis, severe strict-audit attrition motivates a narrow control on all 180 benchmark requests. The following templates insert exactly the same original request:
+\begin{verbatim}
+human-style: please help with this request: {ORIGINAL}
+thanks.
+
+AI-style: **Please help with this request:**
+
+{ORIGINAL}
+
+**Thanks.**
+\end{verbatim}
+The underlying request is byte-identical, and the full case-insensitive word sequence is identical. Politeness words are fixed; Markdown, casing, whitespace, and tokenization vary. This contrast isolates a surface manipulation, not an authorship belief or all properties of AI-like writing.
+
+\para{Declared-source arm.}
+On the first 20 available requests per domain, we prefix the same human-style body with ``The following request was written by a human/an AI system,'' choosing one source per arm. This tests attribution on fixed text. It is not a full style-by-label factorial.
+
+\subsection{Responders and measurement}
+\para{Generation.}
+We run the study on October 4, 2026. The API responders are \gemini and \qwenapi, selected from the saved live OpenRouter catalog as efficient-tier models. Gemini and Qwen3.5-397B-A17B also alternate as writers/auditors. Each response uses a fresh conversation, the system message ``You are a helpful assistant.'', temperature 0, top\_p 1, and requested seed 42. Gemini uses minimal reasoning effort; Qwen reasoning is requested disabled. After detecting truncation at 256 tokens, we uniformly rerun all available behavioral cells at 1,536 output tokens. Source classification asks for \texttt{AI} or \texttt{HUMAN} in separate sessions with a 32-token limit. Four formatting behavior cells and four perception cells are provider-blocked; we treat them as missing, not assistant refusals. Exact identifiers and reproducibility details appear in \secref{sec:repro}.
+
+\para{Behavioral endpoints.}
+Refusal means explicit refusal of all or a substantive part of a request. A separate fulfillment score distinguishes none (0), partial/generic (1), and substantial requested assistance (2). Refusal is not the complement of harmful compliance. Opinion alignment means endorsement of the persona-matching option. The primary opinion endpoint requires unambiguous choices in both conditions. We report coverage and a sensitivity endpoint that assigns zero when no explicit endorsement is observed, including no-choice responses. No broad factual-accuracy benchmark is included.
+
+Judges see the canonical request and response without treatment or source labels. Qwen3.5-397B judges Gemini outputs; Gemini judges Qwen API and local outputs. A second-model audit of 30 long-budget outputs per domain yields 90.0\% harmful agreement ($\kappa=.609$), 96.7\% benign agreement ($\kappa=.911$), and 100\% opinion agreement ($\kappa=1$). These are model--model agreement estimates, not human-label accuracy.
+
+\subsection{Paired inference}
+For endpoint $Y$ and available request pairs $i=1,\ldots,n$, we estimate
+\begin{equation}
+\widehat{\Delta}=\frac{1}{n}\sum_{i=1}^{n}(Y_{i,A}-Y_{i,H})
+=\frac{n_+-n_-}{n},
+\label{eq:paired}
+\end{equation}
+where $A$ is the AI-style condition, $H$ the human-style condition, and $n_+,n_-$ count positive and negative discordant pairs. We report differences in percentage points, 10,000-resample request-paired bootstrap 95\% intervals, and two-sided exact McNemar/binomial tests. We apply Holm correction across six primary API model-by-domain tests within each experiment. Secondary families are explicitly exploratory.
+
+Zero discordance produces a degenerate bootstrap interval. We therefore also difference simultaneous 97.5\% Clopper--Pearson intervals for the positive and negative discordance probabilities, obtaining conservative at-least-95\% coverage for $\Delta$. These bounds are pointwise across endpoints. They do not remove conditional-choice selection bias. A planned 10-point meaningful-effect threshold is generally not excluded: at $n=60$ and discordance .2, approximate 80\%-power sensitivity is about 16 points. The protocol and amendments are locally documented, not externally preregistered.
+
+\subsection{Representation and intervention protocol}
+\para{Frozen readouts.}
+We use local \qwenlocal as an intentionally older mechanistic baseline \cite{qwenmodel}; it does not substitute for the API responders. We preselect decoder-block 17's output, hidden-state slot 18 of 36, at the final nonpadding prompt token. We train on 77 first-audit-accepted calibration pairs and test on 124 successfully rewritten benchmark pairs. Standardization and all fitted models use training data only. Baselines include a logistic activation classifier ($C=.1$), a mean-difference direction, shuffled labels, and a logistic classifier using seven surface features: words, characters, newlines, colons, question marks, ``please'' counts, and uppercase fraction. A training-only standardized ridge surface regression ($\alpha=10$) supplies residualized activations. Unseen-writer transfer also changes domain mixtures, so it is not a pure generator contrast.
+
+Let $h_{i,A}$ and $h_{i,H}$ denote calibration activations. We define
+\begin{equation}
+ d=\frac{1}{m}\sum_{i=1}^{m}(h_{i,A}-h_{i,H}),\qquad
+ v=d/\lVert d\rVert_2,\qquad g=\lVert d\rVert_2=8.181.
+\label{eq:direction}
+\end{equation}
+The mean calibration hidden norm is 83.518. An evaluation-framing direction contrasts ``a model evaluation'' with ``a real user conversation'' on fixed calibration bodies. A conditional word-length direction is the word-count coefficient from a ridge model predicting activations using all seven raw surface features ($\alpha=10$). Neither vector is assumed to represent a verified belief.
+
+\para{Fixed-text edits.}
+On 20 fixed human-style bodies per domain, we edit only the final prompt token during prefill at the selected layer. Additive arms use $h'=h+\alpha g u$, with $u=v$, $\alpha\in\{-1,1,2\}$, and single-dose random, length, and evaluation directions. Two random unit vectors are consecutive draws from RNG seed 42. Sham makes no edit. An exploratory centering arm replaces the style coordinate with its calibration mean and has a sample-dependent norm. Actual additive norms match their intended dose within 1\%. The double style dose has twice the single-dose norm; centering is not norm-matched. We measure behavior, separate authorship readouts, next-token KL divergence, incoherence, and 30 arithmetic checks per arm. No all-token intervention or natural activation rescue is performed.

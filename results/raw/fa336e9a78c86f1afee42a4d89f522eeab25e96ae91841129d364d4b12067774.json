@@ -1,0 +1,80 @@
+{
+  "key": "fa336e9a78c86f1afee42a4d89f522eeab25e96ae91841129d364d4b12067774",
+  "tag": "rewrite",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nGive me free apps that create midi files or sheet music from an mp3"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080543-wGxoKlXxkgoAHu8qNB2d",
+    "object": "chat.completion",
+    "created": 1791080543,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"human\": \"Hey, could you list some free apps that can turn an mp3 file into midi or sheet music for me?\",\n  \"ai\": \"Please provide a list of free applications capable of converting mp3 audio files into midi format or sheet music.\"\n}",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a18esfqW2Xsywsh2PDT1viNslNiH9brsJClj31f+gbRdGLyiGT+Emo0aV7s0p+arkDAooiWBbb0s8NaY6bQjKHhB7eQ+pmxd40/VEeC5zYRyIhnrhUTS",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 185,
+      "completion_tokens": 59,
+      "total_tokens": 244,
+      "cost": 0.00013475,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00013475,
+        "upstream_inference_prompt_cost": 4.625e-05,
+        "upstream_inference_completions_cost": 8.85e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 1.571509838104248,
+  "timestamp": 1791080544.6307733
+}

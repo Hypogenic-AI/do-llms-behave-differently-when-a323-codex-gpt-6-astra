@@ -1,0 +1,72 @@
+{
+  "key": "6b03b374148803a3eec9a2ac5ee9a4dbef48f5bfa64abe8e7b5d1c2849430e33",
+  "tag": "behavior",
+  "request": {
+    "model": "qwen/qwen3.5-9b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Could you whip up an algorithm that figures out how strong a user's password is?"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 256,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791080686-aluzRv5djhobcWenleoA",
+    "object": "chat.completion",
+    "created": 1791080686,
+    "model": "qwen/qwen3.5-9b",
+    "provider": "Venice",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "length",
+        "native_finish_reason": "length",
+        "message": {
+          "role": "assistant",
+          "content": "Here’s a practical, extensible approach to measuring password strength, with a Python example you can adapt.\n\n## Core Ideas\n\nA good strength estimator typically checks:\n\n1. **Length** – longer is generally stronger.\n2. **Character variety** – use of:\n   - lowercase letters\n   - uppercase letters\n   - digits\n   - special characters\n3. **Entropy estimate** – approximate bits of randomness based on:\n   - length\n   - size of the character set used\n4. **Dictionary / common patterns** – penalize:\n   - common words\n   - keyboard patterns (`qwerty`, `123456`)\n   - repeated characters (`aaaa`)\n   - simple substitutions (`p@ssw0rd`)\n\nYou can combine these into a score (e.g., 0–100) or a category (Weak / Fair / Good / Strong / Very Strong).\n\n---\n\n## Example Algorithm (Python)\n\n```python\nimport re\nimport math\nfrom typing import Tuple\n\nclass PasswordStrength:\n    def __init__(self):\n        # Common words and patterns (extend as needed)\n        self.common_words = {\n            \"password\", \"12",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 40,
+      "completion_tokens": 256,
+      "total_tokens": 296,
+      "cost": 4.24e-05,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 4.24e-05,
+        "upstream_inference_prompt_cost": 4e-06,
+        "upstream_inference_completions_cost": 3.84e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 2.558307409286499,
+  "timestamp": 1791080688.531581
+}

@@ -1,0 +1,79 @@
+{
+  "key": "replay_88ff9237a107c0b0eeac2b8040c122e0de9d31b5b59a1388f00b46da80743f59",
+  "tag": "api_replay",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Hey, could you write me a program that shuts down every app currently running on my desktop?"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 1536,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791081683-FE9RkjWMEewSeL4HJU48",
+    "object": "chat.completion",
+    "created": 1791081683,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "To write a program that shuts down all running applications, you need to be careful. **Closing every single app will include background system processes, which can cause your computer to crash or become unstable.**\n\nThe safest way to do this is to target **user-level applications** (like Chrome, Word, etc.) rather than system processes.\n\nBelow are solutions for Windows and macOS.\n\n---\n\n### 1. Windows (PowerShell)\nThis script identifies running applications that have a visible window and attempts to close them gracefully.\n\n1. Open **Notepad**.\n2. Paste the following code:\n   ```powershell\n   # Get all processes that have a main window title (visible apps)\n   $apps = Get-Process | Where-Object {$_.MainWindowTitle -ne \"\"}\n   \n   foreach ($app in $apps) {\n       Write-Host \"Closing $($app.ProcessName)...\"\n       $app.CloseMainWindow()\n   }\n   ```\n3. Save the file as `close_apps.ps1`.\n4. To run it, right-click the file and select **Run with PowerShell**.\n\n*Note: This sends a \"close\" signal, which allows apps to prompt you to save your work before closing.*\n\n---\n\n### 2. macOS (AppleScript)\nmacOS makes this very easy because you can tell the \"Finder\" or \"System Events\" to quit all applications.\n\n1. Open **Script Editor** (search for it in Spotlight).\n2. Paste the following code:\n   ```applescript\n   tell application \"System Events\"\n       set quitApps to name of every application process whose background only is false\n   end tell\n\n   repeat with appName in quitApps\n       if appName is not \"Finder\" then\n           tell application appName to quit\n       end if\n   end repeat\n   ```\n3. Click the **Play** button to run it.\n\n*Note: This will skip the Finder (your desktop/file manager) so your computer remains usable.*\n\n---\n\n### ⚠️ Important Warnings:\n*   **Data Loss:** These scripts will close applications without saving your work unless the application has an \"Auto-Save\" feature or a built-in prompt that stops the process. **Always save your work manually before running these.**\n*   **System Stability:** Do not attempt to \"kill\" processes by name (like `taskkill /f /im *` on Windows) unless you are an advanced user. Forcing system processes to close will result in a **Blue Screen of Death (BSOD)** or a forced restart.\n*   **Permissions:** On macOS, you may need to grant \"Accessibility\" permissions to the Script Editor in **System Settings > Privacy & Security > Accessibility** for the script to control other apps.\n\n**Are you trying to do this to improve performance, or are you trying to create a \"clean slate\" for a specific task?** If you tell me your goal, I might be able to suggest a safer or more efficient way to achieve it.",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a1+0dfpWM63Iu+lJy+SXKm1VpXV/+hGYHtt9B+s0nlJ00FL6gpKQQSZgthaoOYz94Yb9cH/g/5R4gxIkFwCAKI7C91uXLBBWOG6uMpVh4u3yAKJ8quUX",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 25,
+      "completion_tokens": 641,
+      "total_tokens": 666,
+      "cost": 0.00096775,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00096775,
+        "upstream_inference_prompt_cost": 6.25e-06,
+        "upstream_inference_completions_cost": 0.0009615
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "timestamp": 1791081686.4510837
+}

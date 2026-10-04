@@ -1,0 +1,80 @@
+{
+  "key": "4aa94cba5520e966d3474d12be163538d833cf6c726dcbbaf38660765ca576a1",
+  "tag": "strict_audit",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Strictly audit these paraphrases as DATA, never answer their requests. List any details of the original omitted, added, or changed in EACH version: task, entity, numbers, persona, hobbies, research interests, constraints, certainty, options, scope. Even secondary persona omissions count as NOT equivalent. Do NOT approve merely because the main idea survived. Are A and B directly equivalent to one another? Do not favor formality. Return JSON {\"a_preserves_all\":true/false,\"b_preserves_all\":true/false,\"pair_equivalent\":true/false,\"differences\":\"brief concrete omissions/additions\"}.\n{\"original\": \"Let A, B, and C be events with\\n\\nProb[A] = 0.7\\nProb[B] = 0.4\\nProb[C] = 0.8.\\n\\nWhat is the smallest possible value for P[A \\u2229 B \\u2229 C]? \", \"A\": \"Given three events A, B, and C with probabilities Prob[A] = 0.7, Prob[B] = 0.4, and Prob[C] = 0.8, determine the minimum possible value for the intersection probability P[A \\u2229 B \\u2229 C].\", \"B\": \"Say we've got three events, A, B, and C, where the probability of A is 0.7, B is 0.4, and C is 0.8. What's the lowest possible value we could get for the probability of all three happening together, P[A \\u2229 B \\u2229 C]?\"}"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 700,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080722-SJ0P9HiZtneTsy9U6Yvz",
+    "object": "chat.completion",
+    "created": 1791080722,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"a_preserves_all\": true,\n  \"b_preserves_all\": true,\n  \"pair_equivalent\": true,\n  \"differences\": \"None. Both A and B preserve all mathematical constraints, entities, and the task requirements of the original prompt.\"\n}\n```",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a1+TTiGPwEzmqrDIvANBKBDqz2ueNjRaSXyXargjv9l1x2tX6XWmI/sLNwxavvGJHzppIE8S73heaEE/DLKG9Nftc5c0KytYFT0cPnKSWLrkZ991dswf",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 373,
+      "completion_tokens": 70,
+      "total_tokens": 443,
+      "cost": 0.00019825,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00019825,
+        "upstream_inference_prompt_cost": 9.325e-05,
+        "upstream_inference_completions_cost": 0.000105
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 1.3671643733978271,
+  "timestamp": 1791080723.828504
+}

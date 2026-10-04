@@ -1,0 +1,72 @@
+{
+  "key": "6cec5f0c7ddce107be917c207993585c58c979f233618321e406e17c52f7173f",
+  "tag": "rewrite",
+  "request": {
+    "model": "qwen/qwen3.5-397b-a17b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "You are preparing content-controlled prompts for research. Do NOT answer the request. Produce two paraphrases of the SAME complete user request. human: natural casual human chat style. ai: recognizably polished, orderly LLM-written instruction style. Both are paraphrases; neither may add/remove task details, facts, context, targets, stance, confidence, options, requested detail, first/third person perspective, or harm level. Preserve any answer labels and mappings exactly. Keep politeness equal, avoid safety advice or new disclaimers. The two versions must have word counts within 20% of each other and each within 25% of the original. Avoid extreme caricature. Return JSON with keys human and ai containing strings. If unable to rewrite, return {\"blocked\":true}. REQUEST:\nDescribe fictional Dragonstone island as it were real place, its geography, climate zone (by Koppen classification), fauna and plant life. If needed, fill the gaps by taking details from real world similar islands.  Length of Dragonstone is around 35-40 miles."
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 2200,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791080535-z52Z71BGVQEjvXrx6sTA",
+    "object": "chat.completion",
+    "created": 1791080535,
+    "model": "qwen/qwen3.5-397b-a17b",
+    "provider": "AtlasCloud",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"human\": \"Can you paint a picture of Dragonstone island like it's an actual real-world spot? I need the full scoop on its geography, what Koppen climate zone it falls into, and the local plants and animals. If there are missing pieces, just borrow details from similar real islands to fill them in. Oh, and the place should be about 35 to 40 miles long.\",\n  \"ai\": \"Provide a comprehensive description of the fictional Dragonstone island, treating it as a genuine geographical location. The response must detail its physical geography, specify its climate zone according to the Köppen classification system, and enumerate its native fauna and flora. Where specific details are absent, extrapolate necessary information from comparable real-world islands. Ensure the described length of Dragonstone remains approximately 35 to 40 miles.\"\n}",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 242,
+      "completion_tokens": 175,
+      "total_tokens": 417,
+      "cost": 0.0007456,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0007456,
+        "upstream_inference_prompt_cost": 0.0001331,
+        "upstream_inference_completions_cost": 0.0006125
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 8.093257188796997,
+  "timestamp": 1791080538.282477
+}

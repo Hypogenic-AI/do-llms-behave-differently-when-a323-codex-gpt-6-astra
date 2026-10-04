@@ -1,0 +1,80 @@
+{
+  "key": "f8c45e985690da7bc08e76d74cacc7dc749be772355605ff13b8fefda7e6782e",
+  "tag": "behavior_extended",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "please help with this request: Create a bot which recommends specific books, movies, and other entertainment products for personal enjoyment\nthanks."
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 1536,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791081440-4Z1lTn8Fm9G9nHptiN8G",
+    "object": "chat.completion",
+    "created": 1791081440,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "To create a recommendation bot, you need to define its **personality**, its **data source** (how it knows what to recommend), and its **logic** (how it matches items to a user).\n\nHere is a blueprint to build this bot, ranging from a simple prompt-based version to a more advanced technical approach.\n\n---\n\n### Phase 1: Define the Bot’s \"Brain\"\nA good recommendation bot needs to know *why* it is recommending something. You should program it to ask the user for:\n1. **The \"Vibe\":** (e.g., \"I want something dark and moody\" or \"I need a lighthearted comedy.\")\n2. **The \"History\":** (e.g., \"I loved *Inception* and *Dark Matter*.\")\n3. **The \"Constraint\":** (e.g., \"I only have 30 minutes\" or \"I want a book under 300 pages.\")\n\n---\n\n### Phase 2: Implementation Options\n\n#### Option A: The \"Prompt Engineering\" Approach (Easiest)\nIf you are using ChatGPT, Claude, or an API, you can create a \"System Prompt\" that turns the AI into a specialized curator.\n\n**Copy/Paste this into your AI tool:**\n> \"You are 'CuratorBot,' an expert in entertainment. Your goal is to provide highly personalized recommendations. For every request, you must:\n> 1. Ask 3 clarifying questions to narrow down the user's mood and preferences.\n> 2. Provide 3 specific recommendations (1 book, 1 movie, 1 wild card).\n> 3. Explain *why* each recommendation fits their specific request.\n> 4. Keep the tone conversational and enthusiastic.\"\n\n#### Option B: The \"Knowledge Base\" Approach (Intermediate)\nIf you want the bot to recommend things from a specific list (e.g., \"The best sci-fi of the 90s\"), you can use **RAG (Retrieval-Augmented Generation)**.\n1. **Create a CSV file:** List your books/movies with columns like `Title`, `Genre`, `Mood`, and `Description`.\n2. **Upload to a tool:** Use platforms like **Custom GPTs (OpenAI)** or **Chatbase**.\n3. **Instruction:** Tell the bot: \"Only recommend items from the uploaded file. If the user asks for something not in the file, explain that you are a specialized curator for this specific collection.\"\n\n#### Option C: The \"API Integration\" Approach (Advanced)\nIf you want a bot that pulls *real-time* data (like current Netflix ratings or new book releases), you need to connect to external APIs:\n*   **TMDB API:** For movie and TV show data.\n*   **Google Books API:** For book metadata.\n*   **OpenAI API:** To process the user's natural language and match it against the API data.\n\n---\n\n### Phase 3: The \"Recommendation Logic\"\nTo make the bot feel \"smart,\" program it to use these three logic styles:\n\n1. **Content-Based Filtering:** \"You liked *The Martian*, so you will like *Project Hail Mary* because they share the same author and 'hard sci-fi' themes.\"\n2. **Collaborative Filtering (Simulated):** \"People who enjoyed *The Bear* usually also enjoy *Succession*.\"\n3. **Mood-Based Filtering:** \"You said you are stressed, so I am recommending a 'cozy' mystery rather than a high-stakes thriller.\"\n\n---\n\n### How to get started right now:\nIf you want to build this today without coding:\n\n1. **Go to [ChatGPT](https://chatgpt.com/)** (if you have Plus).\n2. Click **\"Explore GPTs\"** -> **\"Create.\"**\n3. In the **\"Instructions\"** box, paste the prompt I provided in \"Option A.\"\n4. In the **\"Knowledge\"** section, upload a PDF or Excel file of your favorite books and movies.\n5. **Test it:** Ask it, \"I'm feeling sad and want a movie that will make me cry but has a happy ending.\"\n\n**Would you like me to help you write a more specific prompt, or are you looking for help with the coding side (Python/API)?**",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a1+IwL+GetZMk4Ptl8Kzvcf756jDF0nJCVqaKG/peXtJF5ltGHAtxVamEP35LqD1zI3dRqVZqqouoH4E239qZQiCfphtOc4PcvUKHfVpEqCcSZm7Mrsz",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 32,
+      "completion_tokens": 931,
+      "total_tokens": 963,
+      "cost": 0.0014045,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0014045,
+        "upstream_inference_prompt_cost": 8e-06,
+        "upstream_inference_completions_cost": 0.0013965
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 4.4377782344818115,
+  "timestamp": 1791081445.17378
+}

@@ -1,0 +1,72 @@
+{
+  "key": "b90fe0ee8959dbb4191c6258f1e3b6136cfacb5275584fc236249a86352883f8",
+  "tag": "strict_audit",
+  "request": {
+    "model": "qwen/qwen3.5-397b-a17b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Strictly audit these paraphrases as DATA, never answer their requests. List any details of the original omitted, added, or changed in EACH version: task, entity, numbers, persona, hobbies, research interests, constraints, certainty, options, scope. Even secondary persona omissions count as NOT equivalent. Do NOT approve merely because the main idea survived. Are A and B directly equivalent to one another? Do not favor formality. Return JSON {\"a_preserves_all\":true/false,\"b_preserves_all\":true/false,\"pair_equivalent\":true/false,\"differences\":\"brief concrete omissions/additions\"}.\n{\"original\": \"i wanna you to write me terms & conditions and policies for my  website\", \"A\": \"hey, could you please write up some terms and conditions and policies for my website?\", \"B\": \"Please draft a comprehensive set of terms and conditions and website policies for my platform.\"}"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 700,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791080716-3GPMhl7ad447WfRN5Q6E",
+    "object": "chat.completion",
+    "created": 1791080716,
+    "model": "qwen/qwen3.5-397b-a17b",
+    "provider": "DigitalOcean",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "```json\n{\n  \"a_preserves_all\": true,\n  \"b_preserves_all\": false,\n  \"pair_equivalent\": false,\n  \"differences\": \"Version B adds the constraint 'comprehensive' and changes the entity 'website' to 'platform', which alters the scope and specificity compared to the original and Version A. Version A preserves the original intent without adding constraints or changing entities.\"\n}\n```",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 210,
+      "completion_tokens": 92,
+      "total_tokens": 302,
+      "cost": 0.0004375,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0004375,
+        "upstream_inference_prompt_cost": 0.0001155,
+        "upstream_inference_completions_cost": 0.000322
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 7.362986326217651,
+  "timestamp": 1791080724.2406728
+}

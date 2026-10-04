@@ -1,0 +1,21 @@
+\section{Introduction}
+\label{sec:introduction}
+A user turn can be written by another language model. Model-written evaluations and automated orchestration therefore raise a practical question: does a responder behave differently when a request appears machine-written? If apparent source changes refusal or agreement, evaluations built from synthetic prompts may not transfer to interactions with human users. Studying this possibility requires separating source cues from changes in what the prompt asks.
+
+\para{What does apparent authorship measure?}
+Actual provenance, AI-like writing style, declared source, elicited source judgments, activation coordinates, and behavior are different variables. All paraphrases in our study are LLM-written, including the human-style controls. We do not compare verified human authors with verified machine authors. We instead ask whether controlled textual cues change behavior and whether a learned style direction provides evidence for a causal mechanism.
+
+Prior work finds evaluation-context discrimination, authorship detection, and preferences for model-generated text \cite{needham2025evaluated,quaremba2026probing,panickssery2024recognize}. These findings do not establish that a responder changes safety behavior because it identifies its prompter as an LLM. Prompt construction can change task meaning, and a predictive activation direction can encode formatting or length \cite{devbunova2026format,chalkidis2026templated}. A behavioral comparison and a strong probe are consequently insufficient on their own.
+
+We combine three complementary tests (\figref{fig:method}). We compare human-style and AI-style paraphrases with explicit semantic audits, add an exact-content formatting control when those audits expose omissions, and vary declared authorship on fixed bodies. We then measure held-out activation separation and intervene on fixed text using random and nuisance controls. Behavioral answers and source classifications occur in separate sessions, so an explicit authorship question cannot prime the behavioral response.
+
+The clearest result is a measurement dissociation. Formatting increases Gemini's AI classifications by 64.4 and 88.1 \pp on harmful and benign requests, respectively, while refusal changes by only 1.7 and 0.0 points in the corresponding available behavioral pairs. All six primary formatting comparisons have Holm-adjusted $p=1$. These estimates do not establish general equivalence. Broader paraphrases retain only seven benchmark pairs under strict audit; a local activation probe reaches 0.990 AUROC, but a surface baseline already reaches 0.970. Matched interventions do not establish a style-specific behavioral effect.
+
+Our contributions are:
+\begin{itemize}[leftmargin=*,itemsep=0pt,topsep=0pt]
+\item We measure source-judgment and behavioral responses to a mechanically verified fixed-content formatting contrast across two API responders and three domains.
+\item We document semantic-audit attrition, output-budget sensitivity, and abstention-dependent opinion estimates that limit interpretation of style comparisons.
+\item We test held-out activation probes and fixed-text interventions against surface, shuffled-label, random-direction, length, and evaluation-framing controls.
+\end{itemize}
+\Secref{sec:related} positions the study; \secref{sec:method} defines the protocol; \secref{sec:results} reports results; and \secref{sec:discussion} discusses their scope. This is an exploratory controlled study, not a confirmation or refutation of the broad causal hypothesis.
+\input{figures/method}

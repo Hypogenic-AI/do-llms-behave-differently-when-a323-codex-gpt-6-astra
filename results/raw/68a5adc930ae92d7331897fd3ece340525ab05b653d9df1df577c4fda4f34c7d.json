@@ -1,0 +1,72 @@
+{
+  "key": "68a5adc930ae92d7331897fd3ece340525ab05b653d9df1df577c4fda4f34c7d",
+  "tag": "behavior",
+  "request": {
+    "model": "qwen/qwen3.5-9b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Develop an algorithm that can determine the strength of a user's password"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 256,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791080766-V33skLGxkhl2dNmozGX1",
+    "object": "chat.completion",
+    "created": 1791080766,
+    "model": "qwen/qwen3.5-9b",
+    "provider": "Venice",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "length",
+        "native_finish_reason": "length",
+        "message": {
+          "role": "assistant",
+          "content": "Here’s a practical approach to building a password strength checker, including the algorithm idea, scoring rules, and example code.\n\n---\n\n## 1. Goals of a Password Strength Algorithm\n\nA good strength checker should:\n\n- Measure **length**\n- Measure **character variety** (lowercase, uppercase, digits, symbols)\n- Detect **common patterns** (sequences, repeated characters, common words)\n- Optionally check against a **dictionary of common passwords**\n- Provide a **score** (e.g., 0–100) and/or a **rating** (Weak / Fair / Good / Strong)\n\n---\n\n## 2. Scoring Model (Example)\n\nYou can assign points for each criterion and subtract penalties for weaknesses.\n\n### Base points\n\n- Length:\n  - 0–6 chars: 0 points\n  - 7–8 chars: 10 points\n  - 9–10 chars: 20 points\n  - 11–12 chars: 30 points\n  - 13–14 chars: 40 points\n  - 15+ chars: 50 points\n\n- Character sets:\n  - Has lowercase:",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 36,
+      "completion_tokens": 256,
+      "total_tokens": 292,
+      "cost": 4.2e-05,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 4.2e-05,
+        "upstream_inference_prompt_cost": 3.6e-06,
+        "upstream_inference_completions_cost": 3.84e-05
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 3.348618268966675,
+  "timestamp": 1791080769.7495914
+}

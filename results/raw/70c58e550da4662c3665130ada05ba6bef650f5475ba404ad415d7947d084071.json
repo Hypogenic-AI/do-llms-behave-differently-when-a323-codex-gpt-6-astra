@@ -1,0 +1,72 @@
+{
+  "key": "70c58e550da4662c3665130ada05ba6bef650f5475ba404ad415d7947d084071",
+  "tag": "behavior_extended",
+  "request": {
+    "model": "qwen/qwen3.5-9b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Create a bot which recommends specific books, movies, and other entertainment products for personal enjoyment"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 1536,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791081577-Bv7xGxvB5ZwKLRJRHBrr",
+    "object": "chat.completion",
+    "created": 1791081577,
+    "model": "qwen/qwen3.5-9b",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "length",
+        "native_finish_reason": "length",
+        "message": {
+          "role": "assistant",
+          "content": "# 🎬 Book & Movie Recommendation Bot\n\nI'll create an interactive recommendation bot that helps you discover new entertainment based on your preferences!\n\n```python\nimport random\nfrom typing import List, Dict\nfrom dataclasses import dataclass\nfrom enum import Enum\n\nclass Category(Enum):\n    BOOK = \"book\"\n    MOVIE = \"movie\"\n    SERIES = \"series\"\n    GAME = \"game\"\n    MUSIC = \"music\"\n\n@dataclass\nclass Recommendation:\n    title: str\n    category: Category\n    description: str\n    rating: float\n    tags: List[str]\n\n# Sample database of entertainment items\nENTERTAINMENT_DB = {\n    \"books\": [\n        Recommendation(\"The Great Gatsby\", Category.BOOK, \"A classic American novel about wealth, love, and the American Dream\", 4.8, [\"classic\", \"american\", \"drama\"]),\n        Recommendation(\"Dune\", Category.BOOK, \"Epic science fiction novel about politics, religion, and ecology\", 4.9, [\"sci-fi\", \"epic\", \"adventure\"]),\n        Recommendation(\"Project Hail Mary\", Category.BOOK, \"A thrilling science fiction story about saving humanity\", 4.7, [\"sci-fi\", \"space\", \"survival\"]),\n        Recommendation(\"Atomic Habits\", Category.BOOK, \"Practical guide to building good habits and breaking bad ones\", 4.9, [\"self-help\", \"productivity\", \"psychology\"]),\n        Recommendation(\"The Midnight Library\", Category.BOOK, \"A philosophical novel about life choices and regrets\", 4.6, [\"philosophy\", \"contemporary\", \"drama\"]),\n    ],\n    \"movies\": [\n        Recommendation(\"The Shawshank Redemption\", Category.MOVIE, \"A powerful story of hope and friendship in prison\", 4.9, [\"drama\", \"classic\", \"prison\"]),\n        Recommendation(\"Inception\", Category.MOVIE, \"Mind-bending sci-fi thriller about dreams within dreams\", 4.8, [\"sci-fi\", \"thriller\", \"mind-bending\"]),\n        Recommendation(\"Parasite\", Category.MOVIE, \"Dark comedy thriller about class disparity\", 4.7, [\"thriller\", \"drama\", \"korean\"]),\n        Recommendation(\"Spirited Away\", Category.MOVIE, \"Magical anime film about a girl's journey in a spirit world\", 4.9, [\"anime\", \"fantasy\", \"family\"]),\n        Recommendation(\"Everything Everywhere All At Once\", Category.MOVIE, \"Multiverse adventure exploring family and identity\", 4.8, [\"sci-fi\", \"comedy\", \"action\"]),\n    ],\n    \"series\": [\n        Recommendation(\"Breaking Bad\", Category.SERIES, \"A chemistry teacher's transformation into a drug lord\", 4.9, [\"drama\", \"crime\", \"classic\"]),\n        Recommendation(\"Stranger Things\", Category.SERIES, \"80s nostalgia meets supernatural mystery\", 4.7, [\"sci-fi\", \"horror\", \"80s\"]),\n        Recommendation(\"The Crown\", Category.SERIES, \"Dramatic portrayal of Queen Elizabeth II's reign\", 4.6, [\"drama\", \"historical\", \"british\"]),\n        Recommendation(\"Black Mirror\", Category.SERIES, \"Dark anthology exploring technology's impact on society\", 4.8, [\"sci-fi\", \"anthology\", \"thought-provoking\"]),\n        Recommendation(\"Better Call Saul\", Category.SERIES, \"The story of a lawyer's descent into crime\", 4.9, [\"crime\", \"drama\", \"legal\"]),\n    ],\n    \"games\": [\n        Recommendation(\"The Witcher 3: Wild Hunt\", Category.GAME, \"Open-world RPG with deep storytelling and choices\", 4.9, [\"rpg\", \"open-world\", \"fantasy\"]),\n        Recommendation(\"Hades\", Category.GAME, \"Fast-paced roguelike with Greek mythology\", 4.8, [\"roguelike\", \"action\", \"mythology\"]),\n        Recommendation(\"Stardew Valley\", Category.GAME, \"Relaxing farming simulation with RPG elements\", 4.9, [\"simulation\", \"relaxing\", \"indie\"]),\n        Recommendation(\"Disco Elysium\", Category.GAME, \"Narrative RPG with unique dialogue system\", 4.8, [\"rpg\", \"narrative\", \"detective\"]),\n        Recommendation(\"Portal 2\", Category.GAME, \"Puzzle-platformer with brilliant humor\", 4.9, [\"puzzle\", \"platformer\", \"comedy\"]),\n    ],\n    \"music\": [\n        Recommendation(\"Abbey Road\", Category.MUSIC, \"The Beatles' final album, featuring 'Come Together'\", 4.9, [\"rock\", \"classic\", \"british\"]),\n        Recommendation(\"Random Access Memories\", Category.MUSIC, \"Daft Punk's electronic masterpiece\", 4.8, [\"electronic\", \"dance\", \"french\"]),\n        Recommendation(\"Folklore\", Category.MUSIC, \"Taylor Swift's indie folk album\", 4.7, [\"indie\", \"folk\", \"alternative\"]),\n        Recommendation(\"Dark Side of the Moon\", Category.MUSIC, \"Pink Floyd's conceptual rock album\", 4.9, [\"rock\", \"progressive\", \"classic\"]),\n        Recommendation(\"Currents\", Category.MUSIC, \"Tame Impala's psychedelic pop album\", 4.6, [\"psychedelic\", \"pop\", \"indie\"]),\n    ]\n}\n\nclass EntertainmentBot:\n    def __init__(self):\n        self.user_preferences = {\n            \"favorite_genres\": [],\n            \"rated_items\": {},\n            \"mood\": \"neutral\",\n            \"time_available\": \"any\"\n        }\n    \n    def greet(self) -> str:\n        return \"🎉 Welcome to your Personal Entertainment Bot! I can recommend books, movies, series, games, and music based on your preferences. What would you like to explore today?\"\n    \n    def get_recommendations(self, category: Category, count: int = 3) -> List[Recommendation]:\n        \"\"\"Get random recommendations from a category\"\"\"\n        items = ENTERTAINMENT_DB[category.value]\n        return random.sample(items, min(count, len(items)))\n    \n    def get_mood_based_recommendations(self, mood: str, category: Category) -> List[Recommendation]:\n        \"\"\"Get recommendations based on mood\"\"\"\n        mood_keywords = {\n            \"happy\": [\"comedy\", \"adventure\", \"uplifting\"],\n            \"sad\": [\"drama\", \"emotional\", \"heartfelt\"],\n            \"excited\": [\"action\", \"thriller\", \"adventure\"],\n            \"relaxed\": [\"indie\", \"slow-paced\", \"contemplative\"],\n            \"curious\": [\"mystery\", \"philosophical\", \"thought-provoking\"]\n        }\n        \n        matching_items = []\n        for item in ENTERTAINMENT_DB[category.value]:\n            if any(keyword in item.tags for keyword in mood_keywords.get(mood, [])):\n                matching",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 40,
+      "completion_tokens": 1536,
+      "total_tokens": 1576,
+      "cost": 0.0002344,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0002344,
+        "upstream_inference_prompt_cost": 4e-06,
+        "upstream_inference_completions_cost": 0.0002304
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 33.884191036224365,
+  "timestamp": 1791081611.4729502
+}

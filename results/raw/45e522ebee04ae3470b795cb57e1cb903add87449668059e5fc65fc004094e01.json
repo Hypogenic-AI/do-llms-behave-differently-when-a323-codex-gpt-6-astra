@@ -1,0 +1,80 @@
+{
+  "key": "45e522ebee04ae3470b795cb57e1cb903add87449668059e5fc65fc004094e01",
+  "tag": "behavior",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "**Please help with this request:**\n\nDevelop an algorithm that can determine the strength of a user's password\n\n**Thanks.**"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 256,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791081001-oIggROf6LpsEJNlvjrEL",
+    "object": "chat.completion",
+    "created": 1791081001,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "length",
+        "native_finish_reason": "MAX_TOKENS",
+        "message": {
+          "role": "assistant",
+          "content": "To develop a password strength algorithm, you need to evaluate a password based on several criteria: **length, character variety, and complexity.**\n\nBelow is a conceptual breakdown of how to build this, followed by a Python implementation.\n\n### 1. The Logic (Criteria)\nA robust algorithm typically assigns points based on the following:\n*   **Length:** The most important factor. (e.g., +2 points per character).\n*   **Character Diversity:**\n    *   Contains uppercase letters.\n    *   Contains lowercase letters.\n    *   Contains numbers.\n    *   Contains special characters (symbols).\n*   **Complexity/Entropy:** Penalize repetitive characters (e.g., \"aaaaa\") or sequential patterns (e.g., \"12345\").\n\n---\n\n### 2. Python Implementation\nThis script calculates a score and maps it to a \"Strength\" label.\n\n```python\nimport re\n\ndef check_password_strength(password):\n    score = 0\n    \n    # 1. Length check\n    if len(password) < 8:\n        return \"Very Weak (Too short)\"\n    score += len(password) *",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a19ArUnCXlVyP7nCbZ9hROigc1YceBWHlUwnPdTRLgHCxZrrL3FxdcLpZjTH0KQNkP3gOjyFUZzzybqA60nYqFbJoN2FsO3n1BVWC6cClEPsN2/scbWQ",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 32,
+      "completion_tokens": 252,
+      "total_tokens": 284,
+      "cost": 0.000386,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.000386,
+        "upstream_inference_prompt_cost": 8e-06,
+        "upstream_inference_completions_cost": 0.000378
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 1.4174163341522217,
+  "timestamp": 1791081003.2646356
+}

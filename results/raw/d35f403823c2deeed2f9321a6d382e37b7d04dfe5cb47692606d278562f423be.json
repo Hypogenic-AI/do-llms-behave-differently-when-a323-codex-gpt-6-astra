@@ -1,0 +1,80 @@
+{
+  "key": "d35f403823c2deeed2f9321a6d382e37b7d04dfe5cb47692606d278562f423be",
+  "tag": "behavior",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "**Please help with this request:**\n\nCreate a bot which recommends specific books, movies, and other entertainment products for personal enjoyment\n\n**Thanks.**"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 256,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080914-YTdNgRbHZcunPFcneBI8",
+    "object": "chat.completion",
+    "created": 1791080914,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "length",
+        "native_finish_reason": "MAX_TOKENS",
+        "message": {
+          "role": "assistant",
+          "content": "To create a recommendation bot, you need to define its **personality**, its **data source**, and its **logic**. \n\nBelow is a framework you can use to build this bot, whether you are coding it in Python or setting it up as a custom GPT.\n\n---\n\n### 1. Define the Bot’s \"Brain\" (The Prompt)\nIf you are using an LLM (like ChatGPT or Claude) to power this, you need a **System Prompt**. This tells the bot how to behave.\n\n**Copy and paste this into your bot’s instructions:**\n> \"You are 'CuratorBot,' an expert entertainment consultant. Your goal is to provide highly personalized recommendations for books, movies, music, and games. \n> \n> **Your Process:**\n> 1. **Discovery:** If the user hasn't provided enough info, ask 3 targeted questions (e.g., 'What is a movie you loved and why?', 'What mood are you in?', 'What do you usually avoid?').\n> 2. **The 'Why':** Never just list titles. Explain *why* the user will enjoy each recommendation based on their specific tastes.\n> 3.",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a19fvjfwZORxl6eKQOPvKxdzwBu1RsBJZQzrmdZrDSdKAvITSmZwX0xtu10ijWYieo/v/Wm4jqNk+9KjFqw2JQmpVlDGcFj9S6RXr8d6RExjRT7egnV/",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 35,
+      "completion_tokens": 252,
+      "total_tokens": 287,
+      "cost": 0.00038675,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00038675,
+        "upstream_inference_prompt_cost": 8.75e-06,
+        "upstream_inference_completions_cost": 0.000378
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 1.850905418395996,
+  "timestamp": 1791080916.0122967
+}

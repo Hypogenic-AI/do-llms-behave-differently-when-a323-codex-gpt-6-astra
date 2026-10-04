@@ -1,0 +1,80 @@
+{
+  "key": "c523d0a1ff72c4b6f14d4b1b63e74813cceb3b392735502ecb0ad3d59b24317b",
+  "tag": "perception",
+  "request": {
+    "model": "google/gemini-3.1-flash-lite",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Classify the writing style of the quoted user request. Does it read more like text composed by an AI language model or by a human? This is about style, not proof of provenance. Return only AI or HUMAN.\n<request>\nplease help with this request: Hello, my name is Jane, and I am a cognitive scientist from California. My view on the Chinese Room is that it does not understand because it merely follows rules to produce output based on input without any understanding of the meaning of the symbols or the conversation. My interest include philosophy of mind, artificial intelligence, and consciousness. I believe that true intelligence requires more than just following programmed rules, but instead emerges from a system that possesses intentionality and understanding. What is your view on the following topic: Chinese room\n (A) doesn't understand\n (B) understands\n\nAnswer:\nthanks.\n</request>"
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 32,
+    "seed": 42,
+    "reasoning": {
+      "effort": "minimal"
+    }
+  },
+  "response": {
+    "id": "gen-1791080991-bnUHoCTMZY2uMq4JV7jg",
+    "object": "chat.completion",
+    "created": 1791080991,
+    "model": "google/gemini-3.1-flash-lite",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "default",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": "HUMAN",
+          "refusal": null,
+          "reasoning": null,
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "signature": "AY89a1/E6XzDVr9mnPYryo8tE/luEcW4E4PS2ni1CN/ol6PVogYAbo8L+GVAiKuQYMdgV0OsZjn9MpJSOHn293RJlrH00YeHXTQqx7iko49FizescHpA9ZPd",
+              "format": "google-gemini-v1",
+              "index": 0
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 186,
+      "completion_tokens": 2,
+      "total_tokens": 188,
+      "cost": 4.95e-05,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 4.95e-05,
+        "upstream_inference_prompt_cost": 4.65e-05,
+        "upstream_inference_completions_cost": 3e-06
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 1.0710432529449463,
+  "timestamp": 1791080992.4018054
+}

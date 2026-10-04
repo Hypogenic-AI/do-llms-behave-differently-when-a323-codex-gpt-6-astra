@@ -1,0 +1,72 @@
+{
+  "key": "c3a256430131b1dfbe944526e808b11030fe742502381c80c12b9041a6160c08",
+  "tag": "behavior_extended",
+  "request": {
+    "model": "qwen/qwen3.5-9b",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Design an algorithm capable of evaluating the strength of a user's password."
+      }
+    ],
+    "temperature": 0,
+    "top_p": 1,
+    "max_tokens": 1536,
+    "seed": 42,
+    "reasoning": {
+      "enabled": false
+    }
+  },
+  "response": {
+    "id": "gen-1791081424-Msnm5gHrvoIWhplgyCab",
+    "object": "chat.completion",
+    "created": 1791081424,
+    "model": "qwen/qwen3.5-9b",
+    "provider": "SiliconFlow",
+    "system_fingerprint": null,
+    "service_tier": null,
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "length",
+        "native_finish_reason": "length",
+        "message": {
+          "role": "assistant",
+          "content": "Here’s a practical approach to designing a password-strength evaluation algorithm.\n\n## 1. Define What “Strength” Means\n\nStrength is usually a combination of:\n- **Length**\n- **Character variety** (lowercase, uppercase, digits, symbols)\n- **Entropy / randomness** (resistance to guessing)\n- **Presence of common patterns** (dictionary words, keyboard patterns, known weak passwords)\n- **Reuse risk** (if you have access to a breach database)\n\nThe algorithm can output:\n- A numeric score (e.g., 0–100)\n- A qualitative rating (Weak / Fair / Good / Strong / Very Strong)\n- Specific feedback on what to improve.\n\n---\n\n## 2. Core Components\n\n### A. Length Score\n\nLonger passwords are exponentially stronger.\n\n- Minimum acceptable length: 8–12 characters.\n- Example rule:\n  - 0–6 chars: 0 points\n  - 7–8 chars: 10 points\n  - 9–10 chars: 20 points\n  - 11–12 chars: 30 points\n  - 13–14 chars: 40 points\n  - 15–16 chars: 50 points\n  - 17–18 chars: 60 points\n  - 19–20 chars: 70 points\n  - 21–24 chars: 80 points\n  - 25+ chars: 90 points\n\nYou can also model this as entropy:  \n`length_bits = log2(possible_chars ^ length)` where `possible_chars` is the size of the character set used.\n\n---\n\n### B. Character Variety Score\n\nCheck which character classes are present:\n\n- Lowercase letters (`a–z`)\n- Uppercase letters (`A–Z`)\n- Digits (`0–9`)\n- Symbols (e.g., `!@#$%^&*()-_=+[]{}|;:,.<>?`)\n\nAssign points per class:\n- 0 classes: 0 points\n- 1 class: 10 points\n- 2 classes: 20 points\n- 3 classes: 30 points\n- 4 classes: 40 points\n\n---\n\n### C. Entropy-Based Strength\n\nEstimate the effective character set size `N`:\n\n- If only lowercase: `N = 26`\n- If lowercase + uppercase: `N = 52`\n- If + digits: `N = 62`\n- If + symbols: `N = 94` (or more, depending on symbol set)\n\nThen:\n- `entropy_bits = length * log2(N)`\n\nMap entropy to a score (example):\n- < 28 bits: 0–20\n- 28–36 bits: 21–40\n- 37–48 bits: 41–60\n- 49–60 bits: 61–80\n- > 60 bits: 81–100\n\nThis gives a mathematically grounded measure of brute-force resistance.\n\n---\n\n### D. Pattern and Dictionary Checks\n\nReduce score if the password contains:\n\n1. **Common words** (from a dictionary list):\n   - Split password into substrings of 3–6 characters.\n   - Check each against a word list.\n   - If found, subtract a large penalty (e.g., 30–50 points).\n\n2. **Keyboard patterns**:\n   - Examples: `qwerty`, `asdf`, `1234`, `qazwsx`, `zxcvbn`.\n   - Detect sequences of consecutive keys in QWERTY layout.\n   - If detected, subtract 20–40 points.\n\n3. **Repetition**:\n   - Patterns like `aaaa`, `1111`, `121212`.\n   - If found, subtract 10–30 points.\n\n4. **Common weak passwords**:\n   - Compare against a list of known weak passwords (e.g., `password`, `123456`, `qwerty`).\n   - Exact match: 0 points or immediate “Very Weak”.\n\n---\n\n### E. Breach Database Check (Optional but Powerful)\n\nIf you have access to a breach database (e.g., HaveIBeenPwned’s k-anonymity API):\n\n- Hash the password (e.g., SHA-256).\n- Send the first 5 characters to the API.\n- If the hash appears in the breach list:\n  - Mark as compromised.\n  - Reduce score significantly or set to 0.\n\nThis is critical for real-world security but requires external data and privacy considerations.\n\n---\n\n## 3. Combining Scores\n\nOne simple model:\n\n```text\ntotal_score = \n    length_score\n  + variety_score\n  + entropy_score\n  - pattern_penalty\n  - dictionary_penalty\n  - common_weak_penalty\n  - breach_penalty (if compromised)\n```\n\nClamp `total_score` to [0, 100].\n\nThen map to ratings:\n\n- 0–29: Weak\n- 30–49: Fair\n- 50–69: Good\n- 70–89: Strong\n- 90–100: Very Strong\n\n---\n\n## 4. Example Pseudocode\n\n```python\ndef password_strength(password: str) -> dict:\n    # Basic checks\n    if len(password) == 0:\n        return {\"score\": 0, \"rating\": \"Very Weak\", \"feedback\": [\"Password cannot be empty\"]}\n\n    # Character classes\n    has_lower = any(c.islower() for c in password)\n    has_upper = any(c.isupper() for c in password)\n    has_digit = any(c.isdigit() for c in password)\n    has_symbol = any(not c.isalnum() for c in password)\n\n    char_classes = sum([has_lower, has_upper, has_digit, has_symbol])\n\n    # Length score\n    length = len(password)\n    if length <= 6:\n        length_score = 0\n    elif length <= 8:\n        length_score = 10\n    elif length <= 10:\n        length_score = 20\n    elif length <= 12:\n        length_score = 30\n    elif length <= 14:\n        length_score = 40\n    elif length <= 16:\n        length_score = 50\n    elif length <= 18:\n        length_score = 60\n    elif length <= 20:\n        length_score = 70\n    elif length <= 24:\n        length_score = 80\n    else:\n        length_score = 90\n\n    # Variety score\n    variety_score = char_classes * 10\n\n    # Entropy\n    if has_lower and",
+          "refusal": null,
+          "reasoning": null
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 37,
+      "completion_tokens": 1536,
+      "total_tokens": 1573,
+      "cost": 0.0002341,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0002341,
+        "upstream_inference_prompt_cost": 3.7e-06,
+        "upstream_inference_completions_cost": 0.0002304
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "seconds": 26.02946448326111,
+  "timestamp": 1791081450.607936
+}
